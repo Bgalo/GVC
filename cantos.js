@@ -1,4 +1,6 @@
 /* ===== BASE DE DATOS DE CANTOS (Repertorio GVC) ===== */
+
+/* ===== CANTOS DE ENTRADA ===== */
 const DB = {
   "Entrada": [
     { titulo:"Este es el día del Señor", tono:"FaM",
@@ -39,41 +41,22 @@ de mi Señor Jesús.
 Y que el amor de Dios se torne en
 nuestras vidas luz.`},
 
-    { titulo:"Pescador de Hombres", tono:"DoM",
-      letra:`Tú has venido a la orilla,
-no has buscado ni a sabios ni a ricos,
-tan sólo quieres que yo te siga.
+    { titulo:"Vienen con alegría", tono:"MiM",
+      letra:`VIENEN CON ALEGRÍA, SEÑOR,
+CANTANDO VIENEN CON ALEGRÍA, SEÑOR
+LOS QUE CAMINAN POR LA VIDA, SEÑOR,
+SEMBRANDO TU PAZ Y AMOR. (2)
 
-Señor, me has mirado a los ojos,
-sonriendo has dicho mi nombre;
-en la arena he dejado mi barca,
-junto a ti buscaré otro mar.
+Vienen trayendo la esperanza
+a un mundo cargado de ansiedad,
+a un mundo que busca y que no alcanza
+caminos de amor y de amistad.
 
-Tú sabes bien lo que tengo:
-en mi barca no hay oro ni espadas,
-tan sólo redes y mi trabajo.
-
-Señor, me has mirado a los ojos...
-
-Tú necesitas mis manos,
-mi cansancio que a otros descanse,
-amor que quiera seguir amando.
-
-Señor, me has mirado a los ojos...` },
-
-    { titulo:"Vienen con Alegría", tono:"ReM",
-      letra:`Vienen con alegría, Señor,
-vienen con alegría.
-Sembraron sus penas con amor,
-vienen cantando.
-
-Los que sembraban con lágrimas,
-cosechan entre cantares.
-Al ir llorando portaban la semilla,
-al volver vienen cantando.
-
-Vienen con alegría, Señor,
-vienen con alegría.` },
+Vienen trayendo entre sus manos
+esfuerzos de hermanos por la paz,
+deseos de un mundo más humano,
+que nacen del bien y la verdad.
+` },
 
     { titulo:"Aquí Estoy Señor", tono:"Sim",
       letra:`Aquí estoy Señor, con todo mi ser,
@@ -113,7 +96,7 @@ señal de nuestros amores,
 que somos hijos suyos,
 ella nuestra madre es.` }
   ],
-
+/* ===== CANTOS DE PIEDAD ===== */
   "Piedad": [
     { titulo:"GVC", tono:"Sim",
       letra:`Señor, ten piedad.
@@ -149,6 +132,7 @@ Señor, ten piedad de nosotros.
 Kyrie eleison. Christe eleison. Kyrie eleison.` }
   ],
 
+  /* ===== CANTOS DE GLORIA ===== */
   "Gloria": [
     { titulo:"Hay en la Tierra Felicidad", tono:"Rem",
       letra:`Hay en la tierra felicidad
@@ -207,6 +191,7 @@ por tu inmensa gloria.
 Gloria, gloria, gloria en las alturas a Dios.` }
   ],
 
+  /* ===== CANTOS DE ALELUYA ===== */
   "Aleluya": [
     { titulo:"Busca Primero", tono:"ReM",
       letra:`Busca primero el reino de Dios
@@ -241,6 +226,7 @@ pues ha hecho maravillas.
 ¡Aleluya! ¡Aleluya! ¡Aleluya!` }
   ],
 
+ /* ===== CANTOS DE OFERTORIO 1 ===== */ 
   "Ofertorio 1": [
     { titulo:"Nuestra Juventud", tono:"MiM",
       letra:`Nuestra juventud, Señor,
@@ -289,6 +275,7 @@ Dame tu amor y gracia,
 que eso me basta, Señor.` }
   ],
 
+  /* ===== CANTOS DE OFERTORIO 2 ===== */
   "Ofertorio 2": [
     { titulo:"Te Ofrecemos Padre Nuestro", tono:"DoM",
       letra:`Te ofrecemos, Padre nuestro,
@@ -332,6 +319,7 @@ como el tuyo, Señor,
 grande para amar.` }
   ],
 
+  /* ===== CANTOS DE SANTO ===== */
   "Santo": [
     { titulo:"Gloria y Majestad", tono:"DoM",
       letra:`Gloria y majestad,
@@ -377,6 +365,7 @@ en el nombre del Señor.
 Hosanna en las alturas.` }
   ],
 
+  /* ===== CANTOS DE ACLAMACIÓN ===== */
   "Aclamación": [
     { titulo:"Cada Vez", tono:"SolM",
       letra:`Cada vez que comemos de este pan
@@ -418,6 +407,7 @@ Cristo ha resucitado,
 Cristo volverá.` }
   ],
 
+  /* ===== CANTOS DE AMÉN ===== */
   "Amén": [
     { titulo:"Bayron", tono:"Sim",
       letra:`Amén, amén, amén.
@@ -444,6 +434,7 @@ por los siglos de los siglos.
 ¡Amén! ¡Amén! ¡Amén!` }
   ],
 
+  /* ===== CANTOS DE TUYO ES EL REINO ===== */
   "Tuyo es el Reino": [
     { titulo:"Tuyo es el Reino", tono:"Mim",
       letra:`Tuyo es el reino,
@@ -473,6 +464,7 @@ por los siglos de los siglos. Amén.
 ¡Amén, amén, amén!` }
   ],
 
+  /* ===== CANTOS DE PAZ ===== */
   "Paz": [
     { titulo:"La Paz esté con Vosotros", tono:"Mim",
       letra:`La paz esté con vosotros,
@@ -505,6 +497,7 @@ conforme a tu voluntad.
 Danos la paz, Señor.` }
   ],
 
+  /* ===== CANTOS DE CORDERO ===== */
   "Cordero": [
     { titulo:"Pon sin Pon", tono:"SolM",
       letra:`Cordero de Dios,
@@ -546,6 +539,7 @@ qui tollis peccata mundi,
 dona nobis pacem.` }
   ],
 
+  /* ===== CANTOS DE COMUNIÓN ===== */
   "Comunión": [
     { titulo:"Recíbeme", tono:"ReM",
       letra:`Recíbeme, Señor, en tu amor,
@@ -621,6 +615,7 @@ bastará para sanarme.
 Tu pueblo, Señor, quiere verte...` }
   ],
 
+  /* ===== CANTOS DE SALIDA ===== */
   "Salida": [
     { titulo:"Oigo tu Voz", tono:"SolM",
       letra:`Oigo tu voz que me llama,
