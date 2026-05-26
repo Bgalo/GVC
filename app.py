@@ -9,9 +9,10 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. INYECCIÓN DE ESTILOS CSS PERSONALIZADOS
+# 2. INYECCIÓN DE ESTILOS CSS PERSONALIZADOS (Corregido para legibilidad)
 estilos_css = """
 <style>
+    /* Ocultar elementos nativos de la interfaz de Streamlit */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
@@ -35,7 +36,7 @@ estilos_css = """
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    /* Efecto Hover */
+    /* Efecto de interacción (Hover) */
     .stDownloadButton > button:hover {
         background-color: #4B0082 !important;
         color: #FFD700 !important;
@@ -43,30 +44,39 @@ estilos_css = """
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     }
 
-    /* Estilo para los Acordeones de Vista Previa */
-    .stExpander {
+    /* Fondo claro forzado para los acordeones */
+    [data-testid="stExpander"] {
+        background-color: #F8F9FA !important;
         border: 1px solid #E0E0E0 !important;
         border-radius: 6px !important;
         margin-bottom: 15px !important;
-        background-color: #FAFAFA !important;
+    }
+    
+    /* Forzar que TODO el texto dentro del acordeón sea gris oscuro/negro */
+    [data-testid="stExpander"] * {
+        color: #2C3E50 !important;
     }
 
+    /* Asegurar que los títulos se adapten al tema del usuario */
     h1, h2, h3 {
-        color: #2C3E50;
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    
+    .stSelectbox label {
+        font-weight: 600;
     }
 </style>
 """
 st.markdown(estilos_css, unsafe_allow_html=True)
 
-# 3. LÓGICA DE ALMACENAMIENTO (Base de datos local)
+# 3. LÓGICA DE ALMACENAMIENTO (Carga optimizada de la base de datos)
 @st.cache_data
 def cargar_base_datos():
     try:
         with open('cantos.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except FileNotFoundError:
-        st.error("Error: No se encontró el archivo 'cantos.json'.")
+        st.error("Error: No se encontró el archivo 'cantos.json' en este directorio.")
         return []
 
 cantos_db = cargar_base_datos()
@@ -74,9 +84,10 @@ cantos_db = cargar_base_datos()
 def filtrar_cantos_por_momento(momento_liturgico):
     return [canto["titulo"] for canto in cantos_db if canto["momento"] == momento_liturgico]
 
-# 4. CLASE PARA MAQUETACIÓN DEL PDF
+# 4. CLASE PERSONALIZADA PARA MAQUETACIÓN DEL PDF
 class CantoralPDF(FPDF):
     def header(self):
+        # Membrete superior del documento
         self.set_font("Helvetica", "B", 14)
         self.set_text_color(40, 40, 40)
         self.cell(0, 10, self.encode_lat("REPERTORIO PARA LA SANTA EUCARISTÍA"), 0, 1, "C")
@@ -86,44 +97,48 @@ class CantoralPDF(FPDF):
         self.ln(10)
         
     def footer(self):
+        # Pie de página con numeración estándar
         self.set_y(-15)
         self.set_font("Helvetica", "I", 8)
         self.set_text_color(160, 160, 160)
         self.cell(0, 10, f"Página {self.page_no()}", 0, 0, "C")
 
     def encode_lat(self, texto):
+        # Transforma strings UTF-8 para renderizar acentos y eñes correctamente en fuentes nativas
         return texto.encode('latin-1', 'replace').decode('latin-1')
 
+# 5. GENERACIÓN DEL ARCHIVO PDF EN MEMORIA
 def compilar_pdf_repertorio(cantos_seleccionados, db):
     pdf = CantoralPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
     
     for momento, titulo_seleccionado in cantos_seleccionados.items():
+        # Extraer detalles completos del canto desde la base de datos
         info_canto = next((c for c in db if c["titulo"] == titulo_seleccionado), None)
         
         if info_canto:
-            # Separador del Momento de la Misa (Rojo/Vino Litúrgico)
+            # Separador Estético del Momento Misa (Rojo/Vino Litúrgico)
             pdf.set_font("Helvetica", "B", 10)
             pdf.set_text_color(150, 25, 25)
             pdf.cell(0, 8, pdf.encode_lat(f"--- {momento.upper()} ---"), 0, 1, "L")
             
-            # Título y Tono
+            # Título Oficial y Tonalidad Establecida
             pdf.set_font("Helvetica", "B", 12)
             pdf.set_text_color(20, 20, 20)
             linea_titulo = f"{info_canto['titulo']} [{info_canto['tono']}]"
             pdf.cell(0, 6, pdf.encode_lat(linea_titulo), 0, 1, "L")
             pdf.ln(2)
             
-            # Letra completa
+            # Cuerpo de Letras (Respeta saltos de línea de bloque)
             pdf.set_font("Helvetica", "", 10)
             pdf.set_text_color(60, 60, 60)
             pdf.multi_cell(0, 5, pdf.encode_lat(info_canto['letra']))
-            pdf.ln(8)
+            pdf.ln(8) # Margen de separación inter-canto
             
     return pdf.output()
 
-# 5. COMPONENTE INTERACTIVO DE SELECCIÓN Y VISTA PREVIA
+# 6. COMPONENTE INTERACTIVO DE SELECCIÓN Y VISTA PREVIA
 def crear_selector_con_vista_previa(icono_etiqueta, momento_liturgico):
     """Genera un selectbox y un acordeón dinámico con la letra del canto seleccionado."""
     opciones = ["Seleccionar..."] + filtrar_cantos_por_momento(momento_liturgico)
@@ -138,12 +153,13 @@ def crear_selector_con_vista_previa(icono_etiqueta, momento_liturgico):
                 st.text(info_canto['letra'])
     return seleccionado
 
-# 6. DISEÑO DE LA INTERFAZ DE USUARIO (UI)
+# 7. DISEÑO DE LA INTERFAZ DE USUARIO (UI)
 st.title("🎵 Planificador de Cantos Eucarísticos")
 st.markdown("Arma el esquema litúrgico dominical y descarga las letras completas en PDF.")
 
 st.divider()
 
+# Estructura del formulario en dos bloques de columnas
 col1, col2 = st.columns(2)
 cantos_elegidos_usuario = {}
 
@@ -161,10 +177,10 @@ with col2:
 
 st.divider()
 
-# Filtrar cantos seleccionados por el usuario
+# Filtrar únicamente los momentos válidos
 repertorio_final = {m: t for m, t in cantos_elegidos_usuario.items() if t != "Seleccionar..."}
 
-# 7. PANEL DE CONTROL DE DESCARGAS Y EFECTOS
+# 8. PANEL DE CONTROL DE DESCARGAS Y EFECTOS
 if repertorio_final:
     st.success("Repertorio estructurado correctamente. El documento de impresión está listo.")
     
