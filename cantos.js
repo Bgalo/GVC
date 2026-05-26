@@ -18,21 +18,26 @@ y harás un pueblo humilde
 de corazón sincero.
 ` },
 
-    { titulo:"Juntos como Hermanos", tono:"SolM",
-      letra:`Juntos como hermanos,
-miembros de una Iglesia,
-vamos caminando
-al encuentro del Señor.
+    { titulo:"Vamos Cantad", tono:"MiM",
+      letra:`¡Vamos, cantad!, cantemos en la paz
+de mi Señor Jesús.
+Y que el amor de Dios se torne en
+nuestras vidas luz.
 
-Unidos en la esperanza,
-la fe y el amor,
-somos peregrinos
-que van hacia Dios.
+ES TAN BUENO ESTAR AQUÍ,
+JUNTOS CANTANDO AL SEÑOR.
+SOLTANDO NUESTRA VOZ Y ASÍ,
+EXALTAR UN DIOS DE AMOR.
 
-Juntos como hermanos,
-miembros de una Iglesia,
-vamos caminando
-al encuentro del Señor.` },
+¡Vamos, gozad!
+gocemos en la paz de mi Señor Jesús.
+Y que el Amor de Dios se torne en
+nuestras vidas luz.
+
+¡Vamos alabad! alabemos en la Paz
+de mi Señor Jesús.
+Y que el amor de Dios se torne en
+nuestras vidas luz.`},
 
     { titulo:"Pescador de Hombres", tono:"DoM",
       letra:`Tú has venido a la orilla,
