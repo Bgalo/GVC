@@ -17,8 +17,7 @@ pecado de tu pueblo.
 Arrancarás de cuajo
 el corazón soberbio
 y harás un pueblo humilde
-de corazón sincero.
-` },
+de corazón sincero.` },
     
 /* ===== CANTO 2 ===== */
     { titulo:"Vamos Cantad", tono:"MiM",
@@ -40,7 +39,7 @@ nuestras vidas luz.
 ¡Vamos alabad! alabemos en la Paz
 de mi Señor Jesús.
 Y que el amor de Dios se torne en
-nuestras vidas luz.`},
+nuestras vidas luz.` },
     
 /* ===== CANTO 3 ===== */
     { titulo:"Vienen con alegría", tono:"MiM",
@@ -57,8 +56,7 @@ caminos de amor y de amistad.
 Vienen trayendo entre sus manos
 esfuerzos de hermanos por la paz,
 deseos de un mundo más humano,
-que nacen del bien y la verdad.
-` },
+que nacen del bien y la verdad.` },
     
 /* ===== CANTO 4 ===== */
     { titulo:"Juntos como hermanos", tono:"MiM",
