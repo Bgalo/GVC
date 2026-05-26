@@ -1,23 +1,22 @@
 /* ===== BASE DE DATOS DE CANTOS (Repertorio GVC) ===== */
 const DB = {
   "Entrada": [
-    { titulo:"Cuanto Gozo", tono:"ReM",
-      letra:`Cuanto gozo siento en mi alma,
-    al pensar que Dios me ama,
-   y aunque indigno pecador,
-me ha llamado con su amor.
+    { titulo:"Este es el día del Señor", tono:"FaM",
+      letra:`Este es el día del señor,
+este es el tiempo de la misericordia. ,
+Este es el día del señor,
+este es el tiempo de la misericordia. ,
 
-¡Oh qué amor, oh qué amor,
-me ha mostrado mi Señor!
-¡Oh qué amor, oh qué amor,
-Jesucristo el Salvador!
+Delante de tus ojos,
+ya no enrojeceremos,
+a causa del antiguo,
+pecado de tu pueblo. ,
 
-En la noche más oscura
-brilla su luz que perdura,
-y su gracia sin medida
-me renueva cada día.
-
-¡Oh qué amor, oh qué amor...!` },
+Arrancarás de cuajo,
+el corazón soberbio,
+y harás un pueblo humilde,
+de corazón sincero. ,  
+` },
 
     { titulo:"Juntos como Hermanos", tono:"SolM",
       letra:`Juntos como hermanos,
