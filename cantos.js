@@ -1,6 +1,6 @@
 /* ===== BASE DE DATOS DE CANTOS (Repertorio GVC) ===== */
 
-/* ===== CANTOS DE ENTRADA ===== */
+/* ============================================= CANTOS DE ENTRADA ============================================================= */
 const DB = {
   "Entrada": [
     { titulo:"Este es el día del Señor", tono:"FaM",
@@ -61,45 +61,189 @@ que nacen del bien y la verdad.
 ` },
     
 /* ===== CANTO 4 ===== */
-    { titulo:"Aquí Estoy Señor", tono:"Sim",
-      letra:`Aquí estoy Señor, con todo mi ser,
-con mis manos abiertas ante Ti.
-Aquí estoy Señor, dispuesto a seguir
-el camino que Tú quieres para mí.
+    { titulo:"Juntos como hermanos", tono:"MiM",
+      letra:`JUNTOS COMO HERMANOS,
+MIEMBROS DE LA IGLESIA
+VAMOS CAMINANDO
+AL ENCUENTRO DEL SEÑOR.
 
-Tú eres el Dios que me creó,
-el que me ha dado vida y amor,
-y yo te entrego mi corazón,
-sólo a Ti, mi Salvador.
+Un largo caminar,
+por el desierto, bajo el sol,
+no podemos avanzar
+sin la ayuda del Señor.
 
-Aquí estoy Señor, aquí estoy.` },
+Unidos al rezar,
+unidos en una canción,
+viviremos nuestra fe
+con la ayuda del Señor.` },
+    
+/* ===== CANTO 5 ===== */
+    { titulo:"Iglesia Somos", tono:"MiM",
+      letra:`Iglesia soy y tú también,
+en el bautismo renacimos
+a una vida singular.
+Y al confirmar, hoy nuestra fe
+lo proclamamos compartiendo el mismo pan.
 
-    { titulo:"El Señor es mi Fuerza", tono:"SolM",
-      letra:`El Señor es mi fuerza y mi poder,
-él es mi salvación.
-Él es mi Dios, le alabaré,
-el Dios de mis padres le glorificaré.
+NO VAYAS TRISTE EN SOLEDAD
+VEN CON NOSOTROS Y VERÁS
+A LOS HERMANOS
+CAMINANDO EN EL AMOR.
 
-¡Cantad al Señor que se cubrió de gloria!
-¡Cantad al Señor!
+VEN CON NOSOTROS Y SERÁS
+EN LA FAMILIA, UN HIJO MÁS
+IREMOS JUNTOS
+CAMINANDO EN EL AMOR.
 
-Mi fortaleza y mi cántico es el Señor,
-él es mi salvación.
-Con gozo sacaréis aguas
-de las fuentes de la salvación.` },
+Yo la veré envejecer,
+pero a mi madre, aun con arrugas y defectos, la querré. 
+La quiero más, pues sé muy bien que
+ha envejecido sin dejarme de querer.` },
+    
+/* ===== CANTO 6===== */
+    { titulo:"Hacia la casa de Dios", tono:"ReM",
+      letra:`¡CUÁNTO GOZO ME DIO AL OÍR!
+“¡VAMOS YA HACIA LA CASA DE DIOS!”
+¡A TUS PUERTAS, JERUSALÉN,
+¡VAMOS YA HACIA LA CASA DE DIOS!
 
-    { titulo:"Venid y Vamos Todos", tono:"MiM",
-      letra:`Venid y vamos todos
-con flores a porfía
-con flores a María
-que madre nuestra es.
+Fuerte y bien construida
+es la ciudad de Sión;
+en ella se reúnen
+las tribus del Señor.
 
-Le ofrecemos estas flores,
-señal de nuestros amores,
-que somos hijos suyos,
-ella nuestra madre es.` }
-  ],
-/* ===== CANTOS DE PIEDAD ===== */
+Llegamos a alabar a Dios
+que nos mandó venir;
+aquí está la justicia
+del trono de David.` }
+
+/* ===== CANTO 7===== */
+{ titulo:"Den al Señor sus Alabanzas", tono:"LaM",
+      letra:`DEN AL SEÑOR SUS ALABANZAS,
+DENLE PODER, HONOR Y GLORIA,
+A UNA VOZ, CANTEN
+UN HIMNO AL SEÑOR. 
+
+En siete días creó Dios al mundo,
+Adán pecó y perdió el cielo,
+Jesús vino para redimirnos;
+murió en la cruz y nos salvó.` }
+
+/* ===== CANTO 8===== */
+{ titulo:"Cantad alegres a Dios", tono:"LaM",
+      letra:`CANTAD ALEGRES A DIOS,
+HABITANTES DE TODA LA TIERRA,
+SERVIDLE CON ALEGRÍA,
+SERVIDLE CON ALEGRÍA,
+VENID ANTE SU PRESENCIA
+CON REGOCIJO.
+
+Reconoced que Dios, (2)
+Él nos hizo y suyos somos (2)
+Pueblo suyo somos
+y ovejas de su prado.
+
+Entrad por sus puertas
+con rectitud, (2)
+por sus atrios con alabanzas (2)
+Alabadle y bendecid su nombre.` }
+
+/* ===== CANTO 9===== */
+{ titulo:"Nueva Generación", tono:"Mim",
+      letra:`Yo vengo del Sur y del Norte,
+del Este y Oeste, de todo lugar.
+Caminos y vidas recorro
+llevando socorro, queriendo ayudar.
+Mensaje de paz es mi canto,
+y cruzo montañas y voy hasta el fin.
+El mundo no me satisface
+lo que busco es la paz,
+lo que quiero es vivir.
+
+AL PECHO LLEVO UNA CRUZ,
+Y EN MI CORAZÓN
+LO QUE DICE JESÚS. (2)
+
+Yo sé que no tengo la edad,
+ni la madurez de quien ya vivió,
+más sé que es de mi propiedad
+buscar la verdad y gritar con mi voz.
+El mundo va herido y cansado
+de un negro pasado
+de guerras sin fin;
+hoy teme la bomba que hizo
+y la fe que deshizo y espera por mí.` }
+
+/* ===== CANTO 10===== */
+{ titulo:"Nueva Creación", tono:"Mim",
+      letra:`CAMINA, PUEBLO DE DIOS;
+CAMINA, PUEBLO DE DIOS.
+NUEVA LEY, NUEVA ALIANZA
+EN LA NUEVA CREACIÓN:
+CAMINA PUEBLO DE DIOS;
+CAMINA, PUEBLO DE DIOS.
+
+Mira allá en el calvario,
+en la roca hay una cruz,
+muerte que engendra la vida,
+nuevos hombres, nueva luz.
+Cristo nos ha salvado
+con su muerte y resurrección.
+Todas las cosas renacen
+en la Nueva Creación.
+
+Cristo toma en su cuerpo
+el pecado, la esclavitud,
+al destruirlos nos trae,
+una nueva plenitud.
+Pone en paz a los hombres
+a las cosas y al Creador.
+Todo renace a la vida
+en la Nueva Creación.` }
+
+/* ===== CANTO 11===== */
+{ titulo:"Éxodo y Liberación", tono:"Mim",
+      letra:`Peregrino ¿a dónde vas?
+Si no sabes a dónde ir,
+peregrino por un camino
+que va a morir.
+Si el desierto es un arenal,
+el desierto de tu vivir,
+¿quién te guía
+y te acompaña en tu soledad?
+
+SOLO ÉL, MI DIOS,
+QUE ME DIO LA LIBERTAD,
+SOLO ÉL, MI DIOS,
+ME GUIARÁ. (2)
+
+Peregrino que a veces vas
+sin un rumbo en tu caminar,
+peregrino que vas cansado
+de tanto andar.
+Buscas fuente para tu sed,
+y rincón para descansar.
+¡vuelve amigo!
+que aquí en Egipto lo encontrarás.` }
+
+/* ===== CANTO 12===== */
+{ titulo:"Que alegría cuando me dijeron", tono:"Mim",
+      letra:`¡QUÉ ALEGRÍA CUNDO ME DIJERON:
+VAMOS A LA CASA DEL SEÑOR!
+YA ESTÁN PISANDO NUESTROS PIES
+TUS UMBRALES JERUSALÉN.
+
+Jerusalén está fundada
+como ciudad bien compacta.
+Allá suben las tribus, las tribus del Señor.
+
+Según la costumbre de Israel,
+a celebrar el nombre del Señor.
+En ella están los tribunales
+de justicia, en el Palacio de David.` }
+],
+  
+/* =================================================== CANTOS DE PIEDAD ======================================================== */
   "Piedad": [
     { titulo:"GVC", tono:"Sim",
       letra:`Señor, ten piedad.
@@ -135,7 +279,7 @@ Señor, ten piedad de nosotros.
 Kyrie eleison. Christe eleison. Kyrie eleison.` }
   ],
 
-  /* ===== CANTOS DE GLORIA ===== */
+  /* ==================================================== CANTOS DE GLORIA ==================================================== */
   "Gloria": [
     { titulo:"Hay en la Tierra Felicidad", tono:"Rem",
       letra:`Hay en la tierra felicidad
@@ -229,7 +373,7 @@ pues ha hecho maravillas.
 ¡Aleluya! ¡Aleluya! ¡Aleluya!` }
   ],
 
- /* ===== CANTOS DE OFERTORIO 1 ===== */ 
+ /* ================================================= CANTOS DE OFERTORIO 1 =================================================== */ 
   "Ofertorio 1": [
     { titulo:"Nuestra Juventud", tono:"MiM",
       letra:`Nuestra juventud, Señor,
@@ -278,7 +422,7 @@ Dame tu amor y gracia,
 que eso me basta, Señor.` }
   ],
 
-  /* ===== CANTOS DE OFERTORIO 2 ===== */
+  /* ================================================ CANTOS DE OFERTORIO 2 =================================================== */
   "Ofertorio 2": [
     { titulo:"Te Ofrecemos Padre Nuestro", tono:"DoM",
       letra:`Te ofrecemos, Padre nuestro,
@@ -322,7 +466,7 @@ como el tuyo, Señor,
 grande para amar.` }
   ],
 
-  /* ===== CANTOS DE SANTO ===== */
+  /* ================================================== CANTOS DE SANTO ======================================================= */
   "Santo": [
     { titulo:"Gloria y Majestad", tono:"DoM",
       letra:`Gloria y majestad,
@@ -368,7 +512,7 @@ en el nombre del Señor.
 Hosanna en las alturas.` }
   ],
 
-  /* ===== CANTOS DE ACLAMACIÓN ===== */
+  /* ================================================ CANTOS DE ACLAMACIÓN ==================================================== */
   "Aclamación": [
     { titulo:"Cada Vez", tono:"SolM",
       letra:`Cada vez que comemos de este pan
@@ -410,7 +554,7 @@ Cristo ha resucitado,
 Cristo volverá.` }
   ],
 
-  /* ===== CANTOS DE AMÉN ===== */
+  /* ================================================== CANTOS DE AMÉN ============================================================ */
   "Amén": [
     { titulo:"Bayron", tono:"Sim",
       letra:`Amén, amén, amén.
@@ -437,7 +581,7 @@ por los siglos de los siglos.
 ¡Amén! ¡Amén! ¡Amén!` }
   ],
 
-  /* ===== CANTOS DE TUYO ES EL REINO ===== */
+  /* ================================================== CANTOS DE TUYO ES EL REINO ================================================== */
   "Tuyo es el Reino": [
     { titulo:"Tuyo es el Reino", tono:"Mim",
       letra:`Tuyo es el reino,
@@ -467,7 +611,7 @@ por los siglos de los siglos. Amén.
 ¡Amén, amén, amén!` }
   ],
 
-  /* ===== CANTOS DE PAZ ===== */
+  /* ======================================================= CANTOS DE PAZ ======================================================= */
   "Paz": [
     { titulo:"La Paz esté con Vosotros", tono:"Mim",
       letra:`La paz esté con vosotros,
@@ -500,7 +644,7 @@ conforme a tu voluntad.
 Danos la paz, Señor.` }
   ],
 
-  /* ===== CANTOS DE CORDERO ===== */
+  /* ====================================================== CANTOS DE CORDERO ================================================== */
   "Cordero": [
     { titulo:"Pon sin Pon", tono:"SolM",
       letra:`Cordero de Dios,
@@ -542,7 +686,7 @@ qui tollis peccata mundi,
 dona nobis pacem.` }
   ],
 
-  /* ===== CANTOS DE COMUNIÓN ===== */
+  /* ======================================================= CANTOS DE COMUNIÓN ================================================== */
   "Comunión": [
     { titulo:"Recíbeme", tono:"ReM",
       letra:`Recíbeme, Señor, en tu amor,
@@ -618,7 +762,7 @@ bastará para sanarme.
 Tu pueblo, Señor, quiere verte...` }
   ],
 
-  /* ===== CANTOS DE SALIDA ===== */
+  /* ================================================= CANTOS DE SALIDA ========================================================== */
   "Salida": [
     { titulo:"Oigo tu Voz", tono:"SolM",
       letra:`Oigo tu voz que me llama,
