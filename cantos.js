@@ -19,7 +19,8 @@ el corazón soberbio
 y harás un pueblo humilde
 de corazón sincero.
 ` },
-
+    
+/* ===== CANTO 2 ===== */
     { titulo:"Vamos Cantad", tono:"MiM",
       letra:`¡Vamos, cantad!, cantemos en la paz
 de mi Señor Jesús.
@@ -40,7 +41,8 @@ nuestras vidas luz.
 de mi Señor Jesús.
 Y que el amor de Dios se torne en
 nuestras vidas luz.`},
-
+    
+/* ===== CANTO 3 ===== */
     { titulo:"Vienen con alegría", tono:"MiM",
       letra:`VIENEN CON ALEGRÍA, SEÑOR,
 CANTANDO VIENEN CON ALEGRÍA, SEÑOR
@@ -57,7 +59,8 @@ esfuerzos de hermanos por la paz,
 deseos de un mundo más humano,
 que nacen del bien y la verdad.
 ` },
-
+    
+/* ===== CANTO 4 ===== */
     { titulo:"Aquí Estoy Señor", tono:"Sim",
       letra:`Aquí estoy Señor, con todo mi ser,
 con mis manos abiertas ante Ti.
