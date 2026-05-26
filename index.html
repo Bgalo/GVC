@@ -1293,10 +1293,10 @@ function generarPDF() {
   doc.setFont('helvetica','italic');
   doc.text('Hoja de Cantos para la Santa Eucaristía', ML, 28);
 
-  // Thin divider
+  // Thin divider (se detiene antes del logo)
   doc.setDrawColor(255,255,255,.5);
   doc.setLineWidth(.3);
-  doc.line(ML, 33, PW-MR, 33);
+  doc.line(ML, 33, logoX - 4, 33);
 
   // Meta row
   doc.setFont('helvetica','normal');
