@@ -1028,6 +1028,7 @@ const TIEMPO_META = {
 /* ===== STATE ===== */
 const state = {};    // { momentoId: { titulo, tono, letra } }
 const open  = {};    // { momentoId: bool }
+let logoBase64 = null;  // Logo precargado para el PDF
 
 /* ===== BOOT ===== */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1037,6 +1038,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('inp-fecha').value = `${hoy.getFullYear()}-${mm}-${dd}`;
 
   ['iniciales','palabra','eucaristica','comunion','conclusion'].forEach(renderGrid);
+
+  // Precargar logo para el PDF
+  const _logoImg = new Image();
+  _logoImg.onload = () => {
+    try {
+      const _c = document.createElement('canvas');
+      _c.width  = _logoImg.naturalWidth;
+      _c.height = _logoImg.naturalHeight;
+      const _ctx = _c.getContext('2d');
+      _ctx.drawImage(_logoImg, 0, 0);
+      logoBase64 = _c.toDataURL('image/png');
+    } catch(e) { logoBase64 = null; }
+  };
+  _logoImg.src = 'logo_gvc.png';
 });
 
 /* ===== RENDER GRIDS ===== */
@@ -1246,37 +1261,49 @@ function generarPDF() {
   };
 
   /* ---- ENCABEZADO ---- */
-  // Color bar
+  // Color bar de fondo
   doc.setFillColor(R,G,B);
   doc.rect(0,0,PW,46,'F');
   // Decorative thin line at bottom of header
   doc.setFillColor(255,255,255,.3);
   doc.rect(0,44,PW,1,'F');
 
+  // Logo en la esquina superior derecha (caja blanca redondeada)
+  const logoW = 30, logoH = 36;
+  const logoX = PW - MR - logoW;    // margen derecho
+  const logoY = 4;
+  if (logoBase64) {
+    doc.setFillColor(255,255,255);
+    doc.roundedRect(logoX - 1, logoY - 1, logoW + 2, logoH + 2, 3, 3, 'F');
+    doc.addImage(logoBase64, 'PNG', logoX, logoY, logoW, logoH);
+  }
+
+  // Textos del encabezado (alineados a la izquierda del espacio disponible)
+  const textMaxX = logoBase64 ? logoX - 4 : PW - MR;
   doc.setTextColor(255,255,255);
   doc.setFont('helvetica','bold');
-  doc.setFontSize(18);
-  doc.text('GUITARRAS Y VOCES PARA CRISTO', PW/2, 13, {align:'center'});
+  doc.setFontSize(15);
+  doc.text('GUITARRAS Y VOCES PARA CRISTO', ML, 13);
 
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setFont('helvetica','normal');
-  doc.text('Ministerio Musical GVC', PW/2, 20, {align:'center'});
+  doc.text('Ministerio Musical GVC', ML, 21);
 
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setFont('helvetica','italic');
-  doc.text('Hoja de Cantos para la Santa Eucaristía', PW/2, 27, {align:'center'});
+  doc.text('Hoja de Cantos para la Santa Eucaristía', ML, 28);
 
   // Thin divider
   doc.setDrawColor(255,255,255,.5);
   doc.setLineWidth(.3);
-  doc.line(ML, 32, PW-MR, 32);
+  doc.line(ML, 33, PW-MR, 33);
 
   // Meta row
   doc.setFont('helvetica','normal');
   doc.setFontSize(7.5);
-  doc.text(`Fecha: ${fechaStr}`, ML, 38);
-  doc.text(`Responsable: ${responsable}`, PW/2, 38, {align:'center'});
-  doc.text(`${info.label} · Color ${info.color}`, PW-MR, 38, {align:'right'});
+  doc.text(`Fecha: ${fechaStr}`, ML, 39);
+  doc.text(`Responsable: ${responsable}`, ML + 60, 39);
+  doc.text(`${info.label} · ${info.color}`, ML, 43);
 
   y = 52;
 
