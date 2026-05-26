@@ -3,10 +3,8 @@ const DB = {
   "Entrada": [
     { titulo:"Cuanto Gozo", tono:"ReM",
       letra:`Cuanto gozo siento en mi alma,
-    G          E      F,
-al pensar que Dios me ama,
-    D        Bm     D,
-y aunque indigno pecador,
+    al pensar que Dios me ama,
+   y aunque indigno pecador,
 me ha llamado con su amor.
 
 ¡Oh qué amor, oh qué amor,
