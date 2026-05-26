@@ -2,20 +2,20 @@
 const DB = {
   "Entrada": [
     { titulo:"Este es el día del Señor", tono:"FaM",
-      letra:`Este es el día del señor,
-este es el tiempo de la misericordia. ,
-Este es el día del señor,
-este es el tiempo de la misericordia. ,
+      letra:`Este es el día del señor
+este es el tiempo de la misericordia.
+Este es el día del señor
+este es el tiempo de la misericordia.
 
-Delante de tus ojos,
-ya no enrojeceremos,
-a causa del antiguo,
-pecado de tu pueblo. ,
+Delante de tus ojos
+ya no enrojeceremos
+a causa del antiguo
+pecado de tu pueblo.
 
-Arrancarás de cuajo,
-el corazón soberbio,
-y harás un pueblo humilde,
-de corazón sincero. ,  
+Arrancarás de cuajo
+el corazón soberbio
+y harás un pueblo humilde
+de corazón sincero.
 ` },
 
     { titulo:"Juntos como Hermanos", tono:"SolM",
