@@ -2,10 +2,10 @@
 const DB = {
   "Entrada": [
     { titulo:"Este es el día del Señor", tono:"FaM",
-      letra:`Este es el día del señor
-este es el tiempo de la misericordia.
-Este es el día del señor
-este es el tiempo de la misericordia.
+      letra:`ESTE ES EL DÍA DEL SEÑOR
+ESTE ES EL TIEMPO DE LA MISERICORDIA.
+ESTE ES EL DÍA DEL SEÑOR
+ESTE ES EL TIEMPO DE LA MISERICORDIA.
 
 Delante de tus ojos
 ya no enrojeceremos
