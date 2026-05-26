@@ -9,6 +9,7 @@ ESTE ES EL TIEMPO DE LA MISERICORDIA.
 ESTE ES EL DÍA DEL SEÑOR
 ESTE ES EL TIEMPO DE LA MISERICORDIA.
 
+FaM-----DoM-----Rem
 Delante de tus ojos
 ya no enrojeceremos
 a causa del antiguo
