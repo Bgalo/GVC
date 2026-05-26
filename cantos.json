@@ -1,0 +1,23 @@
+[
+  {
+    "id": "pescador_de_hombres",
+    "titulo": "Pescador de Hombres",
+    "momento": "Comunión",
+    "tono": "Do Mayor",
+    "letra": "Tú has venido a la orilla,\nNo has buscado ni a sabios ni a ricos,\nTan sólo quieres que yo te siga.\n\nSeñor, me has mirado a los ojos,\nSonriendo has dicho mi nombre..."
+  },
+  {
+    "id": "juntos_como_hermanos",
+    "titulo": "Juntos como Hermanos",
+    "momento": "Entrada",
+    "tono": "Sol Mayor",
+    "letra": "Juntos como hermanos,\nmiembros de una Iglesia,\nvamos caminando\nal encuentro del Señor..."
+  },
+  {
+    "id": "alabare",
+    "titulo": "Alabaré",
+    "momento": "Salida",
+    "tono": "Mi Mayor",
+    "letra": "Alabaré, alabaré,\nalabaré a mi Señor...\n\nJuan vio el número de los redimidos,\ny todos alababan al Señor."
+  }
+]
