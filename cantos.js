@@ -113,7 +113,7 @@ las tribus del Señor.
 Llegamos a alabar a Dios
 que nos mandó venir;
 aquí está la justicia
-del trono de David.` }
+del trono de David.` },
 
 /* ===== CANTO 7===== */
 { titulo:"Den al Señor sus Alabanzas", tono:"LaM",
@@ -125,7 +125,7 @@ UN HIMNO AL SEÑOR.
 En siete días creó Dios al mundo,
 Adán pecó y perdió el cielo,
 Jesús vino para redimirnos;
-murió en la cruz y nos salvó.` }
+murió en la cruz y nos salvó.` },
 
 /* ===== CANTO 8===== */
 { titulo:"Cantad alegres a Dios", tono:"LaM",
@@ -144,7 +144,7 @@ y ovejas de su prado.
 Entrad por sus puertas
 con rectitud, (2)
 por sus atrios con alabanzas (2)
-Alabadle y bendecid su nombre.` }
+Alabadle y bendecid su nombre.` },
 
 /* ===== CANTO 9===== */
 { titulo:"Nueva Generación", tono:"Mim",
@@ -170,7 +170,7 @@ El mundo va herido y cansado
 de un negro pasado
 de guerras sin fin;
 hoy teme la bomba que hizo
-y la fe que deshizo y espera por mí.` }
+y la fe que deshizo y espera por mí.` },
 
 /* ===== CANTO 10===== */
 { titulo:"Nueva Creación", tono:"Mim",
@@ -197,7 +197,7 @@ una nueva plenitud.
 Pone en paz a los hombres
 a las cosas y al Creador.
 Todo renace a la vida
-en la Nueva Creación.` }
+en la Nueva Creación.` },
 
 /* ===== CANTO 11===== */
 { titulo:"Éxodo y Liberación", tono:"Mim",
@@ -222,7 +222,7 @@ de tanto andar.
 Buscas fuente para tu sed,
 y rincón para descansar.
 ¡vuelve amigo!
-que aquí en Egipto lo encontrarás.` }
+que aquí en Egipto lo encontrarás.` },
 
 /* ===== CANTO 12===== */
 { titulo:"Que alegría cuando me dijeron", tono:"Mim",
