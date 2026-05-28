@@ -226,7 +226,7 @@ y rincón para descansar.
 que aquí en Egipto lo encontrarás.` },
 
 /* ===== CANTO 12===== */
-{ titulo:"Que alegría cuando me dijeron", tono:"Mim",
+{ titulo:"Que alegría cuando me dijeron", tono:"MiM",
       letra:`¡QUÉ ALEGRÍA CUNDO ME DIJERON:
 VAMOS A LA CASA DEL SEÑOR!
 YA ESTÁN PISANDO NUESTROS PIES
