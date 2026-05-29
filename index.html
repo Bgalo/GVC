@@ -19,18 +19,10 @@
                           color 0.4s ease, border-color 0.4s ease,
                           box-shadow 0.4s ease;
       --transition-ui: all 0.25s cubic-bezier(.4,0,.2,1);
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
-      --radius-xs: 6px;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,.25);
-      --shadow-md: 0 8px 32px rgba(0,0,0,.35);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,.45);
-      --glass: rgba(255,255,255,.055);
-      --glass-border: rgba(255,255,255,.10);
-      --text-1: #f5f5f5;
-      --text-2: rgba(245,245,245,.72);
-      --text-3: rgba(245,245,245,.42);
+      --radius-lg: 18px; --radius-md: 12px; --radius-sm: 8px; --radius-xs: 6px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.25); --shadow-md: 0 8px 32px rgba(0,0,0,.35);
+      --glass: rgba(255,255,255,.055); --glass-border: rgba(255,255,255,.10);
+      --text-1: #f5f5f5; --text-2: rgba(245,245,245,.72); --text-3: rgba(245,245,245,.42);
     }
 
     [data-tiempo="ordinario"] {
@@ -66,40 +58,15 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: radial-gradient(ellipse at 15% 10%, var(--glow) 0%, transparent 50%),
-                  radial-gradient(ellipse at 85% 90%, var(--glow) 0%, transparent 50%),
-                  linear-gradient(160deg, var(--bg-a) 0%, var(--bg-b) 40%, var(--bg-c) 100%);
-      background-attachment: fixed;
-      color: var(--text-1);
-      min-height: 100vh;
-      transition: var(--transition-theme);
-      overflow-x: hidden;
-    }
-
-    body::after {
-      content:''; position: fixed; inset:0;
-      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.012'%3E%3Cpath d='M42 38v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zm0-38v4h-4v-4h4zm38 38v4h-4v-4h4zm-38 38v4h-4v-4h4zM4 42h4v-4H4v4zm72 0h4v-4h-4v4z'/%3E%3C/g%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
-    }
+    body { font-family: 'Inter', system-ui, sans-serif; background: radial-gradient(ellipse at 15% 10%, var(--glow) 0%, transparent 50%), radial-gradient(ellipse at 85% 90%, var(--glow) 0%, transparent 50%), linear-gradient(160deg, var(--bg-a) 0%, var(--bg-b) 40%, var(--bg-c) 100%); background-attachment: fixed; color: var(--text-1); min-height: 100vh; transition: var(--transition-theme); overflow-x: hidden; }
+    body::after { content:''; position: fixed; inset:0; background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.012'%3E%3Cpath d='M42 38v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zm0-38v4h-4v-4h4zm38 38v4h-4v-4h4zm-38 38v4h-4v-4h4zM4 42h4v-4H4v4zm72 0h4v-4h-4v4z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
 
     .page-wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 4rem; position: relative; z-index: 1; }
 
-    /* ============================================================
-       HEADER CON LOGO
-    ============================================================ */
+    /* HEADER CON LOGO A 105PX */
     .app-header { padding: 3.5rem 1rem 2rem; text-align: center; animation: fadeUp .7s ease both; }
-    
     .app-logo { margin-bottom: 1rem; }
-    .app-logo img { 
-      height: 105px; width: auto; 
-      object-fit: contain; 
-      /* Truco mágico: Vuelve el logo completamente blanco en la web */
-      filter: brightness(0) invert(1) drop-shadow(0 4px 12px var(--glow-strong)); 
-      transition: var(--transition-theme); 
-    }
+    .app-logo img { height: 105px; width: auto; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 4px 12px var(--glow-strong)); transition: var(--transition-theme); }
 
     .ministry-pill { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem 1rem; background: var(--glass); border: 1px solid var(--c3); border-radius: 100px; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--c4); margin-bottom: 1.4rem; }
     .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c3); box-shadow: 0 0 8px var(--c3); animation: blink 2.2s ease-in-out infinite; }
@@ -139,7 +106,6 @@
     .canto-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--c3) 0%, transparent 100%); }
     .canto-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
     .canto-card.is-selected { border-color: var(--c3); background: rgba(255,255,255,.08); box-shadow: 0 0 0 1px var(--c3), var(--shadow-sm); }
-    
     .canto-card.is-omitted { border-color: rgba(255,255,255,0.1); background: rgba(0,0,0,.15); opacity: 0.7; }
     .canto-card.is-omitted::before { background: rgba(255,255,255,0.2); }
     .canto-card.is-omitted .card-name { color: var(--text-2); }
@@ -150,6 +116,11 @@
     .canto-select { width: 100%; background: rgba(255,255,255,.065); border: 1px solid rgba(255,255,255,.11); border-radius: var(--radius-sm); color: var(--text-1); font-family: 'Inter', sans-serif; font-size: .84rem; padding: .58rem .8rem; padding-right: 2.2rem; appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.4)' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .65rem center; background-size: .88rem; transition: var(--transition-ui); }
     .canto-select:focus { border-color: var(--c3); box-shadow: 0 0 0 3px var(--glow); }
     .canto-select option { background: #120a20; color: #f5f5f5; }
+
+    /* INPUTS MANUALES: Título y YouTube */
+    .manual-inputs { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
+    .input-extra { background: rgba(0,0,0,0.2); border: 1px dashed rgba(255,255,255,0.2); border-radius: var(--radius-sm); color: var(--text-1); font-size: .8rem; padding: .5rem .75rem; width: 100%; outline: none; transition: all 0.2s; }
+    .input-extra:focus { border-style: solid; border-color: var(--c3); background: rgba(255,255,255,0.05); }
 
     .card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: .6rem; gap: .5rem; flex-wrap: wrap; }
     .tono-chip { display: inline-flex; align-items: center; gap: .3rem; padding: .22rem .65rem; background: var(--glow); border: 1px solid var(--c3); border-radius: 100px; font-size: .68rem; font-weight: 600; color: var(--c4); }
@@ -314,7 +285,6 @@
     <textarea id="inp-notas" class="notes-input" placeholder="Indicaciones especiales para el ministerio, intenciones de la misa, instrumentistas, etc."></textarea>
   </div>
 
-  <!-- BARRA DE PROGRESO AL FINAL -->
   <div class="progress-row">
     <span class="prog-label">Momentos completados</span>
     <div class="prog-track">
@@ -332,7 +302,7 @@
         <span>📄</span> Generar Hoja de Cantos (PDF)
       </button>
     </div>
-    <p class="pdf-hint">El PDF incluirá letras completas, tonalidades, lecturas del día y observaciones del coordinador.</p>
+    <p class="pdf-hint">El PDF incluirá letras completas, enlaces a YouTube interactivos, lecturas del día y observaciones.</p>
   </div>
 
   <footer class="app-footer">
@@ -402,8 +372,15 @@ function buildCard(m) {
     <select class="canto-select" id="sel-${m.id}" onchange="seleccionar('${m.id}',this.value)">
       <option value="">— Seleccionar canto —</option>
       <option value="NO_APLICA">🚫 No aplica en esta celebración</option>
+      <option value="OTRO">✏️ Otro (Escribir título manualmente)</option>
       ${opts}
     </select>
+    
+    <div class="manual-inputs" id="inputs-${m.id}" style="display:none;">
+      <input type="text" id="otro-${m.id}" class="input-extra" placeholder="Escribe el título del canto..." oninput="actualizarOtro('${m.id}', this.value)" style="display:none;">
+      <input type="url" id="yt-${m.id}" class="input-extra" placeholder="▶ Pegar enlace de YouTube (Opcional)" oninput="actualizarYT('${m.id}', this.value)">
+    </div>
+
     <div class="card-meta" id="meta-${m.id}" style="display:none;">
       <span class="tono-chip">🎵 <span id="tono-${m.id}"></span></span>
       <button class="preview-btn" id="pbtn-${m.id}" onclick="toggleVer('${m.id}')">
@@ -418,37 +395,41 @@ function buildCard(m) {
 }
 
 function seleccionar(mid, titulo) {
-  const m     = MOMENTOS.find(x => x.id === mid);
-  const canto = (DB[m.dbKey]||[]).find(c => c.titulo === titulo);
-  const card  = document.getElementById(`card-${mid}`);
-  const meta  = document.getElementById(`meta-${mid}`);
-  const tonoEl= document.getElementById(`tono-${mid}`);
-  const lyrEl = document.getElementById(`lyr-${mid}`);
-  const acc   = document.getElementById(`acc-${mid}`);
+  const m       = MOMENTOS.find(x => x.id === mid);
+  const canto   = (DB[m.dbKey]||[]).find(c => c.titulo === titulo);
+  const card    = document.getElementById(`card-${mid}`);
+  const meta    = document.getElementById(`meta-${mid}`);
+  const tonoEl  = document.getElementById(`tono-${mid}`);
+  const lyrEl   = document.getElementById(`lyr-${mid}`);
+  const acc     = document.getElementById(`acc-${mid}`);
+  const inputs  = document.getElementById(`inputs-${mid}`);
+  const otroInp = document.getElementById(`otro-${mid}`);
+  const ytInp   = document.getElementById(`yt-${mid}`);
 
   if (titulo === "NO_APLICA") {
     state[mid] = { omitir: true };
-    card.classList.add('is-omitted');
-    card.classList.remove('is-selected');
-    meta.style.display = 'none';
-    acc.classList.remove('open');
-    open[mid] = false;
+    card.classList.add('is-omitted'); card.classList.remove('is-selected');
+    meta.style.display = 'none'; inputs.style.display = 'none'; acc.classList.remove('open'); open[mid] = false;
+  } else if (titulo === "OTRO") {
+    state[mid] = { manual: true, titulo: "", tono: "?", letra: "Canto no registrado en la base de datos.", yt: "" };
+    card.classList.add('is-selected'); card.classList.remove('is-omitted');
+    inputs.style.display = 'flex'; otroInp.style.display = 'block'; ytInp.value = "";
+    meta.style.display = 'flex'; tonoEl.textContent = "?"; lyrEl.textContent = "Canto no registrado en la base de datos.";
   } else if (canto && titulo) {
-    state[mid] = { titulo: canto.titulo, tono: canto.tono, letra: canto.letra };
-    card.classList.add('is-selected');
-    card.classList.remove('is-omitted');
-    meta.style.display = 'flex';
-    tonoEl.textContent = canto.tono;
-    lyrEl.textContent  = canto.letra;
+    state[mid] = { titulo: canto.titulo, tono: canto.tono, letra: canto.letra, yt: "" };
+    card.classList.add('is-selected'); card.classList.remove('is-omitted');
+    inputs.style.display = 'flex'; otroInp.style.display = 'none'; ytInp.value = "";
+    meta.style.display = 'flex'; tonoEl.textContent = canto.tono; lyrEl.textContent = canto.letra;
   } else {
     delete state[mid];
     card.classList.remove('is-selected', 'is-omitted');
-    meta.style.display = 'none';
-    acc.classList.remove('open');
-    open[mid] = false;
+    meta.style.display = 'none'; inputs.style.display = 'none'; acc.classList.remove('open'); open[mid] = false;
   }
   actualizarProgreso();
 }
+
+function actualizarOtro(mid, val) { if(state[mid]) state[mid].titulo = val; }
+function actualizarYT(mid, val) { if(state[mid]) state[mid].yt = val; }
 
 function toggleVer(mid) {
   open[mid] = !open[mid];
@@ -472,20 +453,15 @@ function cambiarTiempo(t) {
 
 function borrarContenido() {
   if (!confirm("¿Estás seguro de que deseas borrar toda la planificación actual?")) return;
-  
   for (let key in state) delete state[key];
   for (let key in open) open[key] = false;
-  
   document.querySelectorAll('.canto-select').forEach(sel => sel.value = "");
-  document.querySelectorAll('.canto-card').forEach(card => {
-    card.classList.remove('is-selected', 'is-omitted');
-  });
-  document.querySelectorAll('.card-meta').forEach(meta => meta.style.display = 'none');
+  document.querySelectorAll('.input-extra').forEach(inp => inp.value = "");
+  document.querySelectorAll('.canto-card').forEach(card => card.classList.remove('is-selected', 'is-omitted'));
+  document.querySelectorAll('.card-meta, .manual-inputs').forEach(el => el.style.display = 'none');
   document.querySelectorAll('.lyric-accordion').forEach(acc => acc.classList.remove('open'));
-  
   document.querySelectorAll('.lect-input, .notes-input').forEach(inp => inp.value = "");
   document.getElementById('inp-responsable').value = "";
-  
   actualizarProgreso();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -494,11 +470,9 @@ function celebrar() {
   const cols = ['#f59e0b','#10b981','#6366f1','#ec4899','#f97316','#a855f7'];
   for (let i = 0; i < 60; i++) {
     setTimeout(() => {
-      const p = document.createElement('div');
-      p.className = 'confetti-piece';
+      const p = document.createElement('div'); p.className = 'confetti-piece';
       p.style.cssText = `left:${Math.random()*100}vw; background:${cols[Math.floor(Math.random()*cols.length)]}; animation-duration:${2+Math.random()*2.5}s; animation-delay:${Math.random()*.5}s; border-radius:${Math.random()>.5?'50%':'2px'};`;
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 5000);
+      document.body.appendChild(p); setTimeout(() => p.remove(), 5000);
     }, i * 40);
   }
 }
@@ -522,23 +496,16 @@ async function getLogoBase64() {
       reader.onloadend = () => resolve(reader.result);
       reader.readAsDataURL(blob);
     });
-  } catch (e) {
-    return null;
-  }
+  } catch (e) { return null; }
 }
 
 async function generarPDF() {
-  if (!window.jspdf) { alert('La librería PDF no está cargada. Verifica tu conexión a internet o el archivo jspdf.js.'); return; }
-  if (Object.keys(state).length === 0) {
-    alert("¡Ups! El repertorio está vacío.\n\nPor favor, selecciona al menos un canto de los menús desplegables antes de generar la hoja para la misa.");
-    return; 
-  }
+  if (!window.jspdf) { alert('La librería PDF no está cargada.'); return; }
+  if (Object.keys(state).length === 0) { alert("El repertorio está vacío. Selecciona al menos un canto."); return; }
 
   const btn = document.getElementById('btn-pdf');
   const btnTexto = btn.innerHTML;
-  btn.innerHTML = '<span>⏳</span> Generando PDF...';
-  btn.style.opacity = '0.7';
-  btn.style.pointerEvents = 'none';
+  btn.innerHTML = '<span>⏳</span> Generando PDF...'; btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none';
 
   const { jsPDF } = window.jspdf;
   const tiempo      = document.getElementById('inp-tiempo').value;
@@ -575,18 +542,14 @@ async function generarPDF() {
   doc.setTextColor(255,255,255);
   doc.setFont('helvetica','bold'); doc.setFontSize(18);
   doc.text('GUITARRAS Y VOCES PARA CRISTO', ML, 15, {align:'left'});
-
   doc.setFontSize(10); doc.setFont('helvetica','normal');
   doc.text('Ministerio Musical GVC', ML, 22, {align:'left'});
-
   doc.setFontSize(8.5); doc.setFont('helvetica','italic');
   doc.text('Hoja de Cantos para la Santa Eucaristía', ML, 29, {align:'left'});
 
-  // Línea divisoria más corta (termina antes del logo)
   doc.setDrawColor(255,255,255,.5); doc.setLineWidth(.3); 
   doc.line(ML, 32, PW - 50, 32); 
 
-  // Meta row reordenado para que no choque con el logo
   doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
   doc.text(`Fecha: ${fechaStr}`, ML, 37);
   doc.text(`${info.label} · Color ${info.color}`, ML, 41);
@@ -594,14 +557,9 @@ async function generarPDF() {
 
   /* ---- LOGO EN EL PDF ---- */
   const logoData = await getLogoBase64();
-  
-  // Recuadro blanco más pegado al borde derecho
   doc.setFillColor(255, 255, 255);
   doc.roundedRect(PW - 44, 3, 38, 40, 2, 2, 'F');
-  
-  if (logoData) {
-    doc.addImage(logoData, 'PNG', PW - 40, 5, 30, 36); 
-  }
+  if (logoData) { doc.addImage(logoData, 'PNG', PW - 40, 5, 30, 36); }
 
   y = 52;
 
@@ -624,7 +582,6 @@ async function generarPDF() {
   };
 
   lRow('Primera Lectura', lect1);
-  
   doc.setFont('helvetica','bold'); doc.text(`Salmo ${salmoN ? salmoN : '____'}:`, ML+2, y);
   if (salmoT) {
     doc.setFont('helvetica','italic');
@@ -633,7 +590,6 @@ async function generarPDF() {
   } else {
     doc.setDrawColor(200,200,200); doc.setLineWidth(0.3); doc.line(ML+24, y+1, PW-MR-2, y+1); nl(5);
   }
-  
   lRow('Segunda Lectura', lect2);
   lRow('Evangelio', evangelio);
 
@@ -661,15 +617,41 @@ async function generarPDF() {
       if (!s || s.omitir) continue;
 
       const mDef = MOMENTOS.find(x => x.id === mid);
-      checkBreak(22);
+      checkBreak(25);
 
       doc.setTextColor(R,G,B); doc.setFont('helvetica','bold'); doc.setFontSize(7);
       doc.text(`▸ ${mDef.nombre.toUpperCase()}`, ML+1, y); nl(5.5);
 
       doc.setTextColor(15,15,15); doc.setFont('helvetica','bold'); doc.setFontSize(10.5);
-      doc.text(s.titulo, ML+2, y);
+      
+      // Manejar título manual o de BD
+      const displayTitle = s.titulo ? s.titulo : "Canto sin título asignado";
+      doc.text(displayTitle, ML+2, y);
+      
       doc.setFont('helvetica','italic'); doc.setFontSize(7.5); doc.setTextColor(130,130,130);
-      doc.text(`Tono: ${s.tono}`, PW-MR, y, {align:'right'}); nl(6.5);
+      doc.text(`Tono: ${s.tono}`, PW-MR, y, {align:'right'}); nl(5.5);
+
+      // --- LINK DE YOUTUBE ---
+      if (s.yt && s.yt.trim() !== "") {
+        doc.setTextColor(220, 38, 38); // Rojo de YouTube
+        doc.setFont('helvetica','bold'); doc.setFontSize(8.5);
+        doc.text('▶', ML+2, y);
+        
+        doc.setTextColor(37, 99, 235); // Azul enlazado
+        doc.setFont('helvetica','normal');
+        doc.text('Ir al video en YouTube', ML+6, y);
+        
+        // Área clickeable sobre el texto
+        const linkW = doc.getTextWidth('Ir al video en YouTube');
+        doc.link(ML+6, y - 3, linkW, 4, { url: s.yt });
+        
+        // Subrayado sutil azul
+        doc.setDrawColor(37, 99, 235); doc.setLineWidth(0.15);
+        doc.line(ML+6, y+0.8, ML+6+linkW, y+0.8);
+        nl(6.5);
+      } else {
+        nl(1); // Espacio normal si no hay link
+      }
 
       doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(60,60,60);
       const lines = doc.splitTextToSize(s.letra, CW - 4);
@@ -704,9 +686,7 @@ async function generarPDF() {
   const fechaFile = (document.getElementById('inp-fecha').value||'sin_fecha').replace(/-/g,'');
   doc.save(`GVC_Cantos_${fechaFile}.pdf`);
 
-  btn.innerHTML = btnTexto;
-  btn.style.opacity = '1';
-  btn.style.pointerEvents = 'auto';
+  btn.innerHTML = btnTexto; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto';
 }
 </script>
 </body>
