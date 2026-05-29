@@ -488,37 +488,68 @@ aleluya, amén. (4)` }
 
   /* ===================================================== CANTOS DE ALELUYA ================================================== */
   "Aleluya": [
-    { titulo:"Busca Primero", tono:"ReM",
-      letra:`Busca primero el reino de Dios
-y su justicia,
-y lo demás vendrá por añadidura.
-Aleluya, aleluya, aleluya.
+    { titulo:"Aleluya por esa gente", tono:"SolM",
+      letra:`ALELUYA (3)
+      
+      Por esa gente que vive y que siente
+      en su vida el amor (2).`},
 
-No sólo de pan vivirá el hombre,
-sino de la palabra de Dios.
-Aleluya, aleluya, aleluya.
+/* ===== CANTO 2===== */ 
 
-Pedid y se os dará,
-buscad y hallaréis,
-llamad y se os abrirá.
-Aleluya, aleluya, aleluya.` },
+    { titulo:"El Señor resucitó", tono:"ReM",
+      letra:`ALELUYA (8)
+      
+El Señor resucitó para darnos libertad
+El Señor resucitó, aleluya.` },
 
-    { titulo:"Aleluya Simple", tono:"DoM",
-      letra:`Aleluya, aleluya, aleluya.
-Aleluya, aleluya, aleluya.
+/* ===== CANTO 3===== */ 
 
-Habla, Señor, que tu siervo escucha,
-tú tienes palabras de vida eterna.
-Aleluya, aleluya, aleluya.` },
+    { titulo:"El evalgelio es la palabra", tono:"ReM",
+      letra:`ALELUYA (6)
 
-    { titulo:"Aleluya Pascual", tono:"SolM",
-      letra:`¡Aleluya! ¡Aleluya! ¡Aleluya!
-Cristo resucitó, ¡Aleluya!
-¡El Señor es glorioso! ¡Aleluya!
+El evangelio es la palabra,
+de todas las culturas,
+palabra de Dios en la lengua del hombre (2)` },
+    
+/* ===== CANTO 4===== */ 
 
-Cantad al Señor un canto nuevo,
-pues ha hecho maravillas.
-¡Aleluya! ¡Aleluya! ¡Aleluya!` }
+    { titulo:"Ale-lu-u-ya", tono:"ReM",
+      letra:`Ale-lu-u-ya (2)
+Alelu-u-ya.
+
+Aleluuu-ya (2)
+Ale-lu-ya.` },
+
+/* ===== CANTO 5===== */ 
+
+    { titulo:"Busca primero", tono:"ReM",
+      letra:`ALELUYA, ALELU, ALELUYA,
+ALELUYA, ALELUYA. (2)
+
+Busca primero el Reino de Dios
+y su justicia perfecta,
+y lo demás añadido será,
+aleluya, aleluya.` },
+
+/* ===== CANTO 6===== */ 
+
+    { titulo:"Melódico", tono:"ReM",
+      letra:`A-le-lu-ya (4)` },
+    
+/* ===== CANTO 7===== */ 
+
+    { titulo:"Tu palabra me da vida", tono:"ReM",
+      letra:`TÚ PALABRA ME DA VIDA,
+CONFÍO EN TI, SEÑOR.
+TÚ PALABRA ES ETERNA,
+EN ELLA ESPERARÉ.
+
+Dichoso el que,
+con vida intachable,
+camina en la ley del Señor.
+Dichoso el que,
+guardando sus preceptos,
+lo busca de todo corazón.` }
   ],
 
  /* ================================================= CANTOS DE OFERTORIO 1 =================================================== */ 
