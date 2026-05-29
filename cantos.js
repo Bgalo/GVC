@@ -320,64 +320,95 @@ Señor, ten piedad de nosotros.` }
 
   /* ==================================================== CANTOS DE GLORIA ==================================================== */
   "Gloria": [
-    { titulo:"Hay en la Tierra Felicidad", tono:"Rem",
-      letra:`Hay en la tierra felicidad
-que da el amor de Dios.
-Hay en la vida claridad
-que da la fe en Jesús.
+    { titulo:"Gloria (C. Gabaráin)", tono:"DoM",
+      letra:`GLORIA, GLORIA, GLORIA AL SEÑOR,
+GLORIA EN EL CIELO,
+GLORIA EN LA TIERRA.
 
-Gloria a Dios en el cielo,
-y en la tierra paz a los hombres
-que ama el Señor.
+Te alabamos, Señor,
+te bendecimos,
+te adoramos, oh Padre,
+Dios y rey celestial.
 
-Te alabamos, te bendecimos,
-te adoramos, te glorificamos,
-te damos gracias
-por tu inmensa gloria.
+Eres Cordero de Dios,
+Hijo del Padre,
+tú nos perdonas y salvas,
+nos ofreces tu amor.
 
-Señor Dios, Rey celestial,
-Dios Padre todopoderoso.
-Señor, Hijo único, Jesucristo.
+Tú sólo santo y Señor,
+tú Jesucristo
+con el Espíritu Santo,
+en la gloria de Dios.` },
 
-Señor Dios, Cordero de Dios,
-Hijo del Padre: tú que quitas
-el pecado del mundo,
-ten piedad de nosotros.` },
+/* ===== CANTO 2===== */ 
+
+    { titulo:"Gloria a Dios en el Cielo (Completo)", tono:"SolM",
+      letra:`Gloria a Dios en el cielo, y en la tierra paz
+A los hombres que ama el Señor. 
+
+ [Estrofa 1] 
+Por tu inmensa gloria te alabamos, te bendecimos, 
+te adoramos, te glorificamos, te damos gracias, Señor
+
+ [Estrofa 2] 
+Señor Dios, Rey celestial, Dios Padre todopoderoso. 
+Hijo único, Jesucristo, Señor Dios,
+Cordero de Dios, Hijo del Padre Jesús.
+
+[Estrofa 3] 
+Tú que quitas el pecado del mundo,
+ten piedad de nosotros;
+Tú que quitas el pecado del mundo,
+atiende nuestras súplicas;
+Tú que estás sentado junto al Padre,
+ten piedad de nosotros. 
+
+ [Estrofa 4] 
+Porque solo Tú eres Santo, solo Tú, Señor,
+solo tú, altísimo Jesús 
+con el Espíritu Santo
+en la gloria de Dios Padre. 
+
+ [Final] 
+Amén, amén, a - mén.` },
+    
+/* ===== CANTO 3===== */ 
+    { titulo:"Gloria GVC", tono:"DoM",
+      letra:`
+      ` },
+    
+/* ===== CANTO 4===== */ 
 
     { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
-      letra:`Gloria a Dios en el cielo,
-y en la tierra paz a los hombres
-que ama el Señor.
+      letra:`
+      ` },
 
-Por tu inmensa gloria te alabamos,
-te bendecimos, te adoramos,
-te glorificamos, te damos gracias.
+/* ===== CANTO 5===== */ 
 
-Señor Dios, Rey celestial,
-Dios Padre todopoderoso.
+    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
+      letra:`
+      ` },
 
-Señor Dios, Cordero de Dios,
-Hijo del Padre.
+/* ===== CANTO 6===== */ 
 
-Porque sólo Tú eres Santo,
-sólo Tú Señor, sólo Tú Altísimo,
-Jesucristo, con el Espíritu Santo,
-en la gloria de Dios Padre. Amén.` },
+    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
+      letra:`
+      ` },
 
-    { titulo:"Gloria GVC", tono:"DoM",
-      letra:`Gloria, gloria, gloria en las alturas a Dios,
-y en la tierra paz a los hombres
-que ama el Señor.
+/* ===== CANTO 7===== */ 
 
-Te alabamos, te bendecimos,
-te adoramos, te glorificamos,
-te damos gracias
-por tu inmensa gloria.
+    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
+      letra:`
+      ` },
 
-Gloria, gloria, gloria en las alturas a Dios.` }
+/* ===== CANTO 8===== */ 
+
+    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
+      letra:`
+      ` }
   ],
 
-  /* ===== CANTOS DE ALELUYA ===== */
+  /* ===================================================== CANTOS DE ALELUYA ================================================== */
   "Aleluya": [
     { titulo:"Busca Primero", tono:"ReM",
       letra:`Busca primero el reino de Dios
