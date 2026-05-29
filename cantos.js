@@ -469,15 +469,21 @@ amen, amen, aaaaamen.` },
 
 /* ===== CANTO 7===== */ 
 
-    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
-      letra:`
-      ` },
+    { titulo:"Gloria a la trinidad", tono:"Rem",
+      letra:`Gloria a Dios, gloria a Dios,
+gloria al Padre. (2)
+A Él le sea la gloria, (2)
+aleluya, amén. (4)
 
-/* ===== CANTO 8===== */ 
+Gloria a Dios, gloria a Dios,
+gloria al Hijo. (2)
+A Él le sea la gloria, (2)
+aleluya, amén. (4)
 
-    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
-      letra:`
-      ` }
+Gloria a Dios, gloria a Dios,
+Espíritu Santo. (2)
+A Él le sea la gloria, (2)
+aleluya, amén. (4)` }
   ],
 
   /* ===================================================== CANTOS DE ALELUYA ================================================== */
