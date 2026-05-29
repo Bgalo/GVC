@@ -87,7 +87,20 @@
 
     .page-wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 4rem; position: relative; z-index: 1; }
 
+    /* ============================================================
+       HEADER CON LOGO
+    ============================================================ */
     .app-header { padding: 3.5rem 1rem 2rem; text-align: center; animation: fadeUp .7s ease both; }
+    
+    .app-logo { margin-bottom: 1rem; }
+    .app-logo img { 
+      height: 70px; width: auto; 
+      object-fit: contain; 
+      /* Truco mágico: Vuelve el logo completamente blanco en la web */
+      filter: brightness(0) invert(1) drop-shadow(0 4px 12px var(--glow-strong)); 
+      transition: var(--transition-theme); 
+    }
+
     .ministry-pill { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem 1rem; background: var(--glass); border: 1px solid var(--c3); border-radius: 100px; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--c4); margin-bottom: 1.4rem; }
     .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c3); box-shadow: 0 0 8px var(--c3); animation: blink 2.2s ease-in-out infinite; }
     .app-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; background: linear-gradient(135deg, var(--text-1) 30%, var(--c4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: .5rem; }
@@ -127,10 +140,9 @@
     .canto-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
     .canto-card.is-selected { border-color: var(--c3); background: rgba(255,255,255,.08); box-shadow: 0 0 0 1px var(--c3), var(--shadow-sm); }
     
-    /* Efecto especial para la tarjeta Omitida */
-    .canto-card.is-omitted { border-color: #666; background: rgba(0,0,0,.15); opacity: 0.8; }
-    .canto-card.is-omitted::before { background: #666; }
-    .canto-card.is-omitted .card-name { color: #aaa; }
+    .canto-card.is-omitted { border-color: rgba(255,255,255,0.1); background: rgba(0,0,0,.15); opacity: 0.7; }
+    .canto-card.is-omitted::before { background: rgba(255,255,255,0.2); }
+    .canto-card.is-omitted .card-name { color: var(--text-2); }
 
     .card-top { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; }
     .card-name { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--c4); }
@@ -194,6 +206,10 @@
 <div class="page-wrap">
 
   <header class="app-header">
+    <div class="app-logo">
+      <!-- Carga la imagen local de GitHub -->
+      <img src="logo_gvc.png" alt="Logo Ministerio GVC" id="main-logo" crossorigin="anonymous">
+    </div>
     <div class="ministry-pill"><span class="pill-dot"></span>Ministerio Musical · GVC</div>
     <h1 class="app-title">Planificador Eucarístico</h1>
     <p class="app-subtitle">Guitarras y Voces para Cristo — Herramienta de Coordinación Litúrgica</p>
@@ -299,6 +315,7 @@
     <textarea id="inp-notas" class="notes-input" placeholder="Indicaciones especiales para el ministerio, intenciones de la misa, instrumentistas, etc."></textarea>
   </div>
 
+  <!-- BARRA DE PROGRESO AL FINAL -->
   <div class="progress-row">
     <span class="prog-label">Momentos completados</span>
     <div class="prog-track">
@@ -496,12 +513,36 @@ function formatDate(iso) {
   return `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${y}`;
 }
 
-function generarPDF() {
+// Función auxiliar para leer la imagen y convertirla al vuelo para el PDF
+async function getLogoBase64() {
+  try {
+    const response = await fetch('logo_gvc.png');
+    if (!response.ok) return null;
+    const blob = await response.blob();
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  } catch (e) {
+    return null;
+  }
+}
+
+// Generador PDF convertido a función asíncrona para poder cargar la imagen
+async function generarPDF() {
   if (!window.jspdf) { alert('La librería PDF no está cargada. Verifica tu conexión a internet o el archivo jspdf.js.'); return; }
   if (Object.keys(state).length === 0) {
     alert("¡Ups! El repertorio está vacío.\n\nPor favor, selecciona al menos un canto de los menús desplegables antes de generar la hoja para la misa.");
     return; 
   }
+
+  // Deshabilita el botón mientras se genera
+  const btn = document.getElementById('btn-pdf');
+  const btnTexto = btn.innerHTML;
+  btn.innerHTML = '<span>⏳</span> Generando PDF...';
+  btn.style.opacity = '0.7';
+  btn.style.pointerEvents = 'none';
 
   const { jsPDF } = window.jspdf;
   const tiempo      = document.getElementById('inp-tiempo').value;
@@ -552,17 +593,17 @@ function generarPDF() {
   doc.text(`Responsable: ${responsable}`, PW/2, 38, {align:'center'});
   doc.text(`${info.label} · Color ${info.color}`, PW-MR, 38, {align:'right'});
 
-  // -------------------------------------------------------------------------------------------------
-  // LOGO DEL MINISTERIO (BASE64)
-  // -------------------------------------------------------------------------------------------------
-  const logoBase64 = ""; // <-- ¡BOB, PEGA LA CADENA DE TEXTO LARGA DE TU LOGO AQUÍ ADENTRO!
+  /* ---- LOGO EN EL PDF ---- */
+  const logoData = await getLogoBase64();
   
-  try {
-    if (logoBase64.length > 50) {
-      doc.addImage(logoBase64, 'PNG', PW - MR - 30, 4, 30, 40); 
-    }
-  } catch(e) { console.error("Error cargando logo", e); }
-  // -------------------------------------------------------------------------------------------------
+  // Dibujar recuadro blanco exacto al diseño original
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(PW - MR - 38, 3, 38, 40, 2, 2, 'F');
+  
+  // Colocar logo si se encontró
+  if (logoData) {
+    doc.addImage(logoData, 'PNG', PW - MR - 34, 5, 30, 36); 
+  }
 
   y = 52;
 
@@ -664,6 +705,11 @@ function generarPDF() {
 
   const fechaFile = (document.getElementById('inp-fecha').value||'sin_fecha').replace(/-/g,'');
   doc.save(`GVC_Cantos_${fechaFile}.pdf`);
+
+  // Restaura el botón a su estado original
+  btn.innerHTML = btnTexto;
+  btn.style.opacity = '1';
+  btn.style.pointerEvents = 'auto';
 }
 </script>
 </body>
