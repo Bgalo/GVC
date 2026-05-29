@@ -343,8 +343,8 @@ en la gloria de Dios.` },
 /* ===== CANTO 2===== */ 
 
     { titulo:"Gloria a Dios en el Cielo (Completo)", tono:"SolM",
-      letra:`Gloria a Dios en el cielo, y en la tierra paz
-A los hombres que ama el Señor. 
+      letra:`GLORIA A DIOS EN EL CIELO, Y EN LA TIERRA PAZ
+A LOS HOMBRES QUE AMA EL SEÑOR.
 
  [Estrofa 1] 
 Por tu inmensa gloria te alabamos, te bendecimos, 
@@ -355,7 +355,7 @@ Señor Dios, Rey celestial, Dios Padre todopoderoso.
 Hijo único, Jesucristo, Señor Dios,
 Cordero de Dios, Hijo del Padre Jesús.
 
-[Estrofa 3] 
+ [Estrofa 3] 
 Tú que quitas el pecado del mundo,
 ten piedad de nosotros;
 Tú que quitas el pecado del mundo,
@@ -373,27 +373,99 @@ en la gloria de Dios Padre.
 Amén, amén, a - mén.` },
     
 /* ===== CANTO 3===== */ 
-    { titulo:"Gloria GVC", tono:"DoM",
-      letra:`
-      ` },
+    { titulo:"Gloria al Señor que reina", tono:"ReM",
+      letra:`GLORIA AL SEÑOR
+QUE REINA EN EL CIELO
+Y EN LA TIERRA PAZ
+A LOS HOMBRES QUE AMA ÉL.
+
+Señor, te alabamos,
+Señor, te bendecimos
+todos te adoramos
+gracias por tu gloria.
+
+Tú eres el cordero
+que quitas el pecado:
+Ten piedad de nosotros
+y escucha nuestra oración.
+
+Tú solo eres santo,
+Tú solo, el Altísimo
+con el Espíritu Santo
+en la gloria de Dios Padre.` },
     
 /* ===== CANTO 4===== */ 
 
-    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
-      letra:`
-      ` },
+    { titulo:"Gloria al Señor y al hombre paz", tono:"Rem",
+      letra:`GLORIA AL SEÑOR Y AL HOMBRE PAZ,
+HAYA EN LA TIERRA FELICIDAD. (2)
+
+Te alabamos,
+te bendecimos,
+te adoramos,
+por tu inmensa gloria.
+
+Eres el Cordero
+que quitas el pecado,
+ten piedad de nosotros
+y escucha nuestra oración.
+
+Sólo Tú eres Santo,
+sólo Tú el Altísimo,
+Con el Espíritu Santo,
+en la Gloria de Dios Padre.` },
 
 /* ===== CANTO 5===== */ 
 
-    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
-      letra:`
-      ` },
+    { titulo:"Gloria a Dios en lo alto", tono:"ReM",
+      letra:`GLORIA A NUESTRO DIOS
+EN LO ALTO DE LOS CIELOS,
+Y EN LA TIERRA PAZ
+A LOS HOMBRES QUE ÉL AMA.
+
+Señor, te alabamos
+Señor, te bendecimos.
+Todos te adoramos,
+gracias por tu inmensa gloria.
+
+Tú eres el cordero
+que quitas el pecado.
+Ten piedad de nosotros
+y escucha nuestra oración.
+
+Tú sólo eres Santo,
+Tú sólo el Altísimo,
+con el Espíritu Santo
+en la gloria de Dios Padre.` },
 
 /* ===== CANTO 6===== */ 
 
-    { titulo:"Gloria a Dios en el Cielo", tono:"SolM",
-      letra:`
-      ` },
+    { titulo:"Gloria (Alejandro M.)-Peruano", tono:"Mim",
+      letra:`GLORIA, GLORIA A DIOS EN EL CIELO
+Y EN LA TIERRA A LOS HOMBRES PAZ. (bis)
+
+Te alabamos y te bendecimos
+Te adoramos y glorificamos
+y nosotros hoy te damos gracias
+por tu grande y eterna gloria.
+
+GLORIA, GLORIA...
+
+(Cambio de ritmo)
+
+Señor Dios, nuestro Padre, Padre, Padre
+Señor Dios hijo, piedad, piedad, piedad, Señor.
+Tú, que quitas el pecado del mundo,
+escúchanos, escuchamos
+Tú, que estás a la derecha del Padre,
+piedad, piedad, piedad, Señor 
+
+(Cambio de ritmo)
+
+Solo tú eres santo, solo tú, Señor, 
+solo tú, altísimo Jesucristo
+con el Santo Espíritu en la gloria de Dios Padre.
+amen, amen, aaaaamen.` },
 
 /* ===== CANTO 7===== */ 
 
