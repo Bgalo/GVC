@@ -117,9 +117,9 @@
     .canto-select:focus { border-color: var(--c3); box-shadow: 0 0 0 3px var(--glow); }
     .canto-select option { background: #120a20; color: #f5f5f5; }
 
-    /* INPUTS MANUALES: Título y YouTube */
+    /* INPUTS MANUALES: Título, Letra y YouTube */
     .manual-inputs { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
-    .input-extra { background: rgba(0,0,0,0.2); border: 1px dashed rgba(255,255,255,0.2); border-radius: var(--radius-sm); color: var(--text-1); font-size: .8rem; padding: .5rem .75rem; width: 100%; outline: none; transition: all 0.2s; }
+    .input-extra { background: rgba(0,0,0,0.2); border: 1px dashed rgba(255,255,255,0.2); border-radius: var(--radius-sm); color: var(--text-1); font-family: 'Inter', sans-serif; font-size: .8rem; padding: .6rem .75rem; width: 100%; outline: none; transition: all 0.2s; }
     .input-extra:focus { border-style: solid; border-color: var(--c3); background: rgba(255,255,255,0.05); }
 
     .card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: .6rem; gap: .5rem; flex-wrap: wrap; }
@@ -378,7 +378,8 @@ function buildCard(m) {
     
     <div class="manual-inputs" id="inputs-${m.id}" style="display:none;">
       <input type="text" id="otro-${m.id}" class="input-extra" placeholder="Escribe el título del canto..." oninput="actualizarOtro('${m.id}', this.value)" style="display:none;">
-      <input type="url" id="yt-${m.id}" class="input-extra" placeholder="▶ Pegar enlace de YouTube (Opcional)" oninput="actualizarYT('${m.id}', this.value)">
+      <textarea id="letra-${m.id}" class="input-extra" placeholder="Escribe o pega la letra del canto aquí..." rows="3" oninput="actualizarLetra('${m.id}', this.value)" style="display:none; resize: vertical;"></textarea>
+      <input type="url" id="yt-${m.id}" class="input-extra" placeholder="🔗 Pegar enlace de YouTube (Opcional)" oninput="actualizarYT('${m.id}', this.value)">
     </div>
 
     <div class="card-meta" id="meta-${m.id}" style="display:none;">
@@ -404,6 +405,7 @@ function seleccionar(mid, titulo) {
   const acc     = document.getElementById(`acc-${mid}`);
   const inputs  = document.getElementById(`inputs-${mid}`);
   const otroInp = document.getElementById(`otro-${mid}`);
+  const letraInp= document.getElementById(`letra-${mid}`);
   const ytInp   = document.getElementById(`yt-${mid}`);
 
   if (titulo === "NO_APLICA") {
@@ -411,14 +413,14 @@ function seleccionar(mid, titulo) {
     card.classList.add('is-omitted'); card.classList.remove('is-selected');
     meta.style.display = 'none'; inputs.style.display = 'none'; acc.classList.remove('open'); open[mid] = false;
   } else if (titulo === "OTRO") {
-    state[mid] = { manual: true, titulo: "", tono: "?", letra: "Canto no registrado en la base de datos.", yt: "" };
+    state[mid] = { manual: true, titulo: "", tono: "?", letra: "", yt: "" };
     card.classList.add('is-selected'); card.classList.remove('is-omitted');
-    inputs.style.display = 'flex'; otroInp.style.display = 'block'; ytInp.value = "";
-    meta.style.display = 'flex'; tonoEl.textContent = "?"; lyrEl.textContent = "Canto no registrado en la base de datos.";
+    inputs.style.display = 'flex'; otroInp.style.display = 'block'; letraInp.style.display = 'block'; ytInp.value = ""; letraInp.value = "";
+    meta.style.display = 'flex'; tonoEl.textContent = "?"; lyrEl.textContent = "Escribe o pega la letra en la caja superior para ver la vista previa.";
   } else if (canto && titulo) {
     state[mid] = { titulo: canto.titulo, tono: canto.tono, letra: canto.letra, yt: "" };
     card.classList.add('is-selected'); card.classList.remove('is-omitted');
-    inputs.style.display = 'flex'; otroInp.style.display = 'none'; ytInp.value = "";
+    inputs.style.display = 'flex'; otroInp.style.display = 'none'; letraInp.style.display = 'none'; ytInp.value = "";
     meta.style.display = 'flex'; tonoEl.textContent = canto.tono; lyrEl.textContent = canto.letra;
   } else {
     delete state[mid];
@@ -429,6 +431,12 @@ function seleccionar(mid, titulo) {
 }
 
 function actualizarOtro(mid, val) { if(state[mid]) state[mid].titulo = val; }
+function actualizarLetra(mid, val) { 
+  if(state[mid]) {
+    state[mid].letra = val; 
+    document.getElementById(`lyr-${mid}`).textContent = val || "Escribe o pega la letra en la caja superior para ver la vista previa.";
+  } 
+}
 function actualizarYT(mid, val) { if(state[mid]) state[mid].yt = val; }
 
 function toggleVer(mid) {
@@ -624,33 +632,34 @@ async function generarPDF() {
 
       doc.setTextColor(15,15,15); doc.setFont('helvetica','bold'); doc.setFontSize(10.5);
       
-      // Manejar título manual o de BD
       const displayTitle = s.titulo ? s.titulo : "Canto sin título asignado";
       doc.text(displayTitle, ML+2, y);
       
       doc.setFont('helvetica','italic'); doc.setFontSize(7.5); doc.setTextColor(130,130,130);
-      doc.text(`Tono: ${s.tono}`, PW-MR, y, {align:'right'}); nl(5.5);
+      doc.text(`Tono: ${s.tono}`, PW-MR, y, {align:'right'});
 
-      // --- LINK DE YOUTUBE ---
+      // --- ENLACE DE YOUTUBE LIMPIO ---
       if (s.yt && s.yt.trim() !== "") {
-        doc.setTextColor(220, 38, 38); // Rojo de YouTube
-        doc.setFont('helvetica','bold'); doc.setFontSize(8.5);
-        doc.text('▶', ML+2, y);
+        nl(4); // Pequeño salto
+        doc.setTextColor(37, 99, 235); // Color azul estándar para links
+        doc.setFont('helvetica','italic'); doc.setFontSize(7.5);
         
-        doc.setTextColor(37, 99, 235); // Azul enlazado
-        doc.setFont('helvetica','normal');
-        doc.text('Ir al video en YouTube', ML+6, y);
+        const ytText = "Ver video en YouTube";
+        const linkW = doc.getTextWidth(ytText);
         
-        // Área clickeable sobre el texto
-        const linkW = doc.getTextWidth('Ir al video en YouTube');
-        doc.link(ML+6, y - 3, linkW, 4, { url: s.yt });
+        // Imprime el texto azul a la derecha
+        doc.text(ytText, PW-MR, y, {align: 'right'});
         
-        // Subrayado sutil azul
+        // Crea el área interactiva transparente sobre el texto
+        doc.link(PW-MR-linkW, y-3, linkW, 4, { url: s.yt });
+        
+        // Dibuja una línea fina debajo para que parezca subrayado
         doc.setDrawColor(37, 99, 235); doc.setLineWidth(0.15);
-        doc.line(ML+6, y+0.8, ML+6+linkW, y+0.8);
-        nl(6.5);
+        doc.line(PW-MR-linkW, y+0.5, PW-MR, y+0.5);
+        
+        nl(4.5); // Salto extra antes de la letra
       } else {
-        nl(1); // Espacio normal si no hay link
+        nl(5.5); // Salto estándar si no hay link
       }
 
       doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(60,60,60);
