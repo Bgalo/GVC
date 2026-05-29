@@ -207,7 +207,6 @@
 
   <header class="app-header">
     <div class="app-logo">
-      <!-- Carga la imagen local de GitHub -->
       <img src="logo_gvc.png" alt="Logo Ministerio GVC" id="main-logo" crossorigin="anonymous">
     </div>
     <div class="ministry-pill"><span class="pill-dot"></span>Ministerio Musical · GVC</div>
@@ -513,7 +512,6 @@ function formatDate(iso) {
   return `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${y}`;
 }
 
-// Función auxiliar para leer la imagen y convertirla al vuelo para el PDF
 async function getLogoBase64() {
   try {
     const response = await fetch('logo_gvc.png');
@@ -529,7 +527,6 @@ async function getLogoBase64() {
   }
 }
 
-// Generador PDF convertido a función asíncrona para poder cargar la imagen
 async function generarPDF() {
   if (!window.jspdf) { alert('La librería PDF no está cargada. Verifica tu conexión a internet o el archivo jspdf.js.'); return; }
   if (Object.keys(state).length === 0) {
@@ -537,7 +534,6 @@ async function generarPDF() {
     return; 
   }
 
-  // Deshabilita el botón mientras se genera
   const btn = document.getElementById('btn-pdf');
   const btnTexto = btn.innerHTML;
   btn.innerHTML = '<span>⏳</span> Generando PDF...';
@@ -586,23 +582,25 @@ async function generarPDF() {
   doc.setFontSize(8.5); doc.setFont('helvetica','italic');
   doc.text('Hoja de Cantos para la Santa Eucaristía', ML, 29, {align:'left'});
 
-  doc.setDrawColor(255,255,255,.5); doc.setLineWidth(.3); doc.line(ML, 32, PW-MR, 32);
+  // Línea divisoria más corta (termina antes del logo)
+  doc.setDrawColor(255,255,255,.5); doc.setLineWidth(.3); 
+  doc.line(ML, 32, PW - 50, 32); 
 
+  // Meta row reordenado para que no choque con el logo
   doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
-  doc.text(`Fecha: ${fechaStr}`, ML, 38);
-  doc.text(`Responsable: ${responsable}`, PW/2, 38, {align:'center'});
-  doc.text(`${info.label} · Color ${info.color}`, PW-MR, 38, {align:'right'});
+  doc.text(`Fecha: ${fechaStr}`, ML, 37);
+  doc.text(`${info.label} · Color ${info.color}`, ML, 41);
+  doc.text(`Responsable: ${responsable}`, 95, 37, {align:'center'});
 
   /* ---- LOGO EN EL PDF ---- */
   const logoData = await getLogoBase64();
   
-  // Dibujar recuadro blanco exacto al diseño original
+  // Recuadro blanco más pegado al borde derecho
   doc.setFillColor(255, 255, 255);
-  doc.roundedRect(PW - MR - 38, 3, 38, 40, 2, 2, 'F');
+  doc.roundedRect(PW - 44, 3, 38, 40, 2, 2, 'F');
   
-  // Colocar logo si se encontró
   if (logoData) {
-    doc.addImage(logoData, 'PNG', PW - MR - 34, 5, 30, 36); 
+    doc.addImage(logoData, 'PNG', PW - 40, 5, 30, 36); 
   }
 
   y = 52;
@@ -706,7 +704,6 @@ async function generarPDF() {
   const fechaFile = (document.getElementById('inp-fecha').value||'sin_fecha').replace(/-/g,'');
   doc.save(`GVC_Cantos_${fechaFile}.pdf`);
 
-  // Restaura el botón a su estado original
   btn.innerHTML = btnTexto;
   btn.style.opacity = '1';
   btn.style.pointerEvents = 'auto';
