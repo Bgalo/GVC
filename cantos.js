@@ -1277,64 +1277,34 @@ del Señor, Hosanna, hosanna.
 y bebemos de este cáliz,
 anunciamos tu muerte, Señor,
 hasta que vuelvas,
-hasta que vuelvas.
+hasta que vuelvas.` },
 
-Cristo ha muerto,
-Cristo ha resucitado,
-Cristo volverá,
-Cristo volverá.` },
-
-    { titulo:"Anunciamos tu Muerte", tono:"DoM",
+/* ===== CANTO 2===== */ 
+    { titulo:"Anunciamos tu Muerte", tono:"La7",
       letra:`Anunciamos tu muerte, Señor,
 proclamamos tu resurrección.
-¡Ven, Señor Jesús!
-¡Ven, Señor Jesús!
-
-Esta es la fe de la Iglesia,
-esta es la fe que profesamos:
-Cristo murió por nosotros,
-Cristo resucitó glorioso.
-
-Anunciamos tu muerte, Señor...` },
-
-    { titulo:"Cristo ha Muerto", tono:"ReM",
-      letra:`Cristo ha muerto,
-Cristo ha resucitado,
-Cristo volverá.
-
-Ésta es la aclamación de nuestra fe:
-Jesucristo es el Señor.
-Ayer, hoy y siempre
-el mismo Señor.
-
-Cristo ha muerto,
-Cristo ha resucitado,
-Cristo volverá.` }
+¡Ven, Señor Jesús! ` },
+    
+/* ===== CANTO 3===== */ 
+    { titulo:"Cada Vez", tono:"DoM",
+      letra:`Cada vez que comemos de este pan
+Cada vez que bebemos de este cáliz,
+anunciamos tu muerte, Señor,
+hasta que vuelvas si,
+hasta que vuelvas, Señor.` }
   ],
 
   /* ================================================== CANTOS DE AMÉN ============================================================ */
   "Amén": [
     { titulo:"Bayron", tono:"Sim",
-      letra:`Amén, amén, amén.
-Amén, amén, amén.
-
-Por Cristo, con él y en él,
-a ti Dios Padre omnipotente,
-en la unidad del Espíritu Santo,
-todo honor y toda gloria
-por los siglos de los siglos.
-
-Amén, amén, amén.
-Amén, amén, amén.` },
-
+      letra:`Amén (8).` },
+    
+/* ===== CANTO 2===== */ 
     { titulo:"Amén Solemne", tono:"DoM",
       letra:`¡Amén!
 
-Por Cristo, con él y en él,
-a ti Dios Padre omnipotente,
-en la unidad del Espíritu Santo,
-todo honor y toda gloria
-por los siglos de los siglos.
+Bendición y gloria, sabiburía,
+acción de gracias demos a Dios.m
 
 ¡Amén! ¡Amén! ¡Amén!` }
   ],
@@ -1344,263 +1314,191 @@ por los siglos de los siglos.
     { titulo:"Tuyo es el Reino", tono:"Mim",
       letra:`Tuyo es el reino,
 tuyo es el poder,
-tuya es la gloria
-por siempre, Señor.
-
-Padre nuestro que estás en los cielos,
-santificado sea tu nombre,
-venga a nosotros tu reino,
-hágase tu voluntad.
-
-Tuyo es el reino,
-tuyo es el poder,
-tuya es la gloria
-por siempre, Señor.` },
-
-    { titulo:"Doxología", tono:"DoM",
-      letra:`Tuyo es el reino,
-tuyo el poder y la gloria,
-ahora y por siempre. Amén.
-
-Porque tuyo es el reino,
-el poder y la gloria,
-por los siglos de los siglos. Amén.
-
-¡Amén, amén, amén!` }
+tuya la gloria
+por siempre, Señor.` }
   ],
 
   /* ======================================================= CANTOS DE PAZ ======================================================= */
   "Paz": [
-    { titulo:"La Paz esté con Vosotros", tono:"Mim",
-      letra:`La paz esté con vosotros,
-la paz del Señor.
-La paz esté con vosotros,
-la paz del Señor.
+    { titulo:"La Paz esté con Nosotros", tono:"Mim",
+      letra:`La paz esté con nosotros, (3)
+que con nosotros, siempre,
+siempre esté la paz.
 
-Hermano, dame la mano,
-que Cristo nos unió.
-En este abrazo de paz
-su amor se renovó.
+Pedimos paz para el mundo, (3)
+yo te saludo:
+la paz, la paz sea contigo. 
+` },
+    
+/* ===== CANTO 2===== */ 
+    { titulo:"Paz en la tiera", tono:"ReM",
+      letra:`PAZ EN LA TIERRA,
+PAZ EN LAS ALTURAS.
+QUE EL GOZO ETERNO REINE,
+EN NUESTRO CORAZÓN. (2)
 
-La paz esté con vosotros,
-la paz del Señor.` },
+Da la paz, hermano, da la paz.
+Constrúyela en tu corazón
+y con tu gesto afirmarás,
+que quieres la paz.
 
-    { titulo:"Danos la Paz", tono:"SolM",
-      letra:`Danos la paz, Señor,
-danos tu paz.
-Que reine entre nosotros
-tu amor y tu verdad.
+Que tu paz, hermano, sea don.
+Es el mejor signo de amor
+que tú nos puedes ofrecer,
+abrazo de paz.` },
+    
+/* ===== CANTO 3===== */ 
+     { titulo:"La Paz que que el mundo", tono:"ReM",
+      letra:`La paz a vosotros, os doy.
+Es la paz que el mundo no puede dar,
+es la paz que el mundo,
+no puede entender.
+Paz para amar, paz para conocer
+mi paz a vosotros os doy. (2)` },
+    
+/* ===== CANTO 4===== */ 
+     { titulo:"Dame la mano", tono:"MiM",
+      letra:`No importa del sitio que vengas,
+si del campo, ciudad, todo es igual;
+si tu corazón es como el mío,
+dame la mano y mi hermano serás.
 
-Señor Jesucristo,
-que dijiste a tus apóstoles:
-la paz os dejo, mi paz os doy;
-no mires nuestros pecados,
-sino la fe de tu Iglesia.
+DAME LA MANO (3)
+Y MI HERMANO SERÁS. (2)
 
-Y concédele la paz y la unidad
-conforme a tu voluntad.
-Danos la paz, Señor.` }
+No importa la raza que seas,
+pobre o rico, Cristo te amará;
+si tu corazón es como el mío,
+dame la mano y mi hermano serás.
+Oh hermano, juntemos las manos
+y unidos vamos a luchar;
+si tu corazón es como el mío,
+dame la mano y mi hermano serás.`},
+    
+/* ===== CANTO 5===== */ 
+  { titulo:"Paz, paz, amor y paz", tono:"DoM",
+      letra:`Paz, paz, amor y paz
+Hombres de la tierra 
+Joven escuchad
+Paz, paz, amor y paz
+Es lo que queremos celebrar.`},
+
+/* ===== CANTO 6===== */ 
+{ titulo:"Démonos un simbolo de paz", tono:"SolM",
+      letra:`Con las manos unidas,
+con las voces unidas,
+con las almas unidas
+como señal de paz.
+
+DÉMONOS UN SÍMBOLO DE PAZ. (2)
+
+Un apretón de manos,
+una mano en el hombro,
+una mirada dulce,
+como señal de paz.
+
+Tu mano campesina,
+tu mano carpintera,
+tu mano siempre amiga,
+como señal de paz.`}
   ],
 
   /* ====================================================== CANTOS DE CORDERO ================================================== */
   "Cordero": [
-    { titulo:"Pon sin Pon", tono:"SolM",
-      letra:`Cordero de Dios,
-que quitas el pecado del mundo,
-ten piedad de nosotros.
+    { titulo:"Cordero, tu que quitas", tono:"SolM",
+      letra:`Cordero,
+tu que quitas el pecado del mundo (2)
+Señor, piedad de nosotros.
+
+Cordero,
+tu que quitas el pecado del mundo (2)
+Señor, piedad de nosotros.
 
 Cordero de Dios,
-que quitas el pecado del mundo,
-ten piedad de nosotros.
-
-Cordero de Dios,
-que quitas el pecado del mundo,
-danos la paz.` },
-
-    { titulo:"Cordero de Dios", tono:"DoM",
-      letra:`Cordero de Dios,
-que quitas el pecado del mundo,
-ten piedad de nosotros.
-
-Cordero de Dios,
-que quitas el pecado del mundo,
-ten piedad de nosotros.
-
-Cordero de Dios,
-que quitas el pecado del mundo,
-danos la paz, danos la paz.` },
-
-    { titulo:"Agnus Dei", tono:"Mim",
-      letra:`Agnus Dei,
-qui tollis peccata mundi,
-miserere nobis.
-
-Agnus Dei,
-qui tollis peccata mundi,
-miserere nobis.
-
-Agnus Dei,
-qui tollis peccata mundi,
-dona nobis pacem.` }
+tu que quitas el pecado del mundo (2)
+danos la paz.` }
   ],
 
   /* ======================================================= CANTOS DE COMUNIÓN ================================================== */
   "Comunión": [
-    { titulo:"Recíbeme", tono:"ReM",
-      letra:`Recíbeme, Señor, en tu amor,
-recíbeme en tu paz.
-Tú eres el pan de vida,
-el agua que me da eternidad.
+    { titulo:"En su mesa hay amor", tono:"DoM",
+      letra:`EL SEÑOR NOS HA REUNIDO JUNTO A ÉL,
+EL SEÑOR NOS HA INVITADO A ESTAR CON ÉL.
+EN SU MESA HAY AMOR,
+LA PROMESA DEL PERDÓN,
+Y EN EL VINO Y PAN SU CORAZÓN. (2)
 
-Señor, no soy digno
-de que entres en mi morada,
-pero una palabra tuya
-bastará para sanarme.
-
-Recíbeme, Señor, en tu amor,
-recíbeme en tu paz.
-Que tu Cuerpo y tu Sangre
-me transformen en tu amor.` },
-
-    { titulo:"Pan de Vida", tono:"SolM",
-      letra:`Pan de vida y cáliz de salvación,
-Cristo viene hoy.
-Pan de vida y cáliz de salvación,
-gloria al Señor.
-
-Yo soy el pan vivo bajado del cielo,
-el que come de mí no morirá.
-Yo soy el pan que da vida al mundo,
-venid a mí y viviréis.
-
-Pan de vida y cáliz de salvación,
-Cristo viene hoy.` },
-
-    { titulo:"Alma de Cristo", tono:"Mim",
-      letra:`Alma de Cristo, santifícame.
-Cuerpo de Cristo, sálvame.
-Sangre de Cristo, embriágame.
-Agua del costado de Cristo, lávame.
-
-Pasión de Cristo, confórtame.
-¡Oh buen Jesús, óyeme!
-Dentro de tus llagas, escóndeme.
-No permitas que me aparte de Ti.
-
-Del maligno enemigo, defiéndeme.
-En la hora de mi muerte, llámame.
-Y mándame ir a Ti,
-para que con tus santos te alabe
-por los siglos de los siglos. Amén.` },
-
-    { titulo:"En Esta Mesa", tono:"DoM",
-      letra:`En esta mesa el pan se parte,
-en esta mesa hay salvación.
-El que se acerca con amor
-encuentra vida y redención.
-
-Venid, comed de este pan,
-bebed del cáliz de la alianza.
-Mi Cuerpo y Sangre os doy en prenda
-de vida eterna y esperanza.
-
-En esta mesa el pan se parte,
-en esta mesa hay salvación.` },
-
-    { titulo:"Tu Pueblo, Señor", tono:"ReM",
-      letra:`Tu pueblo, Señor, quiere verte,
-acercarse a Tu altar.
-Tu pueblo, Señor, viene hoy a recibirte
-en este Pan de Vida inmortal.
-
-Señor, no soy digno de recibirte,
-pero una sola palabra tuya
-bastará para sanarme.
-
-Tu pueblo, Señor, quiere verte...` }
+Cuando, Señor, tu voz,
+llega en silencio a mí,
+y mis hermanos me hablan de Ti.
+Sé que a mi lado estás,
+te sientas junto a mí:
+Acojes mi vida y mi oración.` }
   ],
 
   /* ================================================= CANTOS DE SALIDA ========================================================== */
   "Salida": [
-    { titulo:"Oigo tu Voz", tono:"SolM",
-      letra:`Oigo tu voz que me llama,
-oigo tu voz que me llama.
-Aquí estoy, Señor,
-aquí estoy.
+    { titulo:"Moisaico 1", tono:"MiM",
+      letra:`Mi Dios está vivo,
+Él no está muerto (3)
+Lo siento en mis manos,
+lo siento en mis pies,
+lo siento en mi alma
+lo siento en todo mi ser.
 
-Envíame a mí,
-que yo iré.
-Envíame a mí,
-que yo iré.
+Oh, oh, oh, oh, hay que nacer
+del agua
+Oh, oh, oh, oh hay que nacer
+del Espíritu de Dios (2)
 
-Id por todo el mundo
-y proclamad el Evangelio,
-bautizad en el nombre
-del Padre, el Hijo y el Espíritu Santo.
+Oh, oh, oh, oh hay que nacer
+del agua y del Espíritu de Dios
+hay que nacer del Señor. (2)
 
-Oigo tu voz que me llama...` },
+Yo te alabo con el corazón,
+Yo te alabo con la voz (2)
+Y si me falta la voz,
+yo te alabo con las manos
+Y si me faltan las manos,
+yo te alabo con los pies
+Y si me faltan los pies,
+yo te alabo el alma
+Y si me faltara el alma,
+es que ya me fui con El.
 
-    { titulo:"Alabaré", tono:"MiM",
-      letra:`Alabaré, alabaré,
-alabaré a mi Señor.
-Alabaré, alabaré,
-alabaré a mi Señor.
+No hay Dios tan grande como Tú,
+No lo hay, no lo hay (2).
 
-Juan vio el número
-de los redimidos,
-y todos alababan al Señor.
-Unos oraban, otros cantaban,
-y todos alababan al Señor.
-
-Todos unidos, alegres cantamos,
-gloria y alabanzas al Señor.
-De día y de noche sin cesar cantamos,
-gloria y alabanzas al Señor.` },
-
-    { titulo:"Id y Enseñad", tono:"ReM",
-      letra:`Id y enseñad a todas las naciones.
-Id y enseñad el camino del Señor.
-Bautizad en el nombre del Padre,
-del Hijo y del Espíritu Santo.
-
-Y sabed que yo estoy con vosotros
-hasta el fin de los tiempos.
-Id y proclamad el Evangelio
-a toda la creación.
-
-Id y enseñad a todas las naciones.` },
-
-    { titulo:"Glorificad al Señor", tono:"DoM",
-      letra:`Glorificad al Señor con vuestra vida,
-aleluya.
-Id y anunciad las maravillas de Dios,
-aleluya.
-
-El Señor os envía,
-id en paz.
-El Señor os acompaña,
-aleluya, aleluya.
-
-Glorificad al Señor con vuestra vida...` }
+No hay Dios
+que pueda hacer las cosas
+como las que haces Tú. (2)`}
+    
   ],
-
+/*================================================= Marianos y otros ========================================================== */
   "Marianos y Otros": [
-    { titulo:"María del Camino", tono:"DoM",
-      letra:`Tú, que has creído
-la palabra del Señor,
-bienaventurada, llena de amor.
+    { titulo:"Santa María del Camino", tono:"DoM",
+      letra:`Mientras recorres la vida
+tú nunca solo estás;
+contigo por el camino
+Santa María va.
 
-María del camino,
-María de la paz,
-María la que guarda
-la fe de Israel.
+VEN CON NOSOTROS AL CAMINAR,
+SANTA MARÍA, VEN. (2)
 
-Bendita tú entre las mujeres
-y bendito el fruto de tu vientre.
-Tú que escuchaste la voz del Señor
-y dijiste sí con todo tu amor.
+Aunque te digan algunos
+que nada puede cambiar,
+lucha por un mundo nuevo,
+lucha por la verdad.
 
-María del camino, guíanos tú.` },
+Si por el mundo los hombres
+sin conocer se van,
+no niegues nunca tu mano
+al que contigo está.
+
+Aunque parezcan tus pasos
+inútil caminar,
+tú vas haciendo caminos:
+otros lo seguirán.` },
 
     { titulo:"Ave María Llena eres de Gracia", tono:"SolM",
       letra:`Ave María, llena eres de gracia,
