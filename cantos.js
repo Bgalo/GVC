@@ -1331,7 +1331,7 @@ la paz, la paz sea contigo.
 ` },
     
 /* ===== CANTO 2===== */ 
-    { titulo:"Paz en la tiera", tono:"ReM",
+    { titulo:"Paz en la tierra", tono:"ReM",
       letra:`PAZ EN LA TIERRA,
 PAZ EN LAS ALTURAS.
 QUE EL GOZO ETERNO REINE,
