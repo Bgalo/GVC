@@ -1408,15 +1408,15 @@ como señal de paz.`}
     { titulo:"Cordero, tu que quitas", tono:"SolM",
       letra:`Cordero,
 tu que quitas el pecado del mundo (2)
-Señor, piedad de nosotros.
+Señor, ten piedad.
 
 Cordero,
 tu que quitas el pecado del mundo (2)
-Señor, piedad de nosotros.
+Señor, ten piedad.
 
 Cordero de Dios,
 tu que quitas el pecado del mundo (2)
-danos la paz.` }
+Señor. danos la paz. (3)` }
   ],
 
   /* ======================================================= CANTOS DE COMUNIÓN ================================================== */
