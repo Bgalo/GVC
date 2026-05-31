@@ -1304,7 +1304,7 @@ hasta que vuelvas, Señor.` }
       letra:`¡Amén!
 
 Bendición y gloria, sabiburía,
-acción de gracias demos a Dios.m
+acción de gracias demos a Dios.
 
 ¡Amén! ¡Amén! ¡Amén!` }
   ],
