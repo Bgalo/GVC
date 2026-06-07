@@ -768,7 +768,7 @@ ofrendas de paz.` },
 
 /* ===== CANTO 9===== */ 
 
-    { titulo:"Te ofrecemos el pan", tono:"MiM",
+    { titulo:"Te ofrecemos el pan", tono:"SolM",
       letra:`Te ofrecemos el pan
 fruto de nuestro sudor,
 te ofrecemos el vino
@@ -1081,7 +1081,7 @@ ofrendas de paz.` },
 
 /* ===== CANTO 9===== */ 
 
-    { titulo:"Te ofrecemos el pan", tono:"MiM",
+    { titulo:"Te ofrecemos el pan", tono:"SolM",
       letra:`Te ofrecemos el pan
 fruto de nuestro sudor,
 te ofrecemos el vino
