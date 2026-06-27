@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GVC — Planificador Eucarístico</title>
+  
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎸</text></svg>">
+  
   <meta name="description" content="Herramienta de planificación litúrgica del Ministerio Musical Guitarras y Voces para Cristo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -163,6 +165,34 @@
     .pdf-hint { font-size: .75rem; color: var(--text-3); text-align: center; max-width: 400px; }
     .app-footer { text-align: center; padding: 2rem 1rem 1rem; font-size: .75rem; color: var(--text-3); border-top: 1px solid var(--glass-border); }
 
+    /* ============================================================
+       ALERTA PERSONALIZADA (MODAL)
+    ============================================================ */
+    .custom-alert-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .custom-alert-overlay.show { opacity: 1; pointer-events: auto; }
+    .custom-alert-box {
+      background: var(--bg-b); border: 1px solid var(--c3); border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem; text-align: center; max-width: 420px; width: 90%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px var(--glow-strong);
+      transform: translateY(20px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .custom-alert-overlay.show .custom-alert-box { transform: translateY(0) scale(1); }
+    .custom-alert-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: blink 2s infinite; }
+    .custom-alert-title { color: var(--text-1); font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .custom-alert-text { color: var(--text-2); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
+    .custom-alert-btn {
+      background: linear-gradient(135deg, var(--c2) 0%, var(--c3) 100%);
+      border: none; border-radius: 100px; color: #fff; padding: 0.8rem 2.5rem;
+      font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 4px 15px var(--glow);
+    }
+    .custom-alert-btn:hover { box-shadow: 0 8px 25px var(--glow-strong); transform: translateY(-2px); }
+
     .confetti-piece { position: fixed; top: -12px; width: 9px; height: 9px; border-radius: 2px; animation: falling linear forwards; z-index: 9999; pointer-events: none; }
     @keyframes falling { to { top: 110vh; transform: rotate(720deg) translateX(80px); opacity: 0; } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -310,6 +340,15 @@
     <p>⛪ <em>Guitarras y Voces para Cristo (GVC)</em> — Ministerio Musical</p>
     <p style="margin-top:.4rem;">Herramienta de Planificación Litúrgica · Uso interno del Ministerio</p>
   </footer>
+</div>
+
+<div id="custom-alert" class="custom-alert-overlay">
+  <div class="custom-alert-box">
+    <div class="custom-alert-icon">⚠️</div>
+    <h3 class="custom-alert-title">Repertorio Vacío</h3>
+    <p class="custom-alert-text">Por favor, selecciona o ingresa al menos un canto antes de generar la hoja para la misa.</p>
+    <button class="custom-alert-btn" onclick="cerrarAlerta()">Entendido</button>
+  </div>
 </div>
 
 <script src="cantos.js"></script>
@@ -508,9 +547,22 @@ async function getLogoBase64() {
   } catch (e) { return null; }
 }
 
+// Funciones para la alerta personalizada
+function mostrarAlerta() {
+  document.getElementById('custom-alert').classList.add('show');
+}
+function cerrarAlerta() {
+  document.getElementById('custom-alert').classList.remove('show');
+}
+
 async function generarPDF() {
   if (!window.jspdf) { alert('La librería PDF no está cargada.'); return; }
-  if (Object.keys(state).length === 0) { alert("El repertorio está vacío. Selecciona al menos un canto."); return; }
+  
+  // Validar si está vacío para mostrar la nueva ALERTA MODAL
+  if (Object.keys(state).length === 0) { 
+    mostrarAlerta(); 
+    return; 
+  }
 
   const btn = document.getElementById('btn-pdf');
   const btnTexto = btn.innerHTML;
@@ -641,26 +693,22 @@ async function generarPDF() {
 
       // --- ENLACE DE YOUTUBE LIMPIO ---
       if (s.yt && s.yt.trim() !== "") {
-        nl(4); // Pequeño salto
-        doc.setTextColor(37, 99, 235); // Color azul estándar para links
+        nl(4); 
+        doc.setTextColor(37, 99, 235); 
         doc.setFont('helvetica','italic'); doc.setFontSize(7.5);
         
         const ytText = "Ver video en YouTube";
         const linkW = doc.getTextWidth(ytText);
         
-        // Imprime el texto azul a la derecha
         doc.text(ytText, PW-MR, y, {align: 'right'});
-        
-        // Crea el área interactiva transparente sobre el texto
         doc.link(PW-MR-linkW, y-3, linkW, 4, { url: s.yt });
         
-        // Dibuja una línea fina debajo para que parezca subrayado
         doc.setDrawColor(37, 99, 235); doc.setLineWidth(0.15);
         doc.line(PW-MR-linkW, y+0.5, PW-MR, y+0.5);
         
-        nl(4.5); // Salto extra antes de la letra
+        nl(4.5); 
       } else {
-        nl(5.5); // Salto estándar si no hay link
+        nl(5.5); 
       }
 
       doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(60,60,60);
