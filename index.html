@@ -166,7 +166,7 @@
     .app-footer { text-align: center; padding: 2rem 1rem 1rem; font-size: .75rem; color: var(--text-3); border-top: 1px solid var(--glass-border); }
 
     /* ============================================================
-       ALERTA PERSONALIZADA (MODAL)
+       MODALES PERSONALIZADOS (ALERTAS Y CONFIRMACIÓN)
     ============================================================ */
     .custom-alert-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -175,6 +175,7 @@
       z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
     .custom-alert-overlay.show { opacity: 1; pointer-events: auto; }
+    
     .custom-alert-box {
       background: var(--bg-b); border: 1px solid var(--c3); border-radius: var(--radius-lg);
       padding: 2.5rem 2rem; text-align: center; max-width: 420px; width: 90%;
@@ -182,9 +183,12 @@
       transform: translateY(20px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .custom-alert-overlay.show .custom-alert-box { transform: translateY(0) scale(1); }
+    
     .custom-alert-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: blink 2s infinite; }
     .custom-alert-title { color: var(--text-1); font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.8rem; }
     .custom-alert-text { color: var(--text-2); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
+    
+    /* Botones de modales */
     .custom-alert-btn {
       background: linear-gradient(135deg, var(--c2) 0%, var(--c3) 100%);
       border: none; border-radius: 100px; color: #fff; padding: 0.8rem 2.5rem;
@@ -192,6 +196,14 @@
       box-shadow: 0 4px 15px var(--glow);
     }
     .custom-alert-btn:hover { box-shadow: 0 8px 25px var(--glow-strong); transform: translateY(-2px); }
+    
+    .confirm-buttons { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+    
+    .btn-cancel { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: var(--text-2); box-shadow: none; }
+    .btn-cancel:hover { background: rgba(255,255,255,0.15); box-shadow: none; transform: translateY(-2px); color: #fff; }
+    
+    .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+    .btn-danger:hover { box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5); transform: translateY(-2px); }
 
     .confetti-piece { position: fixed; top: -12px; width: 9px; height: 9px; border-radius: 2px; animation: falling linear forwards; z-index: 9999; pointer-events: none; }
     @keyframes falling { to { top: 110vh; transform: rotate(720deg) translateX(80px); opacity: 0; } }
@@ -326,7 +338,7 @@
 
   <div class="pdf-zone">
     <div class="action-buttons">
-      <button class="clear-btn" onclick="borrarContenido()">
+      <button class="clear-btn" onclick="abrirConfirmacion()">
         <span>🗑️</span> Limpiar Todo
       </button>
       <button class="pdf-btn" id="btn-pdf" onclick="generarPDF()">
@@ -348,6 +360,18 @@
     <h3 class="custom-alert-title">Repertorio Vacío</h3>
     <p class="custom-alert-text">Por favor, selecciona o ingresa al menos un canto antes de generar la hoja para la misa.</p>
     <button class="custom-alert-btn" onclick="cerrarAlerta()">Entendido</button>
+  </div>
+</div>
+
+<div id="custom-confirm" class="custom-alert-overlay">
+  <div class="custom-alert-box">
+    <div class="custom-alert-icon" style="animation: none;">🗑️</div>
+    <h3 class="custom-alert-title">¿Limpiar Todo?</h3>
+    <p class="custom-alert-text">¿Estás seguro de que deseas borrar toda la planificación actual? Esta acción no se puede deshacer.</p>
+    <div class="confirm-buttons">
+      <button class="custom-alert-btn btn-cancel" onclick="cerrarConfirmacion()">Cancelar</button>
+      <button class="custom-alert-btn btn-danger" onclick="ejecutarBorrado()">Sí, limpiar</button>
+    </div>
   </div>
 </div>
 
@@ -499,10 +523,29 @@ function cambiarTiempo(t) {
   if (info) document.getElementById('lbl-tiempo').textContent = `${info.label} · ${info.color}`;
 }
 
-function borrarContenido() {
-  if (!confirm("¿Estás seguro de que deseas borrar toda la planificación actual?")) return;
+/* ============================================================
+   LÓGICA DE VENTANAS MODALES (POP-UPS)
+============================================================ */
+function mostrarAlerta() {
+  document.getElementById('custom-alert').classList.add('show');
+}
+function cerrarAlerta() {
+  document.getElementById('custom-alert').classList.remove('show');
+}
+
+function abrirConfirmacion() {
+  document.getElementById('custom-confirm').classList.add('show');
+}
+function cerrarConfirmacion() {
+  document.getElementById('custom-confirm').classList.remove('show');
+}
+
+function ejecutarBorrado() {
+  cerrarConfirmacion(); // Cierra el pop-up
+  
   for (let key in state) delete state[key];
   for (let key in open) open[key] = false;
+  
   document.querySelectorAll('.canto-select').forEach(sel => sel.value = "");
   document.querySelectorAll('.input-extra').forEach(inp => inp.value = "");
   document.querySelectorAll('.canto-card').forEach(card => card.classList.remove('is-selected', 'is-omitted'));
@@ -510,6 +553,7 @@ function borrarContenido() {
   document.querySelectorAll('.lyric-accordion').forEach(acc => acc.classList.remove('open'));
   document.querySelectorAll('.lect-input, .notes-input').forEach(inp => inp.value = "");
   document.getElementById('inp-responsable').value = "";
+  
   actualizarProgreso();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -547,18 +591,10 @@ async function getLogoBase64() {
   } catch (e) { return null; }
 }
 
-// Funciones para la alerta personalizada
-function mostrarAlerta() {
-  document.getElementById('custom-alert').classList.add('show');
-}
-function cerrarAlerta() {
-  document.getElementById('custom-alert').classList.remove('show');
-}
-
 async function generarPDF() {
   if (!window.jspdf) { alert('La librería PDF no está cargada.'); return; }
   
-  // Validar si está vacío para mostrar la nueva ALERTA MODAL
+  // Validar si está vacío para mostrar la ALERTA MODAL
   if (Object.keys(state).length === 0) { 
     mostrarAlerta(); 
     return; 
