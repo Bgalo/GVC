@@ -107,7 +107,7 @@ ha envejecido sin dejarme de querer.` },
 ¡VAMOS YA HACIA LA CASA DE DIOS!
 
 Fuerte y bien construida
-es la ciudad de Sión;
+es la ciudad de Sión; 
 en ella se reúnen
 las tribus del Señor.
 
@@ -1296,7 +1296,7 @@ hasta que vuelvas, Señor.` }
 
   /* ================================================== CANTOS DE AMÉN ============================================================ */
   "Amén": [
-    { titulo:"Bayron", tono:"Sim",
+    { titulo:"GVC-1", tono:"Sim",
       letra:`Amén (8).` },
     
 /* ===== CANTO 2===== */ 
@@ -1306,7 +1306,14 @@ hasta que vuelvas, Señor.` }
 Bendición y gloria, sabiburía,
 acción de gracias demos a Dios.
 
-¡Amén! ¡Amén! ¡Amén!` }
+¡Amén! ¡Amén! ¡Amén!` },
+
+    { titulo:"Si Amén", tono:"MiM",
+      letra:`Si Amén (3).
+      Amén, Amén.
+      
+     Si Amén (3).
+    Amén, Amén.` }
   ],
 
   /* ================================================== CANTOS DE TUYO ES EL REINO ================================================== */
@@ -1416,7 +1423,57 @@ Señor, ten piedad.
 
 Cordero de Dios,
 tu que quitas el pecado del mundo (2)
-Señor. danos la paz. (3)` }
+Señor. danos la paz. (3)` },
+
+/* ===== CANTO 2===== */ 
+{ titulo:"Cordero", tono:"Lam",
+  letra:`Cordero de Dios que quitas
+el pecado del mundo. (2)
+Ten piedad de nosotros,
+de nosotros ten piedad. (2) (bis)
+
+Cordero de Dios que quitas
+el pecado del mundo.(2)
+Danos la paz, danos la paz,
+danos la paz, danos la paz.
+`},
+    
+/* ===== CANTO 3===== */ 
+{ titulo:"Cordero", tono:"Fa#m",
+  letra:`Cordero de Dios que quitas
+el pecado del mundo. (2)
+Ten piedad de nosotros,
+de nosotros ten piedad. (2) (bis)
+
+Cordero de Dios que quitas
+el pecado del mundo.(2)
+Danos la paz, danos la paz,
+danos la paz, danos la paz.
+`},
+
+/* ===== CANTO 4===== */ 
+{ titulo:"Cordero", tono:"SolM>LaM",
+  letra:`Cordero de Dios, 
+  tu que quitas el pecado del mundo.
+Ten piedad de nosotros,
+cordero de Dios. (2) (bis)
+
+Cordero de Dios que quitas
+el pecado del mundo.
+Danos la paz, danos la paz,
+danos la paz, danos la paz.
+`},
+
+/* ===== CANTO 5===== */ 
+{ titulo:"Cordero", tono:"Mim",
+  letra:`Cordero de Dios, 
+  que quitas el pecado del mundo.
+Ten piedad de nosotros (2)(bis)
+
+Cordero de Dios que quitas
+el pecado del mundo.
+Danos la paz, danos la paz,
+danos la paz, danos la paz.`}
   ],
 
   /* ======================================================= CANTOS DE COMUNIÓN ================================================== */
