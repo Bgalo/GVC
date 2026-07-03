@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GVC — Planificador Eucarístico</title>
+  <meta name="description" content="Herramienta de planificación litúrgica del Ministerio Musical Guitarras y Voces para Cristo.">
+  <meta property="og:title" content="GVC — Planificador Eucarístico">
+  <meta property="og:description" content="Planifica los cantos de la Santa Eucaristía con el Ministerio Musical GVC.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#d97706">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎸</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="jspdf.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --transition-theme: background 0.6s cubic-bezier(.4,0,.2,1), color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      --transition-ui: all 0.25s cubic-bezier(.4,0,.2,1);
+      --radius-lg: 18px; --radius-md: 12px; --radius-sm: 8px; --radius-xs: 6px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.25); --shadow-md: 0 8px 32px rgba(0,0,0,.35);
+      --glass: rgba(255,255,255,.055); --glass-border: rgba(255,255,255,.10);
+      --text-1: #f5f5f5; --text-2: rgba(245,245,245,.72); --text-3: rgba(245,245,245,.42);
+    }
+    [data-tiempo="ordinario"] {
+      --c1:#14532d;--c2:#166534;--c3:#16a34a;--c4:#4ade80;
+      --glow:rgba(22,163,74,.28);--glow-strong:rgba(22,163,74,.45);
+      --bg-a:#030d07;--bg-b:#062413;--bg-c:#0a3a1e;
+    }
+    [data-tiempo="adviento"] {
+      --c1:#4a1572;--c2:#581c87;--c3:#9333ea;--c4:#c084fc;
+      --glow:rgba(147,51,234,.28);--glow-strong:rgba(147,51,234,.45);
+      --bg-a:#0a0318;--bg-b:#180633;--bg-c:#280a52;
+    }
+    [data-tiempo="cuaresma"] {
+      --c1:#3b0764;--c2:#4c1d95;--c3:#7c3aed;--c4:#a78bfa;
+      --glow:rgba(124,58,237,.28);--glow-strong:rgba(124,58,237,.45);
+      --bg-a:#090312;--bg-b:#150d28;--bg-c:#211540;
+    }
+    [data-tiempo="pascua"] {
+      --c1:#78350f;--c2:#92400e;--c3:#d97706;--c4:#fcd34d;
+      --glow:rgba(217,119,6,.28);--glow-strong:rgba(217,119,6,.45);
+      --bg-a:#0d0700;--bg-b:#1c1000;--bg-c:#301a00;
+    }
+    [data-tiempo="navidad"] {
+      --c1:#7f1d1d;--c2:#991b1b;--c3:#e11d48;--c4:#fda4af;
+      --glow:rgba(225,29,72,.28);--glow-strong:rgba(225,29,72,.45);
+      --bg-a:#0d0101;--bg-b:#1c0505;--bg-c:#300a0a;
+    }
+    [data-tiempo="fiesta"] {
+      --c1:#9b1c1c;--c2:#b91c1c;--c3:#ef4444;--c4:#fca5a5;
+      --glow:rgba(239,68,68,.28);--glow-strong:rgba(239,68,68,.45);
+      --bg-a:#0e0202;--bg-b:#200505;--bg-c:#380808;
+    }
+
+    /* ============================================================
+       BASE
+    ============================================================ */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;background:radial-gradient(ellipse at 15% 10%,var(--glow) 0%,transparent 50%),radial-gradient(ellipse at 85% 90%,var(--glow) 0%,transparent 50%),linear-gradient(160deg,var(--bg-a) 0%,var(--bg-b) 40%,var(--bg-c) 100%);background-attachment:fixed;color:var(--text-1);min-height:100vh;transition:var(--transition-theme);overflow-x:hidden}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.012'%3E%3Cpath d='M42 38v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zm0-38v4h-4v-4h4zm38 38v4h-4v-4h4zm-38 38v4h-4v-4h4zM4 42h4v-4H4v4zm72 0h4v-4h-4v4z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0}
+    .page-wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem 4rem;position:relative;z-index:1}
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .app-header{padding:3.5rem 1rem 2rem;text-align:center;animation:fadeUp .7s ease both}
+    .app-logo{margin-bottom:1rem}
+    .app-logo img{height:105px;width:auto;object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 4px 12px var(--glow-strong));transition:var(--transition-theme)}
+    .ministry-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;background:var(--glass);border:1px solid var(--c3);border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c4);margin-bottom:1.4rem}
+    .pill-dot{width:6px;height:6px;border-radius:50%;background:var(--c3);box-shadow:0 0 8px var(--c3);animation:blink 2.2s ease-in-out infinite}
+    .app-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;background:linear-gradient(135deg,var(--text-1) 30%,var(--c4) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem}
+    .app-subtitle{font-size:.9rem;font-weight:300;color:var(--text-2);letter-spacing:.02em}
+
+    /* ============================================================
+       CONTROLS BAR
+    ============================================================ */
+    .controls-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(24px);border-radius:var(--radius-lg);padding:1.4rem 1.5rem;margin-bottom:1.5rem;animation:fadeUp .7s .1s ease both}
+    @media(max-width:680px){.controls-bar{grid-template-columns:1fr}}
+    .ctrl-group{display:flex;flex-direction:column;gap:.45rem}
+    .ctrl-label{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--c4)}
+    .ctrl-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:var(--radius-sm);color:var(--text-1);font-family:'Inter',sans-serif;font-size:.875rem;padding:.62rem .85rem;width:100%;outline:none;transition:var(--transition-ui)}
+    .ctrl-input:focus{border-color:var(--c3);box-shadow:0 0 0 3px var(--glow)}
+    select.ctrl-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.45)' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .7rem center;background-size:.9rem;padding-right:2.2rem;cursor:pointer}
+    .ctrl-input option{background:#120a20;color:#f5f5f5}
+
+    /* ============================================================
+       TIEMPO STRIP
+    ============================================================ */
+    .tiempo-strip{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;animation:fadeUp .7s .15s ease both}
+    .tiempo-chip{display:inline-flex;align-items:center;gap:.65rem;padding:.6rem 1.4rem;background:var(--glass);border:1px solid var(--c3);border-radius:100px}
+    .tiempo-gem{width:12px;height:12px;border-radius:50%;background:var(--c3);box-shadow:0 0 14px var(--glow-strong),0 0 4px var(--c3)}
+    .tiempo-label{font-size:.82rem;font-weight:600;color:var(--c4)}
+
+    /* ============================================================
+       TIMELINE VISUAL DE LA MISA
+    ============================================================ */
+    .mass-timeline{display:flex;align-items:flex-start;overflow-x:auto;padding:1rem 0 1.8rem;margin-bottom:1rem;animation:fadeUp .7s .18s ease both;scrollbar-width:none}
+    .mass-timeline::-webkit-scrollbar{display:none}
+    .tl-step{display:flex;flex-direction:column;align-items:center;position:relative;flex:1;min-width:62px}
+    .tl-connector{position:absolute;top:15px;right:50%;width:100%;height:2px;background:rgba(255,255,255,.07);z-index:0;transition:background .4s ease}
+    .tl-node{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--glass);border:2px solid rgba(255,255,255,.1);font-size:.75rem;position:relative;z-index:1;transition:all .35s ease;cursor:pointer}
+    .tl-node:hover{transform:scale(1.15)}
+    .tl-node[data-status="selected"]{border-color:var(--c3);background:var(--glow);box-shadow:0 0 14px var(--glow)}
+    .tl-node[data-status="omitted"]{opacity:.35;border-style:dashed}
+    .tl-name{font-size:.52rem;color:var(--text-3);margin-top:.3rem;text-align:center;white-space:nowrap;font-weight:500;letter-spacing:.02em;transition:color .3s ease}
+    .tl-step:has(.tl-node[data-status="selected"]) .tl-name{color:var(--c4);font-weight:600}
+    .tl-step:has(.tl-node[data-status="selected"]) .tl-connector{background:var(--c3)}
+
+    /* ============================================================
+       MASS SECTIONS & CARDS
+    ============================================================ */
+    .mass-section{margin-bottom:2rem;animation:fadeUp .7s ease both}
+    .section-head{display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+    .sec-line-l{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--c3))}
+    .sec-line-r{flex:1;height:1px;background:linear-gradient(270deg,transparent,var(--c3))}
+    .sec-title{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c4);white-space:nowrap}
+    .cantos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:.9rem}
+    @media(max-width:560px){.cantos-grid{grid-template-columns:1fr}}
+
+    /* Card — overflow:visible so dropdown & lyric accordion are NOT clipped */
+    .canto-card{background:var(--glass);border:1px solid var(--glass-border);border-left:3px solid var(--c3);backdrop-filter:blur(20px);border-radius:var(--radius-lg);padding:1.15rem;transition:all .3s ease;position:relative;overflow:visible}
+    .canto-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+    .canto-card.is-selected{border-color:var(--c3);border-left-color:var(--c4);background:rgba(255,255,255,.08);box-shadow:0 0 0 1px var(--c3),var(--shadow-sm)}
+    .canto-card.is-omitted{border-color:rgba(255,255,255,0.1);border-left-color:rgba(255,255,255,0.2);background:rgba(0,0,0,.15);opacity:0.7}
+    .canto-card.is-omitted .card-name{color:var(--text-2)}
+    .card-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
+    .card-name{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c4)}
+
+    /* ============================================================
+       SEARCHABLE DROPDOWN
+    ============================================================ */
+    .search-select{position:relative}
+    .ss-display{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.11);border-radius:var(--radius-sm);color:var(--text-1);font-family:'Inter',sans-serif;font-size:.84rem;padding:.58rem .8rem;padding-right:2.2rem;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.4)' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .65rem center;background-size:.88rem;transition:var(--transition-ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;user-select:none}
+    .ss-display:hover{border-color:rgba(255,255,255,.22)}
+    /* Portal + fixed: escapa de CUALQUIER stacking context o transform del padre */
+    .ss-panel{position:fixed;background:rgb(10,8,20);border:1px solid var(--c3);border-radius:var(--radius-sm);z-index:9000;display:none;box-shadow:0 16px 48px rgba(0,0,0,.9);overflow:hidden}
+    .ss-panel.open{display:block;animation:fadeUp .2s ease}
+    .ss-search{width:100%;padding:.65rem .8rem;border:none;border-bottom:1px solid rgba(255,255,255,.08);background:rgb(10,8,20);color:var(--text-1);font-family:'Inter',sans-serif;font-size:.8rem;outline:none}
+    .ss-search::placeholder{color:var(--text-3)}
+    .ss-options{max-height:240px;overflow-y:auto;background:rgb(10,8,20)}
+    .ss-options::-webkit-scrollbar{width:3px}
+    .ss-options::-webkit-scrollbar-thumb{background:var(--c3);border-radius:100px}
+    .ss-option{padding:.55rem .8rem;cursor:pointer;font-size:.8rem;color:var(--text-2);transition:background .12s ease,color .12s ease;border-left:3px solid transparent;background:rgb(10,8,20)}
+    .ss-option:hover{background:rgba(255,255,255,.07);color:var(--text-1)}
+    .ss-option.selected{background:var(--glow);color:var(--c4);border-left-color:var(--c3);font-weight:600}
+    .ss-option.hidden{display:none}
+
+    /* ============================================================
+       MANUAL INPUTS, LYRICS, META
+    ============================================================ */
+    .manual-inputs{display:flex;flex-direction:column;gap:0.5rem;margin-top:0.75rem}
+    .input-extra{background:rgba(0,0,0,0.2);border:1px dashed rgba(255,255,255,0.2);border-radius:var(--radius-sm);color:var(--text-1);font-family:'Inter',sans-serif;font-size:.8rem;padding:.6rem .75rem;width:100%;outline:none;transition:all 0.2s}
+    .input-extra:focus{border-style:solid;border-color:var(--c3);background:rgba(255,255,255,0.05)}
+    .card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:.6rem;gap:.5rem;flex-wrap:wrap}
+    .tono-chip{display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .65rem;background:var(--glow);border:1px solid var(--c3);border-radius:100px;font-size:.68rem;font-weight:600;color:var(--c4)}
+    .preview-btn{background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xs);color:var(--text-2);font-size:.7rem;padding:.22rem .65rem;cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:var(--transition-ui)}
+    .preview-btn:hover{border-color:var(--c3);color:var(--c4);background:var(--glow)}
+    .lyric-accordion{overflow:hidden;max-height:0;opacity:0;transition:max-height .42s ease,opacity .3s ease,margin .3s ease}
+    .lyric-accordion.open{max-height:650px;opacity:1;margin-top:.65rem}
+    .lyric-body{background:rgba(0,0,0,.28);border-radius:var(--radius-sm);padding:.9rem 1rem;font-size:.78rem;line-height:1.9;color:var(--text-2);white-space:pre-line;max-height:280px;overflow-y:auto}
+    .lyric-body::-webkit-scrollbar{width:3px}
+    .lyric-body::-webkit-scrollbar-thumb{background:var(--c3);border-radius:100px}
+
+    /* Duplicate badge */
+    .dup-badge{display:inline-flex;align-items:center;gap:.25rem;padding:.15rem .55rem;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.4);border-radius:100px;font-size:.6rem;font-weight:700;color:#fbbf24;margin-left:auto;animation:fadeUp .3s ease}
+
+    /* ============================================================
+       LECTURAS & NOTES
+    ============================================================ */
+    .lecturas-card{background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(20px);border-radius:var(--radius-lg);padding:1.4rem;margin-top:1rem}
+    .lecturas-title{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c4);margin-bottom:1rem}
+    .lecturas-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:580px){.lecturas-grid{grid-template-columns:1fr}}
+    .lect-field{display:flex;flex-direction:column;gap:.42rem}
+    .lect-label{font-size:.67rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--c4)}
+    .lect-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:var(--radius-sm);color:var(--text-1);font-size:.84rem;padding:.6rem .85rem;width:100%;outline:none;resize:none;font-family:'Inter',sans-serif}
+    .lect-input:focus{border-color:var(--c3);box-shadow:0 0 0 3px var(--glow)}
+    .salmo-pair{display:grid;grid-template-columns:68px 1fr;gap:.65rem}
+    .notes-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:1.2rem 1.4rem;margin-bottom:2rem}
+    .notes-label{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--c4);margin-bottom:.6rem;display:block}
+    .notes-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:var(--radius-sm);color:var(--text-1);font-size:.85rem;padding:.7rem .9rem;width:100%;outline:none;resize:vertical;min-height:70px;font-family:'Inter',sans-serif}
+    .notes-input:focus{border-color:var(--c3);box-shadow:0 0 0 3px var(--glow)}
+
+    /* ============================================================
+       STATS PANEL (COLLAPSIBLE)
+    ============================================================ */
+    .stats-panel{background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(16px);border-radius:var(--radius-lg);margin-bottom:2rem;overflow:hidden;animation:fadeUp .7s ease both}
+    .stats-toggle{width:100%;background:none;border:none;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:var(--c4);font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;transition:background .2s ease}
+    .stats-toggle:hover{background:rgba(255,255,255,.03)}
+    .stats-arrow{font-size:.6rem;transition:transform .3s ease}
+    .stats-arrow.open{transform:rotate(180deg)}
+    .stats-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1),padding .3s ease}
+    .stats-body.open{max-height:500px;padding:0 1.4rem 1.4rem}
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem}
+    @media(max-width:640px){.stats-grid{grid-template-columns:1fr}}
+    .stat-card{background:rgba(0,0,0,.2);border-radius:var(--radius-md);padding:1rem;position:relative}
+    .stat-card-title{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.8rem}
+    .stat-empty{font-size:.78rem;color:var(--text-3);text-align:center;padding:2rem 0;font-style:italic}
+
+    /* ============================================================
+       PROGRESS ENHANCED (DONUT + BREAKDOWN)
+    ============================================================ */
+    .progress-enhanced{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(16px);border-radius:var(--radius-lg);padding:1.5rem 2rem;margin-bottom:2.5rem;animation:fadeUp .7s .2s ease both}
+    @media(max-width:600px){.progress-enhanced{grid-template-columns:1fr;justify-items:center;text-align:center;gap:1.2rem;padding:1.2rem}}
+    .donut-wrap{position:relative;width:140px;height:140px}
+    .donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+    .donut-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--c4);line-height:1}
+    .donut-total{font-size:.72rem;color:var(--text-3);margin-top:.1rem}
+    .donut-pct{font-size:.65rem;font-weight:700;color:var(--c3);margin-top:.15rem;letter-spacing:.04em}
+    .progress-details{display:flex;flex-direction:column;gap:.8rem;width:100%}
+    .prog-label-main{font-size:.8rem;font-weight:600;color:var(--text-2)}
+    .prog-track{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden}
+    .prog-fill{height:100%;background:linear-gradient(90deg,var(--c2),var(--c3),var(--c4));border-radius:100px;transition:width .55s cubic-bezier(.4,0,.2,1);width:0%;box-shadow:0 0 10px var(--glow)}
+    .section-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:.35rem .8rem;margin-top:.4rem}
+    @media(max-width:600px){.section-breakdown{grid-template-columns:1fr}}
+    .sb-row{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--text-3);transition:color .3s ease}
+    .sb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .3s ease;flex-shrink:0}
+    .sb-row.complete .sb-dot{background:var(--c4);box-shadow:0 0 6px var(--glow)}
+    .sb-row.complete{color:var(--c4)}
+    .sb-count{margin-left:auto;font-weight:600;font-size:.65rem}
+
+    /* ============================================================
+       PDF PREVIEW MODAL
+    ============================================================ */
+    .pdf-preview-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;pointer-events:none;transition:opacity .3s ease}
+    .pdf-preview-overlay.show{opacity:1;pointer-events:auto}
+    .pdf-preview-box{background:var(--bg-b);border:1px solid var(--c3);border-radius:var(--radius-lg);width:min(820px,96vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.7),0 0 40px var(--glow);transform:translateY(24px) scale(.96);transition:all .35s cubic-bezier(.4,0,.2,1)}
+    .pdf-preview-overlay.show .pdf-preview-box{transform:translateY(0) scale(1)}
+    .pdf-preview-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+    .pdf-preview-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--c4)}
+    .pdf-preview-close{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xs);color:var(--text-2);font-size:.9rem;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease}
+    .pdf-preview-close:hover{background:rgba(239,68,68,.2);border-color:#ef4444;color:#fca5a5}
+    .pdf-preview-scroll{overflow-y:auto;padding:1.5rem;flex:1}
+    .pdf-preview-scroll::-webkit-scrollbar{width:4px}
+    .pdf-preview-scroll::-webkit-scrollbar-thumb{background:var(--c3);border-radius:100px}
+    /* Simulated A4 page inside preview */
+    .pdf-page-sim{background:#fff;color:#222;border-radius:8px;padding:2rem 2.2rem;font-family:'Inter',sans-serif;box-shadow:0 4px 24px rgba(0,0,0,.4);min-height:600px}
+    .pdf-page-header{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:1rem;border-bottom:3px solid var(--c3);margin-bottom:1rem}
+    .pdf-page-logo-box{width:52px;height:52px;background:rgba(0,0,0,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+    .pdf-page-org{font-weight:700;font-size:.95rem;line-height:1.35}
+    .pdf-page-meta{font-size:.72rem;color:#666;margin-top:.25rem}
+    .pdf-sec-head{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .6rem;border-radius:4px;margin:1rem 0 .6rem;color:#fff}
+    .pdf-canto-row{padding:.55rem 0;border-bottom:1px solid #eee}
+    .pdf-canto-moment{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:.15rem}
+    .pdf-canto-title{font-size:.92rem;font-weight:700;color:#111}
+    .pdf-canto-tono{font-size:.7rem;color:#888;margin-top:.1rem}
+    .pdf-canto-letra{font-size:.72rem;color:#444;white-space:pre-line;margin-top:.4rem;line-height:1.7;max-height:120px;overflow:hidden;position:relative}
+    .pdf-canto-letra::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(transparent,#fff)}
+    .pdf-lecturas-box{background:#f8f8f8;border-radius:6px;padding:.8rem 1rem;margin-bottom:1rem;font-size:.78rem}
+    .pdf-lecturas-box strong{display:block;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:.2rem;margin-top:.5rem}
+    .pdf-preview-footer{display:flex;align-items:center;justify-content:flex-end;gap:.75rem;padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;flex-wrap:wrap}
+    /* ============================================================
+       PDF ZONE & ACTIONS
+    ============================================================ */
+    .pdf-zone{display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:1rem 0 2rem}
+    .action-buttons{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%}
+    .pdf-btn{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;padding:1.05rem 3.2rem;background:linear-gradient(135deg,var(--c2) 0%,var(--c3) 60%,var(--c4) 140%);border:none;border-radius:100px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;box-shadow:0 4px 24px var(--glow-strong),var(--shadow-sm);position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+    .pdf-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 60%);opacity:0;transition:opacity .25s ease}
+    .pdf-btn:hover{transform:translateY(-4px);box-shadow:0 10px 36px var(--glow-strong),var(--shadow-md)}
+    .pdf-btn:hover::before{opacity:1}
+    .clear-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1.05rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:100px;color:var(--text-2);font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s ease;font-family:'Inter',sans-serif}
+    .clear-btn:hover{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.4);color:#fca5a5;transform:translateY(-2px)}
+    .copy-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1.05rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:100px;color:var(--text-2);font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s ease;font-family:'Inter',sans-serif}
+    .copy-btn:hover{background:var(--glow);border-color:var(--c3);color:var(--c4);transform:translateY(-2px)}
+    .pdf-hint{font-size:.75rem;color:var(--text-3);text-align:center;max-width:400px}
+    .app-footer{text-align:center;padding:2rem 1rem 1rem;font-size:.75rem;color:var(--text-3);border-top:1px solid var(--glass-border)}
+
+    /* ============================================================
+       MODALS
+    ============================================================ */
+    .custom-alert-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+    .custom-alert-overlay.show{opacity:1;pointer-events:auto}
+    .custom-alert-box{background:var(--bg-b);border:1px solid var(--c3);border-radius:var(--radius-lg);padding:2.5rem 2rem;text-align:center;max-width:420px;width:90%;box-shadow:0 20px 50px rgba(0,0,0,0.6),0 0 30px var(--glow-strong);transform:translateY(20px) scale(0.95);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+    .custom-alert-overlay.show .custom-alert-box{transform:translateY(0) scale(1)}
+    .custom-alert-icon{font-size:3.5rem;margin-bottom:1rem;animation:blink 2s infinite}
+    .custom-alert-title{color:var(--text-1);font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:0.8rem}
+    .custom-alert-text{color:var(--text-2);font-size:0.95rem;margin-bottom:2rem;line-height:1.6}
+    .custom-alert-btn{background:linear-gradient(135deg,var(--c2) 0%,var(--c3) 100%);border:none;border-radius:100px;color:#fff;padding:0.8rem 2.5rem;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s ease;box-shadow:0 4px 15px var(--glow);font-family:'Inter',sans-serif}
+    .custom-alert-btn:hover{box-shadow:0 8px 25px var(--glow-strong);transform:translateY(-2px)}
+    .confirm-buttons{display:flex;gap:1rem;justify-content:center;margin-top:1rem;flex-wrap:wrap}
+    .btn-cancel{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:var(--text-2);box-shadow:none}
+    .btn-cancel:hover{background:rgba(255,255,255,0.15);box-shadow:none;transform:translateY(-2px);color:#fff}
+    .btn-danger{background:linear-gradient(135deg,#ef4444 0%,#991b1b 100%);box-shadow:0 4px 15px rgba(239,68,68,0.3)}
+    .btn-danger:hover{box-shadow:0 8px 25px rgba(239,68,68,0.5);transform:translateY(-2px)}
+
+    /* ============================================================
+       TOAST NOTIFICATION
+    ============================================================ */
+    .toast{position:fixed;bottom:-60px;left:50%;transform:translateX(-50%);background:rgba(8,6,18,.92);border:1px solid var(--c3);border-radius:100px;padding:.65rem 1.6rem;color:var(--c4);font-size:.82rem;font-weight:600;backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:10000;transition:bottom .4s cubic-bezier(.4,0,.2,1);white-space:nowrap}
+    .toast.show{bottom:2rem}
+    .toast.error{border-color:#ef4444;color:#fca5a5}
+
+    /* ============================================================
+       SAVE INDICATOR
+    ============================================================ */
+    .save-indicator{position:fixed;top:1rem;right:1rem;display:flex;align-items:center;gap:.4rem;padding:.3rem .8rem;background:rgba(0,0,0,.5);border-radius:100px;font-size:.65rem;color:var(--text-3);z-index:100;opacity:0;transition:opacity .3s ease;backdrop-filter:blur(10px)}
+    .save-indicator.show{opacity:1}
+    .save-dot{width:6px;height:6px;border-radius:50%;background:var(--c3);animation:blink 1s ease-in-out}
+
+    /* ============================================================
+       ANIMATIONS & SCROLLBAR
+    ============================================================ */
+    .confetti-piece{position:fixed;top:-12px;width:9px;height:9px;border-radius:2px;animation:falling linear forwards;z-index:9999;pointer-events:none}
+    @keyframes falling{to{top:110vh;transform:rotate(720deg) translateX(80px);opacity:0}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--c3);border-radius:100px}
+  </style>
+</head>
+
+<body data-tiempo="pascua">
+<div class="page-wrap">
+
+  <header class="app-header">
+    <div class="app-logo">
+      <img src="logo_gvc.png" alt="Logo Ministerio GVC" id="main-logo" crossorigin="anonymous">
+    </div>
+    <div class="ministry-pill"><span class="pill-dot"></span>Ministerio Musical · GVC</div>
+    <h1 class="app-title">Planificador Eucarístico</h1>
+    <p class="app-subtitle">Guitarras y Voces para Cristo — Herramienta de Coordinación Litúrgica</p>
+  </header>
+
+  <div class="controls-bar">
+    <div class="ctrl-group">
+      <label class="ctrl-label" for="inp-fecha">📅 Fecha de la Misa</label>
+      <input type="date" id="inp-fecha" class="ctrl-input" oninput="autoGuardar()">
+    </div>
+    <div class="ctrl-group">
+      <label class="ctrl-label" for="inp-responsable">👤 Responsable</label>
+      <input type="text" id="inp-responsable" class="ctrl-input" placeholder="Nombre del coordinador" oninput="autoGuardar()">
+    </div>
+    <div class="ctrl-group">
+      <label class="ctrl-label" for="inp-tiempo">✝️ Tiempo Litúrgico</label>
+      <select id="inp-tiempo" class="ctrl-input" onchange="cambiarTiempo(this.value)">
+        <option value="ordinario">Tiempo Ordinario</option>
+        <option value="adviento">Adviento</option>
+        <option value="cuaresma">Cuaresma</option>
+        <option value="pascua" selected>Tiempo Pascual</option>
+        <option value="navidad">Navidad</option>
+        <option value="fiesta">Fiesta Especial (Rojo)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tiempo-strip">
+    <div class="tiempo-chip">
+      <div class="tiempo-gem"></div>
+      <span class="tiempo-label" id="lbl-tiempo">Tiempo Pascual · Blanco / Dorado</span>
+    </div>
+  </div>
+
+  <!-- TIMELINE VISUAL DE LA MISA -->
+  <div class="mass-timeline" id="mass-timeline"></div>
+
+  <div class="mass-section">
+    <div class="section-head">
+      <div class="sec-line-l"></div><span class="sec-icon">🕊️</span><span class="sec-title">Ritos Iniciales</span><div class="sec-line-r"></div>
+    </div>
+    <div class="cantos-grid" id="grid-iniciales"></div>
+  </div>
+
+  <div class="mass-section">
+    <div class="section-head">
+      <div class="sec-line-l"></div><span class="sec-icon">📖</span><span class="sec-title">Liturgia de la Palabra</span><div class="sec-line-r"></div>
+    </div>
+    <div class="cantos-grid" id="grid-palabra"></div>
+    <div class="lecturas-card">
+      <div class="lecturas-title">📕 Lecturas del Día</div>
+      <div class="lecturas-grid">
+        <div class="lect-field">
+          <label class="lect-label" for="inp-lect1">Primera Lectura</label>
+          <textarea id="inp-lect1" class="lect-input" rows="2" placeholder="Ej: Hechos 13, 14. 43–52" oninput="autoGuardar()"></textarea>
+        </div>
+        <div class="lect-field">
+          <label class="lect-label">Salmo Responsorial</label>
+          <div class="salmo-pair">
+            <div class="lect-field">
+              <label class="lect-label" for="inp-salmo-n">N°</label>
+              <input type="text" id="inp-salmo-n" class="lect-input" placeholder="99" oninput="autoGuardar()">
+            </div>
+            <div class="lect-field">
+              <label class="lect-label" for="inp-salmo-t">Antífona</label>
+              <textarea id="inp-salmo-t" class="lect-input" rows="1" placeholder="«El Señor es nuestro Dios...»" oninput="autoGuardar()"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="lect-field">
+          <label class="lect-label" for="inp-lect2">Segunda Lectura</label>
+          <textarea id="inp-lect2" class="lect-input" rows="2" placeholder="Ej: Apocalipsis 7, 9. 14–17" oninput="autoGuardar()"></textarea>
+        </div>
+        <div class="lect-field">
+          <label class="lect-label" for="inp-evangelio">Evangelio</label>
+          <textarea id="inp-evangelio" class="lect-input" rows="2" placeholder="Ej: Juan 10, 27–30" oninput="autoGuardar()"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mass-section">
+    <div class="section-head">
+      <div class="sec-line-l"></div><span class="sec-icon">🍞</span><span class="sec-title">Liturgia Eucarística</span><div class="sec-line-r"></div>
+    </div>
+    <div class="cantos-grid" id="grid-eucaristica"></div>
+  </div>
+
+  <div class="mass-section">
+    <div class="section-head">
+      <div class="sec-line-l"></div><span class="sec-icon">🍷</span><span class="sec-title">Rito de Comunión</span><div class="sec-line-r"></div>
+    </div>
+    <div class="cantos-grid" id="grid-comunion"></div>
+  </div>
+
+  <div class="mass-section">
+    <div class="section-head">
+      <div class="sec-line-l"></div><span class="sec-icon">✨</span><span class="sec-title">Rito de Conclusión</span><div class="sec-line-r"></div>
+    </div>
+    <div class="cantos-grid" id="grid-conclusion"></div>
+  </div>
+
+  <div class="notes-card">
+    <label class="notes-label" for="inp-notas">📝 Observaciones / Notas del Coordinador</label>
+    <textarea id="inp-notas" class="notes-input" placeholder="Indicaciones especiales para el ministerio, intenciones de la misa, instrumentistas, etc." oninput="autoGuardar()"></textarea>
+  </div>
+
+  <!-- PANEL DE ESTADÍSTICAS (COLAPSABLE) -->
+  <div class="stats-panel" id="stats-panel">
+    <button class="stats-toggle" onclick="toggleStats()">
+      <span>📊 Estadísticas del Repertorio</span>
+      <span class="stats-arrow" id="stats-arrow">▼</span>
+    </button>
+    <div class="stats-body" id="stats-body">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">🎵 Distribución de Tonalidades</div>
+          <div style="position:relative;height:200px">
+            <canvas id="chart-tonos"></canvas>
+          </div>
+          <div id="tonos-empty" class="stat-empty">Selecciona cantos para ver la distribución de tonalidades</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">📊 Cantos por Sección</div>
+          <div style="position:relative;height:200px">
+            <canvas id="chart-secciones"></canvas>
+          </div>
+          <div id="secciones-empty" class="stat-empty">Selecciona cantos para ver el desglose por sección</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESO MEJORADO CON DONUT -->
+  <div class="progress-enhanced">
+    <div class="donut-wrap">
+      <canvas id="chart-donut" width="140" height="140"></canvas>
+      <div class="donut-center">
+        <span class="donut-num" id="donut-num">0</span>
+        <span class="donut-total">de 15</span>
+        <span class="donut-pct" id="donut-pct">0%</span>
+      </div>
+    </div>
+    <div class="progress-details">
+      <div class="prog-label-main">Momentos completados</div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+      <div class="section-breakdown" id="section-breakdown"></div>
+    </div>
+  </div>
+
+  <div class="pdf-zone">
+    <div class="action-buttons">
+      <button class="clear-btn" onclick="abrirConfirmacion()">
+        <span>🗑️</span> Limpiar Todo
+      </button>
+      <button class="pdf-btn" id="btn-pdf" onclick="abrirPreviewPDF()">
+        <span>📄</span> Vista previa y descargar PDF
+      </button>
+    </div>
+    <p class="pdf-hint">El PDF incluirá letras completas, enlaces a YouTube interactivos, lecturas del día y observaciones.</p>
+  </div>
+
+  <footer class="app-footer">
+    <p>⛪ <em>Guitarras y Voces para Cristo (GVC)</em> — Ministerio Musical</p>
+    <p style="margin-top:.4rem;">Herramienta de Planificación Litúrgica · Uso interno del Ministerio</p>
+  </footer>
+</div>
+
+<!-- MODALES -->
+<div id="custom-alert" class="custom-alert-overlay">
+  <div class="custom-alert-box">
+    <div class="custom-alert-icon">⚠️</div>
+    <h3 class="custom-alert-title">Repertorio Vacío</h3>
+    <p class="custom-alert-text">Por favor, selecciona o ingresa al menos un canto antes de generar la hoja para la misa.</p>
+    <button class="custom-alert-btn" onclick="cerrarAlerta()">Entendido</button>
+  </div>
+</div>
+
+<div id="custom-confirm" class="custom-alert-overlay">
+  <div class="custom-alert-box">
+    <div class="custom-alert-icon" style="animation:none;">🗑️</div>
+    <h3 class="custom-alert-title">¿Limpiar Todo?</h3>
+    <p class="custom-alert-text">¿Estás seguro de que deseas borrar toda la planificación actual? Esta acción no se puede deshacer.</p>
+    <div class="confirm-buttons">
+      <button class="custom-alert-btn btn-cancel" onclick="cerrarConfirmacion()">Cancelar</button>
+      <button class="custom-alert-btn btn-danger" onclick="ejecutarBorrado()">Sí, limpiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PDF PREVIEW MODAL -->
+<div id="pdf-preview-modal" class="pdf-preview-overlay">
+  <div class="pdf-preview-box">
+    <div class="pdf-preview-header">
+      <span class="pdf-preview-title">📄 Vista Previa del PDF</span>
+      <button class="pdf-preview-close" onclick="cerrarPreviewPDF()">✕</button>
+    </div>
+    <div class="pdf-preview-scroll">
+      <div class="pdf-page-sim" id="pdf-preview-content"></div>
+    </div>
+    <div class="pdf-preview-footer">
+      <button class="clear-btn" style="padding:.7rem 1.5rem;font-size:.85rem;" onclick="cerrarPreviewPDF()">Cancelar</button>
+      <button class="copy-btn" style="padding:.7rem 1.5rem;font-size:.85rem;" onclick="copiarAlPortapapeles(); mostrarToast('✅ Copiado para WhatsApp');">
+        <span>📲</span> Copiar para WhatsApp
+      </button>
+      <button class="pdf-btn" id="btn-pdf-confirm" onclick="confirmarGenerarPDF()" style="padding:.8rem 2rem;font-size:.9rem;">
+        <span>⬇️</span> Descargar PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SAVE INDICATOR -->
+<div class="save-indicator" id="save-indicator">
+  <span class="save-dot"></span> Guardado
+</div>
+
+<script src="cantos.js"></script>
+<script>
+/* ============================================================
+   CONSTANTS
+============================================================ */
+const MOMENTOS = [
+  { id:"entrada",  nombre:"Entrada",         icono:"🚶", seccion:"iniciales",   dbKey:"Entrada" },
+  { id:"piedad",   nombre:"Piedad",           icono:"🙏", seccion:"iniciales",   dbKey:"Piedad" },
+  { id:"gloria",   nombre:"Gloria",           icono:"✨", seccion:"iniciales",   dbKey:"Gloria" },
+  { id:"aleluya",  nombre:"Aleluya",          icono:"📖", seccion:"palabra",     dbKey:"Aleluya" },
+  { id:"ofert1",   nombre:"Ofertorio 1",      icono:"🍞", seccion:"eucaristica", dbKey:"Ofertorio 1" },
+  { id:"ofert2",   nombre:"Ofertorio 2",      icono:"🥖", seccion:"eucaristica", dbKey:"Ofertorio 2" },
+  { id:"santo",    nombre:"Santo",            icono:"🌟", seccion:"eucaristica", dbKey:"Santo" },
+  { id:"aclam",    nombre:"Aclamación",       icono:"⛪", seccion:"eucaristica", dbKey:"Aclamación" },
+  { id:"amen",     nombre:"Amén",             icono:"🎶", seccion:"eucaristica", dbKey:"Amén" },
+  { id:"tuyo",     nombre:"Tuyo es el Reino", icono:"👑", seccion:"eucaristica", dbKey:"Tuyo es el Reino" },
+  { id:"paz",      nombre:"Paz",              icono:"🕊️", seccion:"comunion",   dbKey:"Paz" },
+  { id:"cordero",  nombre:"Cordero",          icono:"🐑", seccion:"comunion",    dbKey:"Cordero" },
+  { id:"comunion", nombre:"Comunión",         icono:"✝️", seccion:"comunion",   dbKey:"Comunión" },
+  { id:"salida",   nombre:"Salida",           icono:"🚪", seccion:"conclusion",  dbKey:"Salida" },
+  { id:"marianos", nombre:"Marianos y Otros", icono:"🌹", seccion:"conclusion",  dbKey:"Marianos y Otros" },
+];
+
+const TIEMPO_META = {
+  ordinario: { label:"Tiempo Ordinario",  color:"Verde",          rgb:[22,163,74]  },
+  adviento:  { label:"Adviento",          color:"Morado",         rgb:[147,51,234] },
+  cuaresma:  { label:"Cuaresma",          color:"Morado Oscuro",  rgb:[124,58,237] },
+  pascua:    { label:"Tiempo Pascual",    color:"Blanco / Dorado",rgb:[217,119,6]  },
+  navidad:   { label:"Navidad",           color:"Blanco / Dorado",rgb:[220,38,38]  },
+  fiesta:    { label:"Fiesta Especial",   color:"Rojo",           rgb:[239,68,68]  },
+};
+
+const SECCIONES_INFO = [
+  { key:"iniciales",   label:"Ritos Iniciales",     ids:["entrada","piedad","gloria"] },
+  { key:"palabra",     label:"Liturgia Palabra",    ids:["aleluya"] },
+  { key:"eucaristica", label:"Lit. Eucarística",    ids:["ofert1","ofert2","santo","aclam","amen","tuyo"] },
+  { key:"comunion",    label:"Rito Comunión",       ids:["paz","cordero","comunion"] },
+  { key:"conclusion",  label:"Conclusión",          ids:["salida","marianos"] },
+];
+
+/* ============================================================
+   STATE
+============================================================ */
+const state = {};
+const open  = {};
+let donutChart = null;
+let tonosChart = null;
+let seccionesChart = null;
+let saveTimer = null;
+
+/* ============================================================
+   INITIALIZATION
+============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const hoy = new Date();
+  const dd = String(hoy.getDate()).padStart(2,'0');
+  const mm = String(hoy.getMonth()+1).padStart(2,'0');
+  document.getElementById('inp-fecha').value = `${hoy.getFullYear()}-${mm}-${dd}`;
+
+  ['iniciales','palabra','eucaristica','comunion','conclusion'].forEach(renderGrid);
+  renderTimeline();
+  inicializarCharts();
+  renderSectionBreakdown();
+
+  // Restore saved state
+  const restored = restaurarEstado();
+  if (restored) {
+    setTimeout(() => mostrarToast('✅ Planificación restaurada'), 600);
+  }
+
+  // Setup event delegation for searchable dropdowns
+  setupSSEvents();
+  // PORTAL: mover todos los paneles al <body> para escapar de stacking contexts
+  // causados por backdrop-filter y animation en .canto-card y .mass-section
+  document.querySelectorAll('.ss-panel').forEach(p => document.body.appendChild(p));
+});
+
+/* ============================================================
+   RENDERING
+============================================================ */
+function renderGrid(seccion) {
+  const grid = document.getElementById(`grid-${seccion}`);
+  if (!grid) return;
+  MOMENTOS.filter(m => m.seccion === seccion).forEach(m => grid.appendChild(buildCard(m)));
+}
+
+function buildCard(m) {
+  const cantos = DB[m.dbKey] || [];
+  const optsHtml = cantos.map(c =>
+    `<div class="ss-option" data-value="${escHtml(c.titulo)}">${escHtml(c.titulo)} — ${escHtml(c.tono)}</div>`
+  ).join('');
+
+  const div = document.createElement('div');
+  div.className = 'canto-card';
+  div.id = `card-${m.id}`;
+  div.innerHTML = `
+    <div class="card-top">
+      <span class="card-icon">${m.icono}</span>
+      <span class="card-name">${m.nombre}</span>
+    </div>
+    <div class="search-select" id="ss-${m.id}">
+      <div class="ss-display" data-mid="${m.id}">
+        <span class="ss-text" id="sst-${m.id}">— Seleccionar canto —</span>
+      </div>
+      <div class="ss-panel" id="ssp-${m.id}" data-mid="${m.id}">
+        <input type="text" class="ss-search" id="ssq-${m.id}" placeholder="🔍 Buscar canto..." data-mid="${m.id}">
+        <div class="ss-options" id="sso-${m.id}">
+          <div class="ss-option" data-value="">— Seleccionar canto —</div>
+          <div class="ss-option" data-value="NO_APLICA">🚫 No aplica en esta celebración</div>
+          <div class="ss-option" data-value="OTRO">✏️ Otro (Escribir título manualmente)</div>
+          ${optsHtml}
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-inputs" id="inputs-${m.id}" style="display:none;">
+      <input type="text" id="otro-${m.id}" class="input-extra" placeholder="Escribe el título del canto..." oninput="actualizarOtro('${m.id}', this.value)" style="display:none;">
+      <textarea id="letra-${m.id}" class="input-extra" placeholder="Escribe o pega la letra del canto aquí..." rows="3" oninput="actualizarLetra('${m.id}', this.value)" style="display:none; resize: vertical;"></textarea>
+      <input type="url" id="yt-${m.id}" class="input-extra" placeholder="🔗 Pegar enlace de YouTube (Opcional)" oninput="actualizarYT('${m.id}', this.value)">
+    </div>
+
+    <div class="card-meta" id="meta-${m.id}" style="display:none;">
+      <span class="tono-chip">🎵 <span id="tono-${m.id}"></span></span>
+      <button class="preview-btn" id="pbtn-${m.id}" onclick="toggleVer('${m.id}')">
+        <span id="pico-${m.id}">▼</span> Letra
+      </button>
+    </div>
+    <div class="lyric-accordion" id="acc-${m.id}">
+      <div class="lyric-body" id="lyr-${m.id}"></div>
+    </div>
+  `;
+  return div;
+}
+
+/* ============================================================
+   TIMELINE
+============================================================ */
+function renderTimeline() {
+  const container = document.getElementById('mass-timeline');
+  container.innerHTML = MOMENTOS.map((m, i) => `
+    <div class="tl-step" id="tl-${m.id}">
+      ${i > 0 ? '<div class="tl-connector"></div>' : ''}
+      <div class="tl-node" data-status="pending" title="${m.nombre}">
+        <span class="tl-icon">${m.icono}</span>
+      </div>
+      <div class="tl-name">${m.nombre.length > 10 ? m.nombre.substring(0,9)+'…' : m.nombre}</div>
+    </div>
+  `).join('');
+}
+
+function actualizarTimeline() {
+  MOMENTOS.forEach(m => {
+    const node = document.querySelector(`#tl-${m.id} .tl-node`);
+    if (!node) return;
+    const s = state[m.id];
+    if (s && s.omitir) node.dataset.status = 'omitted';
+    else if (s) node.dataset.status = 'selected';
+    else node.dataset.status = 'pending';
+  });
+}
+
+/* ============================================================
+   SEARCHABLE DROPDOWN — EVENT DELEGATION
+============================================================ */
+function setupSSEvents() {
+  document.addEventListener('click', (e) => {
+    // Opción seleccionada — panel es hijo de body, usar dataset.mid
+    const opt = e.target.closest('.ss-option');
+    if (opt) {
+      e.stopPropagation();
+      const panel = opt.closest('.ss-panel');
+      if (!panel) return;
+      const mid   = panel.dataset.mid;
+      const value = opt.dataset.value;
+      panel.classList.remove('open');
+      const sst = document.getElementById(`sst-${mid}`);
+      if (sst) sst.textContent = opt.textContent;
+      panel.querySelectorAll('.ss-option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      const search = document.getElementById(`ssq-${mid}`);
+      if (search) { search.value = ''; filterSS(mid, ''); }
+      seleccionar(mid, value);
+      return;
+    }
+    // Clic en el trigger
+    const display = e.target.closest('.ss-display');
+    if (display) {
+      e.stopPropagation();
+      toggleSS(display.dataset.mid);
+      return;
+    }
+    // Clic dentro del panel abierto — mantener abierto
+    if (e.target.closest('.ss-panel')) return;
+    // Clic fuera — cerrar
+    document.querySelectorAll('.ss-panel.open').forEach(p => p.classList.remove('open'));
+  });
+
+  // Filtro de búsqueda
+  document.addEventListener('input', (e) => {
+    if (e.target.classList.contains('ss-search')) {
+      filterSS(e.target.dataset.mid, e.target.value);
+    }
+  });
+
+  // Scroll/resize: reposicionar el panel para que siga al trigger
+  const onScroll = () => repositionOpenPanel();
+  window.addEventListener('scroll', onScroll, { capture: true, passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+}
+
+/* Reposiciona el panel abierto para que quede justo bajo su trigger */
+function repositionOpenPanel() {
+  const panel = document.querySelector('.ss-panel.open');
+  if (!panel) return;
+  const mid     = panel.dataset.mid;
+  const display = document.querySelector(`#ss-${mid} .ss-display`);
+  if (!display) { panel.classList.remove('open'); return; }
+  const rect = display.getBoundingClientRect();
+  // Si el trigger salió del viewport, cerrar
+  if (rect.bottom < 0 || rect.top > window.innerHeight) {
+    panel.classList.remove('open');
+    return;
+  }
+  panel.style.top   = (rect.bottom + 4) + 'px';
+  panel.style.left  = rect.left + 'px';
+  panel.style.width = rect.width + 'px';
+}
+
+function toggleSS(mid) {
+  const panel   = document.getElementById(`ssp-${mid}`);
+  const display = document.querySelector(`#ss-${mid} .ss-display`);
+  const isOpen  = panel.classList.contains('open');
+  document.querySelectorAll('.ss-panel.open').forEach(p => p.classList.remove('open'));
+  if (!isOpen && display) {
+    const rect = display.getBoundingClientRect();
+    panel.style.top   = (rect.bottom + 4) + 'px';
+    panel.style.left  = rect.left + 'px';
+    panel.style.width = rect.width + 'px';
+    panel.classList.add('open');
+    const search = document.getElementById(`ssq-${mid}`);
+    if (search) setTimeout(() => search.focus(), 50);
+  }
+}
+
+function filterSS(mid, query) {
+  const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  document.querySelectorAll(`#sso-${mid} .ss-option`).forEach(opt => {
+    if (!opt.dataset.value && opt.textContent.includes('Seleccionar')) { opt.classList.remove('hidden'); return; }
+    const text = opt.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    opt.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+  });
+}
+
+/* ============================================================
+   SELECTION LOGIC
+============================================================ */
+function seleccionar(mid, titulo) {
+  const m       = MOMENTOS.find(x => x.id === mid);
+  const canto   = (DB[m.dbKey]||[]).find(c => c.titulo === titulo);
+  const card    = document.getElementById(`card-${mid}`);
+  const meta    = document.getElementById(`meta-${mid}`);
+  const tonoEl  = document.getElementById(`tono-${mid}`);
+  const lyrEl   = document.getElementById(`lyr-${mid}`);
+  const acc     = document.getElementById(`acc-${mid}`);
+  const inputs  = document.getElementById(`inputs-${mid}`);
+  const otroInp = document.getElementById(`otro-${mid}`);
+  const letraInp= document.getElementById(`letra-${mid}`);
+  const ytInp   = document.getElementById(`yt-${mid}`);
+
+  if (titulo === "NO_APLICA") {
+    state[mid] = { omitir: true };
+    card.classList.add('is-omitted'); card.classList.remove('is-selected');
+    meta.style.display = 'none'; inputs.style.display = 'none'; acc.classList.remove('open'); open[mid] = false;
+  } else if (titulo === "OTRO") {
+    state[mid] = { manual: true, titulo: "", tono: "?", letra: "", yt: "" };
+    card.classList.add('is-selected'); card.classList.remove('is-omitted');
+    inputs.style.display = 'flex'; otroInp.style.display = 'block'; letraInp.style.display = 'block'; ytInp.value = ""; letraInp.value = "";
+    meta.style.display = 'flex'; tonoEl.textContent = "?"; lyrEl.textContent = "Escribe o pega la letra en la caja superior para ver la vista previa.";
+  } else if (canto && titulo) {
+    state[mid] = { titulo: canto.titulo, tono: canto.tono, letra: canto.letra, yt: "" };
+    card.classList.add('is-selected'); card.classList.remove('is-omitted');
+    inputs.style.display = 'flex'; otroInp.style.display = 'none'; letraInp.style.display = 'none'; ytInp.value = "";
+    meta.style.display = 'flex'; tonoEl.textContent = canto.tono; lyrEl.textContent = canto.letra;
+  } else {
+    delete state[mid];
+    card.classList.remove('is-selected', 'is-omitted');
+    meta.style.display = 'none'; inputs.style.display = 'none'; acc.classList.remove('open'); open[mid] = false;
+  }
+  actualizarProgreso();
+  detectarDuplicados();
+  autoGuardar();
+}
+
+function actualizarOtro(mid, val) { if(state[mid]) { state[mid].titulo = val; autoGuardar(); } }
+function actualizarLetra(mid, val) {
+  if(state[mid]) {
+    state[mid].letra = val;
+    document.getElementById(`lyr-${mid}`).textContent = val || "Escribe o pega la letra en la caja superior para ver la vista previa.";
+    autoGuardar();
+  }
+}
+function actualizarYT(mid, val) { if(state[mid]) { state[mid].yt = val; autoGuardar(); } }
+
+function toggleVer(mid) {
+  open[mid] = !open[mid];
+  document.getElementById(`acc-${mid}`).classList.toggle('open', open[mid]);
+  document.getElementById(`pico-${mid}`).textContent = open[mid] ? '▲' : '▼';
+}
+
+/* ============================================================
+   PROGRESS, CHARTS & STATS
+============================================================ */
+function actualizarProgreso() {
+  const sel = Object.keys(state).length;
+  const tot = MOMENTOS.length;
+  // Linear bar
+  document.getElementById('prog-fill').style.width = `${(sel/tot)*100}%`;
+  // Donut
+  actualizarDonut(sel, tot);
+  // Timeline
+  actualizarTimeline();
+  // Section breakdown
+  renderSectionBreakdown();
+  // Stats charts
+  actualizarTonosChart();
+  actualizarSeccionesChart();
+  // Confetti
+  if (sel === tot) celebrar();
+}
+
+function inicializarCharts() {
+  // Donut
+  const ctxD = document.getElementById('chart-donut').getContext('2d');
+  const s = getComputedStyle(document.body);
+  const c3 = s.getPropertyValue('--c3').trim() || '#d97706';
+
+  donutChart = new Chart(ctxD, {
+    type: 'doughnut',
+    data: {
+      labels: ['Completados', 'Pendientes'],
+      datasets: [{ data: [0, MOMENTOS.length], backgroundColor: [c3, 'rgba(255,255,255,0.06)'], borderWidth: 0, borderRadius: 4 }]
+    },
+    options: {
+      cutout: '76%', responsive: true, maintainAspectRatio: true,
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      animation: { animateRotate: true, duration: 800, easing: 'easeOutQuart' }
+    }
+  });
+
+  // Tonos bar chart
+  const ctxT = document.getElementById('chart-tonos').getContext('2d');
+  tonosChart = new Chart(ctxT, {
+    type: 'bar',
+    data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderRadius: 6, barThickness: 20 }] },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(0,0,0,.85)', titleFont: { family: 'Inter' }, bodyFont: { family: 'Inter' } } },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,.04)' }, ticks: { color: 'rgba(255,255,255,.5)', stepSize: 1, font: { family: 'Inter', size: 11 } }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,.7)', font: { family: 'Inter', size: 11 } } }
+      }
+    }
+  });
+
+  // Secciones bar chart
+  const ctxS = document.getElementById('chart-secciones').getContext('2d');
+  seccionesChart = new Chart(ctxS, {
+    type: 'bar',
+    data: { labels: [], datasets: [{ label: 'Seleccionados', data: [], backgroundColor: [], borderRadius: 6, barThickness: 20 }, { label: 'Total', data: [], backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6, barThickness: 20 }] },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(0,0,0,.85)', titleFont: { family: 'Inter' }, bodyFont: { family: 'Inter' } } },
+      scales: {
+        x: { stacked: false, grid: { color: 'rgba(255,255,255,.04)' }, ticks: { color: 'rgba(255,255,255,.5)', stepSize: 1, font: { family: 'Inter', size: 11 } }, beginAtZero: true },
+        y: { stacked: false, grid: { display: false }, ticks: { color: 'rgba(255,255,255,.7)', font: { family: 'Inter', size: 11 } } }
+      }
+    }
+  });
+}
+
+function actualizarDonut(sel, tot) {
+  if (!donutChart) return;
+  sel = sel ?? Object.keys(state).length;
+  tot = tot ?? MOMENTOS.length;
+  const s = getComputedStyle(document.body);
+  const c3 = s.getPropertyValue('--c3').trim() || '#d97706';
+  donutChart.data.datasets[0].data = [sel, tot - sel];
+  donutChart.data.datasets[0].backgroundColor = [c3, 'rgba(255,255,255,0.06)'];
+  donutChart.update();
+  document.getElementById('donut-num').textContent = sel;
+  document.getElementById('donut-pct').textContent = `${Math.round((sel/tot)*100)}%`;
+}
+
+function actualizarTonosChart() {
+  if (!tonosChart) return;
+  const tonos = {};
+  for (const st of Object.values(state)) {
+    if (st.omitir || !st.tono || st.tono === '?') continue;
+    tonos[st.tono] = (tonos[st.tono] || 0) + 1;
+  }
+  const sorted = Object.entries(tonos).sort((a, b) => b[1] - a[1]);
+  const s = getComputedStyle(document.body);
+  const c3 = s.getPropertyValue('--c3').trim() || '#d97706';
+  const c4 = s.getPropertyValue('--c4').trim() || '#fcd34d';
+
+  const empty = document.getElementById('tonos-empty');
+  const canvas = document.getElementById('chart-tonos');
+  if (sorted.length === 0) {
+    empty.style.display = 'block'; canvas.style.display = 'none';
+  } else {
+    empty.style.display = 'none'; canvas.style.display = 'block';
+  }
+
+  tonosChart.data.labels = sorted.map(([t]) => t);
+  tonosChart.data.datasets[0].data = sorted.map(([, c]) => c);
+  tonosChart.data.datasets[0].backgroundColor = sorted.map((_, i) => {
+    const opacity = Math.max(0.3, 1 - i * 0.15);
+    return c3;
+  });
+  tonosChart.update();
+}
+
+function actualizarSeccionesChart() {
+  if (!seccionesChart) return;
+  const s = getComputedStyle(document.body);
+  const c3 = s.getPropertyValue('--c3').trim() || '#d97706';
+
+  const labels = SECCIONES_INFO.map(s => s.label);
+  const selData = SECCIONES_INFO.map(sec => sec.ids.filter(id => state[id]).length);
+  const totData = SECCIONES_INFO.map(sec => sec.ids.length);
+
+  const empty = document.getElementById('secciones-empty');
+  const canvas = document.getElementById('chart-secciones');
+  const hasSel = selData.some(v => v > 0);
+  empty.style.display = hasSel ? 'none' : 'block';
+  canvas.style.display = hasSel ? 'block' : 'none';
+
+  seccionesChart.data.labels = labels;
+  seccionesChart.data.datasets[0].data = selData;
+  seccionesChart.data.datasets[0].backgroundColor = c3;
+  seccionesChart.data.datasets[1].data = totData;
+  seccionesChart.update();
+}
+
+function renderSectionBreakdown() {
+  const container = document.getElementById('section-breakdown');
+  container.innerHTML = SECCIONES_INFO.map(sec => {
+    const sel = sec.ids.filter(id => state[id]).length;
+    const tot = sec.ids.length;
+    const complete = sel === tot;
+    return `<div class="sb-row ${complete ? 'complete' : ''}">
+      <span class="sb-dot"></span>
+      <span>${sec.label}</span>
+      <span class="sb-count">${sel}/${tot}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   PERSISTENCE (localStorage)
+============================================================ */
+function guardarEstado() {
+  try {
+    const datos = {
+      v: 1,
+      fecha: document.getElementById('inp-fecha').value,
+      responsable: document.getElementById('inp-responsable').value,
+      tiempo: document.getElementById('inp-tiempo').value,
+      state: JSON.parse(JSON.stringify(state)),
+      lecturas: {
+        lect1: document.getElementById('inp-lect1').value,
+        salmoN: document.getElementById('inp-salmo-n').value,
+        salmoT: document.getElementById('inp-salmo-t').value,
+        lect2: document.getElementById('inp-lect2').value,
+        evangelio: document.getElementById('inp-evangelio').value,
+      },
+      notas: document.getElementById('inp-notas').value,
+    };
+    localStorage.setItem('gvc_plan', JSON.stringify(datos));
+    // Show save indicator briefly
+    const ind = document.getElementById('save-indicator');
+    ind.classList.add('show');
+    setTimeout(() => ind.classList.remove('show'), 1200);
+  } catch (e) { console.warn('Error saving state:', e); }
+}
+
+function restaurarEstado() {
+  const raw = localStorage.getItem('gvc_plan');
+  if (!raw) return false;
+  try {
+    const d = JSON.parse(raw);
+    if (d.fecha) document.getElementById('inp-fecha').value = d.fecha;
+    if (d.responsable) document.getElementById('inp-responsable').value = d.responsable;
+    if (d.tiempo) { document.getElementById('inp-tiempo').value = d.tiempo; cambiarTiempo(d.tiempo); }
+    if (d.lecturas) {
+      if (d.lecturas.lect1) document.getElementById('inp-lect1').value = d.lecturas.lect1;
+      if (d.lecturas.salmoN) document.getElementById('inp-salmo-n').value = d.lecturas.salmoN;
+      if (d.lecturas.salmoT) document.getElementById('inp-salmo-t').value = d.lecturas.salmoT;
+      if (d.lecturas.lect2) document.getElementById('inp-lect2').value = d.lecturas.lect2;
+      if (d.lecturas.evangelio) document.getElementById('inp-evangelio').value = d.lecturas.evangelio;
+    }
+    if (d.notas) document.getElementById('inp-notas').value = d.notas;
+    if (d.state) {
+      for (const [mid, s] of Object.entries(d.state)) {
+        state[mid] = s;
+        restoreCardUI(mid, s);
+      }
+    }
+    actualizarProgreso();
+    detectarDuplicados();
+    return Object.keys(d.state || {}).length > 0;
+  } catch (e) { console.warn('Error restoring state:', e); return false; }
+}
+
+function restoreCardUI(mid, s) {
+  const card    = document.getElementById(`card-${mid}`);
+  const meta    = document.getElementById(`meta-${mid}`);
+  const tonoEl  = document.getElementById(`tono-${mid}`);
+  const lyrEl   = document.getElementById(`lyr-${mid}`);
+  const inputs  = document.getElementById(`inputs-${mid}`);
+  const otroInp = document.getElementById(`otro-${mid}`);
+  const letraInp= document.getElementById(`letra-${mid}`);
+  const ytInp   = document.getElementById(`yt-${mid}`);
+  const ssText  = document.getElementById(`sst-${mid}`);
+  if (!card) return;
+
+  if (s.omitir) {
+    card.classList.add('is-omitted');
+    if (ssText) ssText.textContent = '🚫 No aplica en esta celebración';
+    markSSSelected(mid, 'NO_APLICA');
+  } else if (s.manual) {
+    card.classList.add('is-selected');
+    inputs.style.display = 'flex'; otroInp.style.display = 'block'; letraInp.style.display = 'block';
+    if (s.titulo) otroInp.value = s.titulo;
+    if (s.letra) { letraInp.value = s.letra; lyrEl.textContent = s.letra; }
+    if (s.yt) ytInp.value = s.yt;
+    meta.style.display = 'flex'; tonoEl.textContent = s.tono || '?';
+    lyrEl.textContent = s.letra || 'Escribe o pega la letra en la caja superior para ver la vista previa.';
+    if (ssText) ssText.textContent = '✏️ Otro (Escribir título manualmente)';
+    markSSSelected(mid, 'OTRO');
+  } else if (s.titulo) {
+    card.classList.add('is-selected');
+    inputs.style.display = 'flex'; otroInp.style.display = 'none'; letraInp.style.display = 'none';
+    if (s.yt) ytInp.value = s.yt;
+    meta.style.display = 'flex'; tonoEl.textContent = s.tono || '';
+    lyrEl.textContent = s.letra || '';
+    if (ssText) ssText.textContent = `${s.titulo} — ${s.tono}`;
+    markSSSelected(mid, s.titulo);
+  }
+}
+
+function markSSSelected(mid, value) {
+  const panel = document.getElementById(`ssp-${mid}`);
+  if (!panel) return;
+  panel.querySelectorAll('.ss-option').forEach(o => {
+    o.classList.toggle('selected', o.dataset.value === value);
+  });
+}
+
+function autoGuardar() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(guardarEstado, 400);
+}
+
+/* ============================================================
+   DUPLICATE DETECTION
+============================================================ */
+function detectarDuplicados() {
+  const titulos = {};
+  const duplicados = new Set();
+  for (const [mid, s] of Object.entries(state)) {
+    if (s.omitir || !s.titulo) continue;
+    if (titulos[s.titulo]) { duplicados.add(mid); duplicados.add(titulos[s.titulo]); }
+    else { titulos[s.titulo] = mid; }
+  }
+  document.querySelectorAll('.dup-badge').forEach(b => b.remove());
+  for (const mid of duplicados) {
+    const top = document.querySelector(`#card-${mid} .card-top`);
+    if (!top || top.querySelector('.dup-badge')) continue;
+    const badge = document.createElement('div');
+    badge.className = 'dup-badge';
+    badge.innerHTML = '⚠️ Repetido';
+    top.appendChild(badge);
+  }
+}
+
+/* ============================================================
+   THEME
+============================================================ */
+function cambiarTiempo(t) {
+  document.body.setAttribute('data-tiempo', t);
+  const info = TIEMPO_META[t];
+  if (info) document.getElementById('lbl-tiempo').textContent = `${info.label} · ${info.color}`;
+  // Update theme-color meta
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if (tc && info) tc.content = `rgb(${info.rgb.join(',')})`;
+  // Refresh charts with new colors after CSS transition
+  setTimeout(() => { actualizarDonut(); actualizarTonosChart(); actualizarSeccionesChart(); }, 150);
+  autoGuardar();
+}
+
+/* ============================================================
+   MODALS
+============================================================ */
+function mostrarAlerta() { document.getElementById('custom-alert').classList.add('show'); }
+function cerrarAlerta() { document.getElementById('custom-alert').classList.remove('show'); }
+function abrirConfirmacion() { document.getElementById('custom-confirm').classList.add('show'); }
+function cerrarConfirmacion() { document.getElementById('custom-confirm').classList.remove('show'); }
+
+function ejecutarBorrado() {
+  cerrarConfirmacion();
+  for (let key in state) delete state[key];
+  for (let key in open) open[key] = false;
+  document.querySelectorAll('.ss-text').forEach(el => el.textContent = '— Seleccionar canto —');
+  document.querySelectorAll('.ss-option.selected').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.input-extra').forEach(inp => inp.value = "");
+  document.querySelectorAll('.canto-card').forEach(card => card.classList.remove('is-selected', 'is-omitted'));
+  document.querySelectorAll('.card-meta, .manual-inputs').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.lyric-accordion').forEach(acc => acc.classList.remove('open'));
+  document.querySelectorAll('.lect-input, .notes-input').forEach(inp => inp.value = "");
+  document.querySelectorAll('.dup-badge').forEach(b => b.remove());
+  document.getElementById('inp-responsable').value = "";
+  localStorage.removeItem('gvc_plan');
+  actualizarProgreso();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  mostrarToast('🗑️ Planificación limpiada');
+}
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function celebrar() {
+  const cols = ['#f59e0b','#10b981','#6366f1','#ec4899','#f97316','#a855f7'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div'); p.className = 'confetti-piece';
+      p.style.cssText = `left:${Math.random()*100}vw;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${2+Math.random()*2.5}s;animation-delay:${Math.random()*.5}s;border-radius:${Math.random()>.5?'50%':'2px'};`;
+      document.body.appendChild(p); setTimeout(() => p.remove(), 5000);
+    }, i * 40);
+  }
+}
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function formatDate(iso) {
+  if (!iso) return 'No especificada';
+  const [y,m,d] = iso.split('-');
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${y}`;
+}
+
+function mostrarToast(msg, isError = false) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = `toast show ${isError ? 'error' : ''}`;
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function toggleStats() {
+  const body = document.getElementById('stats-body');
+  const arrow = document.getElementById('stats-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function copiarAlPortapapeles() {
+  if (Object.keys(state).length === 0) { mostrarToast('⚠️ No hay cantos seleccionados', true); return; }
+  const info = TIEMPO_META[document.getElementById('inp-tiempo').value];
+  let txt = `🎸 *GVC — Planificación Eucarística*\n`;
+  txt += `📅 ${formatDate(document.getElementById('inp-fecha').value)}\n`;
+  txt += `👤 ${document.getElementById('inp-responsable').value || 'Coordinador GVC'}\n`;
+  txt += `✝️ ${info?.label || ''} · ${info?.color || ''}\n\n`;
+
+  const SECS = [
+    { titulo: '🕊️ *RITOS INICIALES*', ids: ['entrada','piedad','gloria','aleluya'] },
+    { titulo: '🍞 *LITURGIA EUCARÍSTICA*', ids: ['ofert1','ofert2','santo','aclam','amen','tuyo'] },
+    { titulo: '🍷 *RITO DE COMUNIÓN*', ids: ['paz','cordero','comunion'] },
+    { titulo: '✨ *RITO DE CONCLUSIÓN*', ids: ['salida','marianos'] },
+  ];
+
+  for (const sec of SECS) {
+    const cantos = sec.ids.filter(id => state[id] && !state[id].omitir);
+    if (cantos.length === 0) continue;
+    txt += `${sec.titulo}\n`;
+    for (const mid of cantos) {
+      const s = state[mid];
+      const m = MOMENTOS.find(x => x.id === mid);
+      txt += `  ${m.icono} ${m.nombre}: ${s.titulo || '(Sin título)'} (${s.tono})\n`;
+    }
+    txt += `\n`;
+  }
+
+  const notas = document.getElementById('inp-notas').value.trim();
+  if (notas) txt += `📝 *Observaciones:* ${notas}\n`;
+
+  navigator.clipboard.writeText(txt).then(() => {
+    mostrarToast('📋 ¡Copiado al portapapeles!');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    mostrarToast('📋 ¡Copiado al portapapeles!');
+  });
+}
+
+/* ============================================================
+   PDF GENERATION
+============================================================ */
+async function getLogoBase64() {
+  try {
+    const response = await fetch('logo_gvc.png');
+    if (!response.ok) return null;
+    const blob = await response.blob();
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  } catch (e) { return null; }
+}
+
+/* ============================================================
+   PDF PREVIEW
+============================================================ */
+function abrirPreviewPDF() {
+  if (Object.keys(state).length === 0) { mostrarAlerta(); return; }
+  const content = document.getElementById('pdf-preview-content');
+  content.innerHTML = generarHTMLPreview();
+  document.getElementById('pdf-preview-modal').classList.add('show');
+}
+
+function cerrarPreviewPDF() {
+  document.getElementById('pdf-preview-modal').classList.remove('show');
+}
+
+function confirmarGenerarPDF() {
+  cerrarPreviewPDF();
+  setTimeout(generarPDF, 200);
+}
+
+function generarHTMLPreview() {
+  const tiempo     = document.getElementById('inp-tiempo').value;
+  const info       = TIEMPO_META[tiempo];
+  const [R,G,B]    = info.rgb;
+  const color      = `rgb(${R},${G},${B})`;
+  const fechaStr   = formatDate(document.getElementById('inp-fecha').value);
+  const responsable = document.getElementById('inp-responsable').value.trim() || 'Coordinador GVC';
+  const lect1      = document.getElementById('inp-lect1').value.trim();
+  const salmoN     = document.getElementById('inp-salmo-n').value.trim();
+  const salmoT     = document.getElementById('inp-salmo-t').value.trim();
+  const lect2      = document.getElementById('inp-lect2').value.trim();
+  const evangelio  = document.getElementById('inp-evangelio').value.trim();
+  const notas      = document.getElementById('inp-notas').value.trim();
+
+  let html = `
+    <div class="pdf-page-header">
+      <div>
+        <div class="pdf-page-org">GUITARRAS Y VOCES PARA CRISTO</div>
+        <div class="pdf-page-meta">Ministerio Musical GVC &nbsp;·&nbsp; Hoja de Cantos</div>
+        <div class="pdf-page-meta" style="margin-top:.3rem;">📅 ${fechaStr} &nbsp;·&nbsp; ${info.label} · ${info.color}</div>
+        <div class="pdf-page-meta">👤 ${escHtml(responsable)}</div>
+      </div>
+      <div class="pdf-page-logo-box">🎸</div>
+    </div>`;
+
+  // Lecturas
+  const hayLecturas = lect1 || salmoN || lect2 || evangelio;
+  if (hayLecturas) {
+    html += `<div class="pdf-lecturas-box">
+      <strong>📕 LECTURAS DEL DÍA</strong>`;
+    if (lect1) html += `<strong>Primera Lectura</strong>${escHtml(lect1)}`;
+    if (salmoN || salmoT) html += `<strong>Salmo ${escHtml(salmoN)}</strong>${escHtml(salmoT ? `«${salmoT}»` : '')} `;
+    if (lect2) html += `<strong>Segunda Lectura</strong>${escHtml(lect2)}`;
+    if (evangelio) html += `<strong>Evangelio</strong>${escHtml(evangelio)}`;
+    html += `</div>`;
+  }
+
+  const SECCIONES_PDF = [
+    { titulo:'RITOS INICIALES',      color:color, ids:['entrada','piedad','gloria','aleluya'] },
+    { titulo:'LITURGIA EUCARÍSTICA', color:color, ids:['ofert1','ofert2','santo','aclam','amen','tuyo'] },
+    { titulo:'RITO DE COMUNIÓN',     color:color, ids:['paz','cordero','comunion'] },
+    { titulo:'RITO DE CONCLUSIÓN',   color:color, ids:['salida','marianos'] },
+  ];
+
+  for (const sec of SECCIONES_PDF) {
+    const cantos = sec.ids.filter(id => state[id] && !state[id].omitir);
+    if (cantos.length === 0) continue;
+    html += `<div class="pdf-sec-head" style="background:${color}">${sec.titulo}</div>`;
+    for (const mid of cantos) {
+      const s = state[mid];
+      const m = MOMENTOS.find(x => x.id === mid);
+      const titulo = s.titulo || 'Canto sin título asignado';
+      const letra  = s.letra  || '';
+      html += `
+        <div class="pdf-canto-row">
+          <div class="pdf-canto-moment">${m.icono} ${m.nombre}</div>
+          <div class="pdf-canto-title">${escHtml(titulo)}</div>
+          <div class="pdf-canto-tono">🎵 Tono: ${escHtml(s.tono || '—')}</div>
+          ${letra ? `<div class="pdf-canto-letra">${escHtml(letra)}</div>` : ''}
+        </div>`;
+    }
+  }
+
+  if (notas) {
+    html += `<div class="pdf-sec-head" style="background:${color}">OBSERVACIONES</div>`;
+    html += `<div style="font-size:.82rem;color:#444;line-height:1.7;padding:.4rem 0">${escHtml(notas)}</div>`;
+  }
+
+  html += `<div style="font-size:.65rem;color:#bbb;text-align:center;margin-top:2rem;padding-top:.8rem;border-top:1px solid #eee">Ministerio Musical GVC — Guitarras y Voces para Cristo</div>`;
+  return html;
+}
+
+async function generarPDF() {
+  if (!window.jspdf) { mostrarToast('❌ La librería PDF no está cargada.', true); return; }
+  if (Object.keys(state).length === 0) { mostrarAlerta(); return; }
+
+  const btn = document.getElementById('btn-pdf');
+  const btnTexto = btn.innerHTML;
+  btn.innerHTML = '<span>⏳</span> Generando PDF...'; btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none';
+
+  const { jsPDF } = window.jspdf;
+  const tiempo      = document.getElementById('inp-tiempo').value;
+  const info        = TIEMPO_META[tiempo];
+  const [R,G,B]     = info.rgb;
+  const fechaStr    = formatDate(document.getElementById('inp-fecha').value);
+  const responsable = document.getElementById('inp-responsable').value.trim() || 'Coordinador GVC';
+  const notas       = document.getElementById('inp-notas').value.trim();
+  const lect1       = document.getElementById('inp-lect1').value.trim();
+  const salmoN      = document.getElementById('inp-salmo-n').value.trim();
+  const salmoT      = document.getElementById('inp-salmo-t').value.trim();
+  const lect2       = document.getElementById('inp-lect2').value.trim();
+  const evangelio   = document.getElementById('inp-evangelio').value.trim();
+
+  const doc  = new jsPDF({ unit:'mm', format:'a4', orientation:'portrait' });
+  const PW   = 210, PH = 297, ML = 18, MR = 18, CW = PW - ML - MR;
+  let   y    = 0;
+
+  const nl = (n=5) => { y += n; };
+  const checkBreak = (need) => {
+    if (y + need > PH - 14) {
+      doc.addPage();
+      doc.setFillColor(R,G,B); doc.rect(0,0,PW,9,'F');
+      doc.setTextColor(255,255,255); doc.setFontSize(7); doc.setFont('helvetica','italic');
+      doc.text('GVC — Planificador Eucarístico', PW/2, 5.8, {align:'center'});
+      y = 16;
+    }
+  };
+
+  /* HEADER */
+  doc.setFillColor(R,G,B); doc.rect(0,0,PW,46,'F');
+  doc.setFillColor(255,255,255,.3); doc.rect(0,44,PW,1,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFont('helvetica','bold'); doc.setFontSize(18);
+  doc.text('GUITARRAS Y VOCES PARA CRISTO', ML, 15, {align:'left'});
+  doc.setFontSize(10); doc.setFont('helvetica','normal');
+  doc.text('Ministerio Musical GVC', ML, 22, {align:'left'});
+  doc.setFontSize(8.5); doc.setFont('helvetica','italic');
+  doc.text('Hoja de Cantos para la Santa Eucaristía', ML, 29, {align:'left'});
+  doc.setDrawColor(255,255,255,.5); doc.setLineWidth(.3);
+  doc.line(ML, 32, PW - 50, 32);
+  doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
+  doc.text(`Fecha: ${fechaStr}`, ML, 37);
+  doc.text(`${info.label} · Color ${info.color}`, ML, 41);
+  doc.text(`Responsable: ${responsable}`, 95, 37, {align:'center'});
+
+  /* LOGO */
+  const logoData = await getLogoBase64();
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(PW - 44, 3, 38, 40, 2, 2, 'F');
+  if (logoData) { doc.addImage(logoData, 'PNG', PW - 40, 5, 30, 36); }
+  y = 52;
+
+  /* LECTURAS */
+  doc.setFillColor(R,G,B); doc.roundedRect(ML, y, CW, 7, 1.5, 1.5, 'F');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(7.5);
+  doc.text('LECTURAS DEL DÍA', ML+3, y+4.6); nl(11);
+  doc.setTextColor(35,35,35); doc.setFontSize(8);
+
+  const lRow = (label, val) => {
+    doc.setFont('helvetica','bold'); doc.text(`${label}:`, ML+2, y);
+    if (val) {
+      doc.setFont('helvetica','normal');
+      const lines = doc.splitTextToSize(val, CW - 40);
+      doc.text(lines, ML+36, y); nl(4.5 * lines.length);
+    } else {
+      doc.setDrawColor(200,200,200); doc.setLineWidth(0.3); doc.line(ML+36, y+1, PW-MR-2, y+1); nl(5);
+    }
+  };
+
+  lRow('Primera Lectura', lect1);
+  doc.setFont('helvetica','bold'); doc.text(`Salmo ${salmoN ? salmoN : '____'}:`, ML+2, y);
+  if (salmoT) {
+    doc.setFont('helvetica','italic');
+    const sl = doc.splitTextToSize(`«${salmoT}»`, CW - 28);
+    doc.text(sl, ML+24, y); nl(4.5*sl.length);
+  } else {
+    doc.setDrawColor(200,200,200); doc.setLineWidth(0.3); doc.line(ML+24, y+1, PW-MR-2, y+1); nl(5);
+  }
+  lRow('Segunda Lectura', lect2);
+  lRow('Evangelio', evangelio);
+  nl(3); doc.setDrawColor(R,G,B); doc.setLineWidth(.4); doc.line(ML, y, PW-MR, y); nl(7);
+
+  /* CANTOS */
+  const SECCIONES_PDF = [
+    { titulo:'RITOS INICIALES',       ids:['entrada','piedad','gloria','aleluya'] },
+    { titulo:'LITURGIA EUCARÍSTICA',  ids:['ofert1','ofert2','santo','aclam','amen','tuyo'] },
+    { titulo:'RITO DE COMUNIÓN',      ids:['paz','cordero','comunion'] },
+    { titulo:'RITO DE CONCLUSIÓN',    ids:['salida','marianos'] },
+  ];
+
+  for (const sec of SECCIONES_PDF) {
+    const hayCantos = sec.ids.some(id => state[id] && !state[id].omitir);
+    if (!hayCantos) continue;
+    checkBreak(16);
+    doc.setFillColor(R,G,B); doc.roundedRect(ML, y, CW, 7.5, 1.5, 1.5, 'F');
+    doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(7.5);
+    doc.text(sec.titulo, ML+3, y+5); nl(12);
+
+    for (const mid of sec.ids) {
+      const s = state[mid];
+      if (!s || s.omitir) continue;
+      const mDef = MOMENTOS.find(x => x.id === mid);
+      checkBreak(25);
+      doc.setTextColor(R,G,B); doc.setFont('helvetica','bold'); doc.setFontSize(7);
+      doc.text(`▸ ${mDef.nombre.toUpperCase()}`, ML+1, y); nl(5.5);
+      doc.setTextColor(15,15,15); doc.setFont('helvetica','bold'); doc.setFontSize(10.5);
+      const displayTitle = s.titulo ? s.titulo : "Canto sin título asignado";
+      doc.text(displayTitle, ML+2, y);
+      doc.setFont('helvetica','italic'); doc.setFontSize(7.5); doc.setTextColor(130,130,130);
+      doc.text(`Tono: ${s.tono}`, PW-MR, y, {align:'right'});
+
+      if (s.yt && s.yt.trim() !== "") {
+        nl(4);
+        doc.setTextColor(37, 99, 235);
+        doc.setFont('helvetica','italic'); doc.setFontSize(7.5);
+        const ytText = "Ver video en YouTube";
+        const linkW = doc.getTextWidth(ytText);
+        doc.text(ytText, PW-MR, y, {align: 'right'});
+        doc.link(PW-MR-linkW, y-3, linkW, 4, { url: s.yt });
+        doc.setDrawColor(37, 99, 235); doc.setLineWidth(0.15);
+        doc.line(PW-MR-linkW, y+0.5, PW-MR, y+0.5);
+        nl(4.5);
+      } else { nl(5.5); }
+
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(60,60,60);
+      const lines = doc.splitTextToSize(s.letra || '', CW - 4);
+      for (const ln of lines) { checkBreak(5); doc.setTextColor(60,60,60); doc.text(ln, ML+2, y); nl(4.3); }
+      nl(3);
+      doc.setDrawColor(210,210,210); doc.setLineWidth(.15); doc.line(ML+2, y-1, PW-MR-2, y-1); nl(4);
+    }
+  }
+
+  /* OBSERVACIONES */
+  if (notas) {
+    checkBreak(24);
+    doc.setFillColor(R,G,B); doc.roundedRect(ML, y, CW, 7.5, 1.5, 1.5, 'F');
+    doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(7.5);
+    doc.text('OBSERVACIONES DEL COORDINADOR', ML+3, y+5); nl(12);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(45,45,45);
+    const nlines = doc.splitTextToSize(notas, CW-4);
+    for (const ln of nlines) { checkBreak(5); doc.setTextColor(45,45,45); doc.text(ln, ML+2, y); nl(4.5); }
+  }
+
+  /* FOOTER */
+  const total = doc.getNumberOfPages();
+  for (let i = 1; i <= total; i++) {
+    doc.setPage(i); doc.setFillColor(R,G,B); doc.rect(0, PH-9, PW, 9, 'F');
+    doc.setTextColor(255,255,255); doc.setFont('helvetica','italic'); doc.setFontSize(7);
+    doc.text('Ministerio Musical GVC — Guitarras y Voces para Cristo', ML, PH-3.5);
+    doc.text(`Página ${i} de ${total}`, PW-MR, PH-3.5, {align:'right'});
+  }
+
+  const fechaFile = (document.getElementById('inp-fecha').value||'sin_fecha').replace(/-/g,'');
+  doc.save(`GVC_Cantos_${fechaFile}.pdf`);
+  btn.innerHTML = btnTexto; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto';
+  mostrarToast('📄 PDF generado exitosamente');
+}
+</script>
+</body>
+</html>
