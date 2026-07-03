@@ -107,7 +107,7 @@ ha envejecido sin dejarme de querer.` },
 ¡VAMOS YA HACIA LA CASA DE DIOS!
 
 Fuerte y bien construida
-es la ciudad de Sión; 
+es la ciudad de Sión;
 en ella se reúnen
 las tribus del Señor.
 
@@ -504,7 +504,7 @@ El Señor resucitó, aleluya.` },
 
 /* ===== CANTO 3===== */ 
 
-    { titulo:"El evalgelio es la palabra", tono:"ReM",
+    { titulo:"El evangelio es la palabra", tono:"ReM",
       letra:`ALELUYA (6)
 
 El evangelio es la palabra,
@@ -1180,7 +1180,7 @@ Para que nos puedas perdonar.` }
 
   /* ================================================== CANTOS DE SANTO ======================================================= */
   "Santo": [
-    { titulo:"Santo es el Señor", tono:"Lam",
+    { titulo:"Santo es el Señor (Lam)", tono:"Lam",
       letra:`Santo es el Señor, mi Dios
 digno de alabanza
 a Él, el poder, el honor
@@ -1233,7 +1233,7 @@ en nombre del Señor. (2)
 Hosanna, Hosanna. (2)` },
 
 /* ===== CANTO 5===== */ 
-    { titulo:"Santo es el Señor", tono:"Sim",
+    { titulo:"Santo es el Señor (Sim)", tono:"Sim",
       letra:`SANTO, SANTO, SANTO ES EL SEÑOR.
 DIOS DEL UNIVERSO, SANTO ES EL SEÑOR.
 
@@ -1272,7 +1272,7 @@ del Señor, Hosanna, hosanna.
 
   /* ================================================ CANTOS DE ACLAMACIÓN ==================================================== */
   "Aclamación": [
-    { titulo:"Cada Vez", tono:"SolM",
+    { titulo:"Cada vez (SolM)", tono:"SolM",
       letra:`Cada vez que comemos de este pan
 y bebemos de este cáliz,
 anunciamos tu muerte, Señor,
@@ -1286,7 +1286,7 @@ proclamamos tu resurrección.
 ¡Ven, Señor Jesús! ` },
     
 /* ===== CANTO 3===== */ 
-    { titulo:"Cada Vez", tono:"DoM",
+    { titulo:"Cada vez (DoM)", tono:"DoM",
       letra:`Cada vez que comemos de este pan
 Cada vez que bebemos de este cáliz,
 anunciamos tu muerte, Señor,
@@ -1296,24 +1296,17 @@ hasta que vuelvas, Señor.` }
 
   /* ================================================== CANTOS DE AMÉN ============================================================ */
   "Amén": [
-    { titulo:"GVC-1", tono:"Sim",
+    { titulo:"Bayron", tono:"Sim",
       letra:`Amén (8).` },
     
 /* ===== CANTO 2===== */ 
     { titulo:"Amén Solemne", tono:"DoM",
       letra:`¡Amén!
 
-Bendición y gloria, sabiburía,
+Bendición y gloria, sabiduría,
 acción de gracias demos a Dios.
 
-¡Amén! ¡Amén! ¡Amén!` },
-
-    { titulo:"Si Amén", tono:"MiM",
-      letra:`Si Amén (3).
-      Amén, Amén.
-      
-     Si Amén (3).
-    Amén, Amén.` }
+¡Amén! ¡Amén! ¡Amén!` }
   ],
 
   /* ================================================== CANTOS DE TUYO ES EL REINO ================================================== */
@@ -1423,57 +1416,7 @@ Señor, ten piedad.
 
 Cordero de Dios,
 tu que quitas el pecado del mundo (2)
-Señor. danos la paz. (3)` },
-
-/* ===== CANTO 2===== */ 
-{ titulo:"Cordero", tono:"Lam",
-  letra:`Cordero de Dios que quitas
-el pecado del mundo. (2)
-Ten piedad de nosotros,
-de nosotros ten piedad. (2) (bis)
-
-Cordero de Dios que quitas
-el pecado del mundo.(2)
-Danos la paz, danos la paz,
-danos la paz, danos la paz.
-`},
-    
-/* ===== CANTO 3===== */ 
-{ titulo:"Cordero", tono:"Fa#m",
-  letra:`Cordero de Dios que quitas
-el pecado del mundo. (2)
-Ten piedad de nosotros,
-de nosotros ten piedad. (2) (bis)
-
-Cordero de Dios que quitas
-el pecado del mundo.(2)
-Danos la paz, danos la paz,
-danos la paz, danos la paz.
-`},
-
-/* ===== CANTO 4===== */ 
-{ titulo:"Cordero", tono:"SolM>LaM",
-  letra:`Cordero de Dios, 
-  tu que quitas el pecado del mundo.
-Ten piedad de nosotros,
-cordero de Dios. (2) (bis)
-
-Cordero de Dios que quitas
-el pecado del mundo.
-Danos la paz, danos la paz,
-danos la paz, danos la paz.
-`},
-
-/* ===== CANTO 5===== */ 
-{ titulo:"Cordero", tono:"Mim",
-  letra:`Cordero de Dios, 
-  que quitas el pecado del mundo.
-Ten piedad de nosotros (2)(bis)
-
-Cordero de Dios que quitas
-el pecado del mundo.
-Danos la paz, danos la paz,
-danos la paz, danos la paz.`}
+Señor. danos la paz. (3)` }
   ],
 
   /* ======================================================= CANTOS DE COMUNIÓN ================================================== */
@@ -1490,12 +1433,12 @@ llega en silencio a mí,
 y mis hermanos me hablan de Ti.
 Sé que a mi lado estás,
 te sientas junto a mí:
-Acojes mi vida y mi oración.` }
+Acoges mi vida y mi oración.` }
   ],
 
   /* ================================================= CANTOS DE SALIDA ========================================================== */
   "Salida": [
-    { titulo:"Moisaico 1", tono:"MiM",
+    { titulo:"Mosaico 1", tono:"MiM",
       letra:`Mi Dios está vivo,
 Él no está muerto (3)
 Lo siento en mis manos,
@@ -1533,7 +1476,7 @@ como las que haces Tú. (2)`}
   ],
 /*================================================= Marianos y otros ========================================================== */
   "Marianos y Otros": [
-    { titulo:"Santa María del Camino", tono:"DoM",
+    { titulo:"Santa María del Camino (DoM)", tono:"DoM",
       letra:`Mientras recorres la vida
 tú nunca solo estás;
 contigo por el camino
@@ -1580,7 +1523,7 @@ Santa María, Madre de Dios,
 ruega por nosotros pecadores,
 ahora y en la hora de nuestra muerte. Amén.` },
 
-    { titulo:"Santa María del Camino", tono:"Mim",
+    { titulo:"Santa María del Camino (Mim)", tono:"Mim",
       letra:`Santa María del camino,
 acompáñanos en la jornada.
 Santa María del camino,
@@ -1595,3 +1538,7 @@ Santa María del camino,
 acompáñanos en la jornada.` }
   ]
 };
+
+
+// Ofertorio 2 comparte el mismo catalogo que Ofertorio 1
+DB["Ofertorio 2"] = DB["Ofertorio 1"];
