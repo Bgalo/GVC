@@ -994,7 +994,8 @@ Bendición y gloria, sabiburía,
 acción de gracias demos a Dios.
 
 ¡Amén! ¡Amén! ¡Amén!` },
-
+     
+/* ===== CANTO 3===== */ 
     { titulo:"Si Amén", tono:"MiM",
       letra:`Si Amén (3).
       Amén, Amén.
@@ -1162,8 +1163,8 @@ el pecado del mundo.
 Danos la paz, danos la paz,
 danos la paz, danos la paz.`}
   ],
-
-  /* ======================================================= CANTOS DE COMUNIÓN ================================================== */
+  
+/* ======================================================= CANTOS DE COMUNIÓN ================================================== */
   "Comunión": [
     { titulo:"En su mesa hay amor", tono:"DoM",
       letra:`EL SEÑOR NOS HA REUNIDO JUNTO A ÉL,
