@@ -1001,6 +1001,13 @@ acción de gracias demos a Dios.
       Amén, Amén.
       
      Si Amén (3).
+    Amén, Amén.` },
+
+     /* ===== CANTO 4===== */ 
+    { titulo:"Prueba", tono:"Mi#M",
+      letra:`Amén
+      
+     Si Amén (3).
     Amén, Amén.` }
   ],
 
