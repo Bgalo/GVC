@@ -1111,7 +1111,7 @@ Señor, ten piedad.
 
 Cordero de Dios,
 tu que quitas el pecado del mundo (2)
-Señor. danos la paz. (3)` },
+Señor. danos la paz. (3)`},
 
 /* ===== CANTO 2===== */ 
 { titulo:"Cordero", tono:"Lam",
@@ -1123,8 +1123,7 @@ de nosotros ten piedad. (2) (bis)
 Cordero de Dios que quitas
 el pecado del mundo.(2)
 Danos la paz, danos la paz,
-danos la paz, danos la paz.
-`},
+danos la paz, danos la paz.`},
     
 /* ===== CANTO 3===== */ 
 { titulo:"Cordero", tono:"Fa#m",
@@ -1136,8 +1135,7 @@ de nosotros ten piedad. (2) (bis)
 Cordero de Dios que quitas
 el pecado del mundo.(2)
 Danos la paz, danos la paz,
-danos la paz, danos la paz.
-`},
+danos la paz, danos la paz.`},
 
 /* ===== CANTO 4===== */ 
 { titulo:"Cordero", tono:"SolM>LaM",
@@ -1149,8 +1147,7 @@ cordero de Dios. (2) (bis)
 Cordero de Dios que quitas
 el pecado del mundo.
 Danos la paz, danos la paz,
-danos la paz, danos la paz.
-`},
+danos la paz, danos la paz.`},
 
 /* ===== CANTO 5===== */ 
 { titulo:"Cordero", tono:"Mim",
