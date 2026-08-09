@@ -24,12 +24,12 @@ Paso 4: Generar y Descargar el PDF
 •	Importante: Si no has seleccionado ningún canto, el sistema mostrará una alerta de seguridad y no generará el documento.
 •	El PDF se descargará automáticamente en tu dispositivo, incluyendo las letras completas, tonalidades y el color del tiempo litúrgico seleccionado.
 3. Guía de Mantenimiento: ¿Cómo agregar nuevos cantos?
-La plataforma está diseñada para que el repertorio crezca con el tiempo. Todas las letras y canciones viven en un único archivo llamado cantos.js. Para agregar, editar o corregir un canto, el coordinador debe seguir estos pasos:
+La plataforma está diseñada para que el repertorio crezca con el tiempo. Todas las letras y canciones viven en la carpeta `cantos/`, organizadas en un archivo para cada momento de la misa (ej. `entrada.js`, `comunion.js`). Para agregar, editar o corregir un canto, el coordinador debe seguir estos pasos:
 Instrucciones de Actualización:
 1.	Ingresa al repositorio del código en GitHub con la cuenta administradora: (Tu enlace de GitHub aquí).
-2.	Haz clic en el archivo llamado cantos.js.
+2.	Abre la carpeta `cantos` y haz clic en el archivo que deseas modificar (ej. `entrada.js`).
 3.	Haz clic en el ícono del Lápiz ✏️ (arriba a la derecha del código) para habilitar la edición.
-4.	Busca la sección (ej. "Entrada": [) donde quieres agregar la canción.
+4.	Busca la sección donde quieres agregar la canción.
 5.	Copia y pega la estructura de un canto existente y reemplaza los datos. La estructura estricta debe verse exactamente así:
 JavaScript
     { titulo: "Nombre del Nuevo Canto", tono: "DoM",

@@ -545,7 +545,21 @@
   <span class="save-dot"></span> Guardado
 </div>
 
-<script src="cantos.js"></script>
+<script>const DB = {};</script>
+<script src="cantos/entrada.js"></script>
+<script src="cantos/piedad.js"></script>
+<script src="cantos/gloria.js"></script>
+<script src="cantos/aleluya.js"></script>
+<script src="cantos/ofertorio.js"></script>
+<script src="cantos/santo.js"></script>
+<script src="cantos/aclamacion.js"></script>
+<script src="cantos/amen.js"></script>
+<script src="cantos/tuyo.js"></script>
+<script src="cantos/paz.js"></script>
+<script src="cantos/cordero.js"></script>
+<script src="cantos/comunion.js"></script>
+<script src="cantos/salida.js"></script>
+<script src="cantos/marianos.js"></script>
 <script>
 /* ============================================================
    CONSTANTS
@@ -1170,7 +1184,7 @@ function ejecutarBorrado() {
   localStorage.removeItem('gvc_plan');
   actualizarProgreso();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  mostrarToast('🗑️ Planificación limpia');
+  mostrarToast('🗑️ Planificación limpiada');
 }
 
 /* ============================================================
