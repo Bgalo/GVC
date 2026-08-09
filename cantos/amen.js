@@ -13,5 +13,13 @@ DB["Amén"] = [
 Bendición y gloria, sabiduría,
 acción de gracias demos a Dios.
 
-¡Amén! ¡Amén! ¡Amén!` }
+¡Amén! ¡Amén! ¡Amén!` },
+
+  /* ===== CANTO 3===== */
+{
+      titulo: "Si amén", tono: "MiM",
+      letra: `Si amén (3)
+    amén (2) (Bis)` }
+
+    
 ];
