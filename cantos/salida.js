@@ -34,7 +34,7 @@ No lo hay, no lo hay (2).
 
 No hay Dios
 que pueda hacer las cosas
-como las que haces Tú. (2)`} 
+como las que haces Tú. (2)`}, 
     
     {
       titulo: "Oración por la familia", tono: "ReM",
@@ -83,6 +83,6 @@ la fuerza de continuar,
 y que en su firmamento,
 la estrella que tenga más brillo,
 pueda ser la esperanza de paz
-y certeza de amar.`},
+y certeza de amar.`}
 
 ];
