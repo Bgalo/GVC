@@ -12,7 +12,7 @@ llega en silencio a mí,
 y mis hermanos me hablan de Ti.
 Sé que a mi lado estás,
 te sientas junto a mí:
-Acoges mi vida y mi oración.` }
+Acoges mi vida y mi oración.` },
 
 {titulo: "Oración por la familia", tono: "ReM",
       letra: `Que ninguna familia comience
@@ -60,6 +60,6 @@ la fuerza de continuar,
 y que en su firmamento,
 la estrella que tenga más brillo,
 pueda ser la esperanza de paz
-y certeza de amar.`},
+y certeza de amar.`}
     
 ];
