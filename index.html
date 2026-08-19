@@ -574,21 +574,21 @@
    CONSTANTS
 ============================================================ */
 const MOMENTOS = [
-  { id:"entrada",  nombre:"Entrada",         icono:"<i data-lucide='users'></i>", seccion:"iniciales",   dbKey:"Entrada" },
-  { id:"piedad",   nombre:"Piedad",           icono:"<i data-lucide='heart-handshake'></i>", seccion:"iniciales",   dbKey:"Piedad" },
-  { id:"gloria",   nombre:"Gloria",           icono:"<i data-lucide='sparkles'></i>", seccion:"iniciales",   dbKey:"Gloria" },
-  { id:"aleluya",  nombre:"Aleluya",          icono:"<i data-lucide='book-open'></i>", seccion:"palabra",     dbKey:"Aleluya" },
-  { id:"ofert1",   nombre:"Ofertorio 1",      icono:"<i data-lucide='wheat'></i>", seccion:"eucaristica", dbKey:"Ofertorio 1" },
-  { id:"ofert2",   nombre:"Ofertorio 2",      icono:"<i data-lucide='wheat'></i>", seccion:"eucaristica", dbKey:"Ofertorio 2" },
-  { id:"santo",    nombre:"Santo",            icono:"<i data-lucide='star'></i>", seccion:"eucaristica", dbKey:"Santo" },
-  { id:"aclam",    nombre:"Aclamación",       icono:"<i data-lucide='church'></i>", seccion:"eucaristica", dbKey:"Aclamación" },
-  { id:"amen",     nombre:"Amén",             icono:"<i data-lucide='music'></i>", seccion:"eucaristica", dbKey:"Amén" },
-  { id:"tuyo",     nombre:"Tuyo es el Reino", icono:"<i data-lucide='crown'></i>", seccion:"eucaristica", dbKey:"Tuyo es el Reino" },
-  { id:"paz",      nombre:"Paz",              icono:"<i data-lucide='bird'></i>", seccion:"comunion",   dbKey:"Paz" },
-  { id:"cordero",  nombre:"Cordero",          icono:"<i data-lucide='cloud'></i>", seccion:"comunion",    dbKey:"Cordero" },
-  { id:"comunion", nombre:"Comunión",         icono:"<i data-lucide='cross'></i>", seccion:"comunion",   dbKey:"Comunión" },
-  { id:"salida",   nombre:"Salida",           icono:"<i data-lucide='door-open'></i>", seccion:"conclusion",  dbKey:"Salida" },
-  { id:"marianos", nombre:"Marianos y Otros", icono:"<i data-lucide='flower'></i>", seccion:"conclusion",  dbKey:"Marianos y Otros" },
+  { id:"entrada",  nombre:"Entrada",         emoji:"🚶", icono:"<i data-lucide='users'></i>", seccion:"iniciales",   dbKey:"Entrada" },
+  { id:"piedad",   nombre:"Piedad",           emoji:"🙏", icono:"<i data-lucide='heart-handshake'></i>", seccion:"iniciales",   dbKey:"Piedad" },
+  { id:"gloria",   nombre:"Gloria",           emoji:"✨", icono:"<i data-lucide='sparkles'></i>", seccion:"iniciales",   dbKey:"Gloria" },
+  { id:"aleluya",  nombre:"Aleluya",          emoji:"📖", icono:"<i data-lucide='book-open'></i>", seccion:"palabra",     dbKey:"Aleluya" },
+  { id:"ofert1",   nombre:"Ofertorio 1",      emoji:"🍞", icono:"<i data-lucide='wheat'></i>", seccion:"eucaristica", dbKey:"Ofertorio 1" },
+  { id:"ofert2",   nombre:"Ofertorio 2",      emoji:"🥖", icono:"<i data-lucide='wheat'></i>", seccion:"eucaristica", dbKey:"Ofertorio 2" },
+  { id:"santo",    nombre:"Santo",            emoji:"🌟", icono:"<i data-lucide='star'></i>", seccion:"eucaristica", dbKey:"Santo" },
+  { id:"aclam",    nombre:"Aclamación",       emoji:"⛪", icono:"<i data-lucide='church'></i>", seccion:"eucaristica", dbKey:"Aclamación" },
+  { id:"amen",     nombre:"Amén",             emoji:"🎶", icono:"<i data-lucide='music'></i>", seccion:"eucaristica", dbKey:"Amén" },
+  { id:"tuyo",     nombre:"Tuyo es el Reino", emoji:"👑", icono:"<i data-lucide='crown'></i>", seccion:"eucaristica", dbKey:"Tuyo es el Reino" },
+  { id:"paz",      nombre:"Paz",              emoji:"🕊️", icono:"<i data-lucide='bird'></i>", seccion:"comunion",   dbKey:"Paz" },
+  { id:"cordero",  nombre:"Cordero",          emoji:"🐑", icono:"<i data-lucide='cloud'></i>", seccion:"comunion",    dbKey:"Cordero" },
+  { id:"comunion", nombre:"Comunión",         emoji:"✝️", icono:"<i data-lucide='cross'></i>", seccion:"comunion",   dbKey:"Comunión" },
+  { id:"salida",   nombre:"Salida",           emoji:"🚪", icono:"<i data-lucide='door-open'></i>", seccion:"conclusion",  dbKey:"Salida" },
+  { id:"marianos", nombre:"Marianos y Otros", emoji:"🌹", icono:"<i data-lucide='flower'></i>", seccion:"conclusion",  dbKey:"Marianos y Otros" },
 ];
 
 const TIEMPO_META = {
@@ -1270,7 +1270,7 @@ function copiarAlPortapapeles() {
       const m = MOMENTOS.find(x => x.id === mid);
       const tituloId = (s.id && s.id !== "OTRO") ? `[${s.id}] ` : '';
       const titulo = tituloId + (s.titulo || '(Sin título)');
-      txt += `  ${m.icono} ${m.nombre}: ${titulo} (${s.tono})\n`;
+      txt += `  ${m.emoji} ${m.nombre}: ${titulo} (${s.tono})\n`;
     }
     txt += `\n`;
   }
