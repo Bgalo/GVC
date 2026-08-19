@@ -15,8 +15,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="jspdf.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* ============================================================
+       LUCIDE ICONS
+    ============================================================ */
+    .lucide { width: 1.2em; height: 1.2em; vertical-align: text-bottom; stroke-width: 2.2px; }
+    .sec-icon .lucide { color: var(--c4); width: 1.4em; height: 1.4em; }
+    .card-icon .lucide { color: var(--c4); filter: drop-shadow(0 0 6px var(--glow)); }
+    .tl-icon .lucide { width: 1em; height: 1em; stroke-width: 2.5px; }
+
     /* ============================================================
        DESIGN TOKENS
     ============================================================ */
@@ -332,15 +341,15 @@
 
   <div class="controls-bar">
     <div class="ctrl-group">
-      <label class="ctrl-label" for="inp-fecha">📅 Fecha de la Misa</label>
+      <label class="ctrl-label" for="inp-fecha"><i data-lucide="calendar"></i> Fecha de la Misa</label>
       <input type="date" id="inp-fecha" class="ctrl-input" oninput="autoGuardar()">
     </div>
     <div class="ctrl-group">
-      <label class="ctrl-label" for="inp-responsable">👤 Responsable</label>
+      <label class="ctrl-label" for="inp-responsable"><i data-lucide="user"></i> Responsable</label>
       <input type="text" id="inp-responsable" class="ctrl-input" placeholder="Nombre del coordinador" oninput="autoGuardar()">
     </div>
     <div class="ctrl-group">
-      <label class="ctrl-label" for="inp-tiempo">✝️ Tiempo Litúrgico</label>
+      <label class="ctrl-label" for="inp-tiempo"><i data-lucide="cross"></i> Tiempo Litúrgico</label>
       <select id="inp-tiempo" class="ctrl-input" onchange="cambiarTiempo(this.value)">
         <option value="ordinario">Tiempo Ordinario</option>
         <option value="adviento">Adviento</option>
@@ -364,18 +373,18 @@
 
   <div class="mass-section">
     <div class="section-head">
-      <div class="sec-line-l"></div><span class="sec-icon">🕊️</span><span class="sec-title">Ritos Iniciales</span><div class="sec-line-r"></div>
+      <div class="sec-line-l"></div><span class="sec-icon"><i data-lucide="play-circle"></i></span><span class="sec-title">Ritos Iniciales</span><div class="sec-line-r"></div>
     </div>
     <div class="cantos-grid" id="grid-iniciales"></div>
   </div>
 
   <div class="mass-section">
     <div class="section-head">
-      <div class="sec-line-l"></div><span class="sec-icon">📖</span><span class="sec-title">Liturgia de la Palabra</span><div class="sec-line-r"></div>
+      <div class="sec-line-l"></div><span class="sec-icon"><i data-lucide="book-open"></i></span><span class="sec-title">Liturgia de la Palabra</span><div class="sec-line-r"></div>
     </div>
     <div class="cantos-grid" id="grid-palabra"></div>
     <div class="lecturas-card">
-      <div class="lecturas-title">📕 Lecturas del Día</div>
+      <div class="lecturas-title"><i data-lucide="book"></i> Lecturas del Día</div>
       <div class="lecturas-grid">
         <div class="lect-field">
           <label class="lect-label" for="inp-lect1">Primera Lectura</label>
@@ -408,47 +417,47 @@
 
   <div class="mass-section">
     <div class="section-head">
-      <div class="sec-line-l"></div><span class="sec-icon">🍞</span><span class="sec-title">Liturgia Eucarística</span><div class="sec-line-r"></div>
+      <div class="sec-line-l"></div><span class="sec-icon"><i data-lucide="wheat"></i></span><span class="sec-title">Liturgia Eucarística</span><div class="sec-line-r"></div>
     </div>
     <div class="cantos-grid" id="grid-eucaristica"></div>
   </div>
 
   <div class="mass-section">
     <div class="section-head">
-      <div class="sec-line-l"></div><span class="sec-icon">🍷</span><span class="sec-title">Rito de Comunión</span><div class="sec-line-r"></div>
+      <div class="sec-line-l"></div><span class="sec-icon"><i data-lucide="droplet"></i></span><span class="sec-title">Rito de Comunión</span><div class="sec-line-r"></div>
     </div>
     <div class="cantos-grid" id="grid-comunion"></div>
   </div>
 
   <div class="mass-section">
     <div class="section-head">
-      <div class="sec-line-l"></div><span class="sec-icon">✨</span><span class="sec-title">Rito de Conclusión</span><div class="sec-line-r"></div>
+      <div class="sec-line-l"></div><span class="sec-icon"><i data-lucide="sun"></i></span><span class="sec-title">Rito de Conclusión</span><div class="sec-line-r"></div>
     </div>
     <div class="cantos-grid" id="grid-conclusion"></div>
   </div>
 
   <div class="notes-card">
-    <label class="notes-label" for="inp-notas">📝 Observaciones / Notas del Coordinador</label>
+    <label class="notes-label" for="inp-notas"><i data-lucide="file-text"></i> Observaciones / Notas del Coordinador</label>
     <textarea id="inp-notas" class="notes-input" placeholder="Indicaciones especiales para el ministerio, intenciones de la misa, instrumentistas, etc." oninput="autoGuardar()"></textarea>
   </div>
 
   <!-- PANEL DE ESTADÍSTICAS (COLAPSABLE) -->
   <div class="stats-panel" id="stats-panel">
     <button class="stats-toggle" onclick="toggleStats()">
-      <span>📊 Estadísticas del Repertorio</span>
+      <span style="display:flex;align-items:center;gap:6px;"><i data-lucide="bar-chart-2"></i> Estadísticas del Repertorio</span>
       <span class="stats-arrow" id="stats-arrow">▼</span>
     </button>
     <div class="stats-body" id="stats-body">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-card-title">🎵 Distribución de Tonalidades</div>
+          <div class="stat-card-title"><i data-lucide="music"></i> Distribución de Tonalidades</div>
           <div style="position:relative;height:200px">
             <canvas id="chart-tonos"></canvas>
           </div>
           <div id="tonos-empty" class="stat-empty">Selecciona cantos para ver la distribución de tonalidades</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-title">📊 Cantos por Sección</div>
+          <div class="stat-card-title"><i data-lucide="pie-chart"></i> Cantos por Sección</div>
           <div style="position:relative;height:200px">
             <canvas id="chart-secciones"></canvas>
           </div>
@@ -478,10 +487,10 @@
   <div class="pdf-zone">
     <div class="action-buttons">
       <button class="clear-btn" onclick="abrirConfirmacion()">
-        <span>🗑️</span> Limpiar Todo
+        <i data-lucide="trash-2"></i> Limpiar Todo
       </button>
       <button class="pdf-btn" id="btn-pdf" onclick="abrirPreviewPDF()">
-        <span>📄</span> Vista previa y descargar PDF
+        <i data-lucide="file-text"></i> Vista previa y descargar PDF
       </button>
     </div>
     <p class="pdf-hint">El PDF incluirá letras completas, enlaces a YouTube interactivos, lecturas del día y observaciones.</p>
@@ -496,7 +505,7 @@
 <!-- MODALES -->
 <div id="custom-alert" class="custom-alert-overlay">
   <div class="custom-alert-box">
-    <div class="custom-alert-icon">⚠️</div>
+    <div class="custom-alert-icon"><i data-lucide="alert-triangle" style="width:48px;height:48px;"></i></div>
     <h3 class="custom-alert-title">Repertorio Vacío</h3>
     <p class="custom-alert-text">Por favor, selecciona o ingresa al menos un canto antes de generar la hoja para la misa.</p>
     <button class="custom-alert-btn" onclick="cerrarAlerta()">Entendido</button>
@@ -505,7 +514,7 @@
 
 <div id="custom-confirm" class="custom-alert-overlay">
   <div class="custom-alert-box">
-    <div class="custom-alert-icon" style="animation:none;">🗑️</div>
+    <div class="custom-alert-icon" style="animation:none;"><i data-lucide="trash-2" style="width:48px;height:48px;"></i></div>
     <h3 class="custom-alert-title">¿Limpiar Todo?</h3>
     <p class="custom-alert-text">¿Estás seguro de que deseas borrar toda la planificación actual? Esta acción no se puede deshacer.</p>
     <div class="confirm-buttons">
@@ -519,7 +528,7 @@
 <div id="pdf-preview-modal" class="pdf-preview-overlay">
   <div class="pdf-preview-box">
     <div class="pdf-preview-header">
-      <span class="pdf-preview-title">📄 Vista Previa del PDF</span>
+      <span class="pdf-preview-title" style="display:flex;align-items:center;gap:6px;"><i data-lucide="file-text"></i> Vista Previa del PDF</span>
       <button class="pdf-preview-close" onclick="cerrarPreviewPDF()">✕</button>
     </div>
     <div class="pdf-preview-scroll">
@@ -528,10 +537,10 @@
     <div class="pdf-preview-footer">
       <button class="clear-btn" style="padding:.7rem 1.5rem;font-size:.85rem;" onclick="cerrarPreviewPDF()">Cancelar</button>
       <button class="copy-btn" style="padding:.7rem 1.5rem;font-size:.85rem;" onclick="copiarAlPortapapeles(); mostrarToast('✅ Copiado para WhatsApp');">
-        <span>📲</span> Copiar para WhatsApp
+        <i data-lucide="smartphone"></i> Copiar para WhatsApp
       </button>
       <button class="pdf-btn" id="btn-pdf-confirm" onclick="confirmarGenerarPDF()" style="padding:.8rem 2rem;font-size:.9rem;">
-        <span>⬇️</span> Descargar PDF
+        <i data-lucide="download"></i> Descargar PDF
       </button>
     </div>
   </div>
@@ -565,21 +574,21 @@
    CONSTANTS
 ============================================================ */
 const MOMENTOS = [
-  { id:"entrada",  nombre:"Entrada",         icono:"🚶", seccion:"iniciales",   dbKey:"Entrada" },
-  { id:"piedad",   nombre:"Piedad",           icono:"🙏", seccion:"iniciales",   dbKey:"Piedad" },
-  { id:"gloria",   nombre:"Gloria",           icono:"✨", seccion:"iniciales",   dbKey:"Gloria" },
-  { id:"aleluya",  nombre:"Aleluya",          icono:"📖", seccion:"palabra",     dbKey:"Aleluya" },
-  { id:"ofert1",   nombre:"Ofertorio 1",      icono:"🍞", seccion:"eucaristica", dbKey:"Ofertorio 1" },
-  { id:"ofert2",   nombre:"Ofertorio 2",      icono:"🥖", seccion:"eucaristica", dbKey:"Ofertorio 2" },
-  { id:"santo",    nombre:"Santo",            icono:"🌟", seccion:"eucaristica", dbKey:"Santo" },
-  { id:"aclam",    nombre:"Aclamación",       icono:"⛪", seccion:"eucaristica", dbKey:"Aclamación" },
-  { id:"amen",     nombre:"Amén",             icono:"🎶", seccion:"eucaristica", dbKey:"Amén" },
-  { id:"tuyo",     nombre:"Tuyo es el Reino", icono:"👑", seccion:"eucaristica", dbKey:"Tuyo es el Reino" },
-  { id:"paz",      nombre:"Paz",              icono:"🕊️", seccion:"comunion",   dbKey:"Paz" },
-  { id:"cordero",  nombre:"Cordero",          icono:"🐑", seccion:"comunion",    dbKey:"Cordero" },
-  { id:"comunion", nombre:"Comunión",         icono:"✝️", seccion:"comunion",   dbKey:"Comunión" },
-  { id:"salida",   nombre:"Salida",           icono:"🚪", seccion:"conclusion",  dbKey:"Salida" },
-  { id:"marianos", nombre:"Marianos y Otros", icono:"🌹", seccion:"conclusion",  dbKey:"Marianos y Otros" },
+  { id:"entrada",  nombre:"Entrada",         icono:"<i data-lucide='users'></i>", seccion:"iniciales",   dbKey:"Entrada" },
+  { id:"piedad",   nombre:"Piedad",           icono:"<i data-lucide='heart-handshake'></i>", seccion:"iniciales",   dbKey:"Piedad" },
+  { id:"gloria",   nombre:"Gloria",           icono:"<i data-lucide='sparkles'></i>", seccion:"iniciales",   dbKey:"Gloria" },
+  { id:"aleluya",  nombre:"Aleluya",          icono:"<i data-lucide='book-open'></i>", seccion:"palabra",     dbKey:"Aleluya" },
+  { id:"ofert1",   nombre:"Ofertorio 1",      icono:"<i data-lucide='wheat'></i>", seccion:"eucaristica", dbKey:"Ofertorio 1" },
+  { id:"ofert2",   nombre:"Ofertorio 2",      icono:"<i data-lucide='wheat'></i>", seccion:"eucaristica", dbKey:"Ofertorio 2" },
+  { id:"santo",    nombre:"Santo",            icono:"<i data-lucide='star'></i>", seccion:"eucaristica", dbKey:"Santo" },
+  { id:"aclam",    nombre:"Aclamación",       icono:"<i data-lucide='church'></i>", seccion:"eucaristica", dbKey:"Aclamación" },
+  { id:"amen",     nombre:"Amén",             icono:"<i data-lucide='music'></i>", seccion:"eucaristica", dbKey:"Amén" },
+  { id:"tuyo",     nombre:"Tuyo es el Reino", icono:"<i data-lucide='crown'></i>", seccion:"eucaristica", dbKey:"Tuyo es el Reino" },
+  { id:"paz",      nombre:"Paz",              icono:"<i data-lucide='bird'></i>", seccion:"comunion",   dbKey:"Paz" },
+  { id:"cordero",  nombre:"Cordero",          icono:"<i data-lucide='cloud'></i>", seccion:"comunion",    dbKey:"Cordero" },
+  { id:"comunion", nombre:"Comunión",         icono:"<i data-lucide='cross'></i>", seccion:"comunion",   dbKey:"Comunión" },
+  { id:"salida",   nombre:"Salida",           icono:"<i data-lucide='door-open'></i>", seccion:"conclusion",  dbKey:"Salida" },
+  { id:"marianos", nombre:"Marianos y Otros", icono:"<i data-lucide='flower'></i>", seccion:"conclusion",  dbKey:"Marianos y Otros" },
 ];
 
 const TIEMPO_META = {
@@ -622,6 +631,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTimeline();
   inicializarCharts();
   renderSectionBreakdown();
+  
+  // Inicializar los iconos de Lucide
+  lucide.createIcons();
 
   // Restore saved state
   const restored = restaurarEstado();
