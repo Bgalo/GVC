@@ -2,7 +2,7 @@
 DB["Amén"] = [
     {
       id: "AM-1",
-      titulo: "Bayron", tono: "Sim",
+      titulo: "GVC", tono: "Sim",
       letra: `Amén (8).`
     },
 
