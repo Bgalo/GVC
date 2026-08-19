@@ -1381,7 +1381,7 @@ function generarHTMLPreview() {
       const letra  = s.letra  || '';
       html += `
         <div class="pdf-canto-row">
-          <div class="pdf-canto-moment">${m.icono} ${m.nombre}</div>
+          <div class="pdf-canto-moment">${m.emoji} ${m.nombre}</div>
           <div class="pdf-canto-title">${escHtml(titulo)}</div>
           <div class="pdf-canto-tono">🎵 Tono: ${escHtml(s.tono || '—')}</div>
           ${letra ? `<div class="pdf-canto-letra">${escHtml(letra)}</div>` : ''}
