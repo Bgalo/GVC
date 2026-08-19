@@ -1,6 +1,7 @@
-/* ===== CANTOS MARIANOS Y OTROS (Repertorio GVC) ===== */
+﻿/* ===== CANTOS MARIANOS Y OTROS (Repertorio GVC) ===== */
 DB["Marianos y Otros"] = [
     {
+      id: "M-1",
       titulo: "Santa María del Camino (DoM)", tono: "DoM",
       letra: `Mientras recorres la vida
 tú nunca solo estás;
@@ -26,6 +27,7 @@ tú vas haciendo caminos:
 otros lo seguirán.` },
 
     {
+      id: "M-2",
       titulo: "Ave María Llena eres de Gracia", tono: "SolM",
       letra: `Ave María, llena eres de gracia,
 el Señor es contigo.
@@ -39,6 +41,7 @@ ahora y en la hora de nuestra muerte.
 Amén, amén, amén.` },
 
     {
+      id: "M-3",
       titulo: "Dios te Salve María", tono: "ReM",
       letra: `Dios te salve, María,
 llena eres de gracia,
@@ -51,6 +54,7 @@ ruega por nosotros pecadores,
 ahora y en la hora de nuestra muerte. Amén.` },
 
     {
+      id: "M-4",
       titulo: "Santa María del Camino (Mim)", tono: "Mim",
       letra: `Santa María del camino,
 acompáñanos en la jornada.

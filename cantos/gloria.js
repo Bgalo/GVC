@@ -1,6 +1,7 @@
-/* ===== CANTOS DE GLORIA (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE GLORIA (Repertorio GVC) ===== */
 DB["Gloria"] = [
     {
+      id: "G-1",
       titulo: "Gloria (C. Gabaráin)", tono: "DoM",
       letra: `GLORIA, GLORIA, GLORIA AL SEÑOR,
 GLORIA EN EL CIELO,
@@ -24,6 +25,7 @@ en la gloria de Dios.` },
     /* ===== CANTO 2===== */
 
     {
+      id: "G-2",
       titulo: "Gloria a Dios en el Cielo (Completo)", tono: "SolM",
       letra: `GLORIA A DIOS EN EL CIELO, Y EN LA TIERRA PAZ
 A LOS HOMBRES QUE AMA EL SEÑOR.
@@ -56,6 +58,7 @@ Amén, amén, a - mén.` },
 
     /* ===== CANTO 3===== */
     {
+      id: "G-3",
       titulo: "Gloria al Señor que reina", tono: "ReM",
       letra: `GLORIA AL SEÑOR
 QUE REINA EN EL CIELO
@@ -80,6 +83,7 @@ en la gloria de Dios Padre.` },
     /* ===== CANTO 4===== */
 
     {
+      id: "G-4",
       titulo: "Gloria al Señor y al hombre paz", tono: "Rem",
       letra: `GLORIA AL SEÑOR Y AL HOMBRE PAZ,
 HAYA EN LA TIERRA FELICIDAD. (2)
@@ -102,6 +106,7 @@ en la Gloria de Dios Padre.` },
     /* ===== CANTO 5===== */
 
     {
+      id: "G-5",
       titulo: "Gloria a Dios en lo alto", tono: "ReM",
       letra: `GLORIA A NUESTRO DIOS
 EN LO ALTO DE LOS CIELOS,
@@ -126,6 +131,7 @@ en la gloria de Dios Padre.` },
     /* ===== CANTO 6===== */
 
     {
+      id: "G-6",
       titulo: "Gloria (Alejandro M.)-Peruano", tono: "Mim",
       letra: `GLORIA, GLORIA A DIOS EN EL CIELO
 Y EN LA TIERRA A LOS HOMBRES PAZ. (bis)
@@ -156,6 +162,7 @@ amen, amen, aaaaamen.` },
     /* ===== CANTO 7===== */
 
     {
+      id: "G-7",
       titulo: "Gloria a la trinidad", tono: "Rem",
       letra: `Gloria a Dios, gloria a Dios,
 gloria al Padre. (2)

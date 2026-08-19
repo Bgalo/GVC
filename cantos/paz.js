@@ -1,6 +1,7 @@
-/* ===== CANTOS DE PAZ (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE PAZ (Repertorio GVC) ===== */
 DB["Paz"] = [
     {
+      id: "PZ-1",
       titulo: "La Paz esté con Nosotros", tono: "Mim",
       letra: `La paz esté con nosotros, (3)
 que con nosotros, siempre,
@@ -13,6 +14,7 @@ la paz, la paz sea contigo.
 
     /* ===== CANTO 2===== */
     {
+      id: "PZ-2",
       titulo: "Paz en la tierra", tono: "ReM",
       letra: `PAZ EN LA TIERRA,
 PAZ EN LAS ALTURAS.
@@ -31,6 +33,7 @@ abrazo de paz.` },
 
     /* ===== CANTO 3===== */
     {
+      id: "PZ-3",
       titulo: "La Paz que que el mundo", tono: "ReM",
       letra: `La paz a vosotros, os doy.
 Es la paz que el mundo no puede dar,
@@ -41,6 +44,7 @@ mi paz a vosotros os doy. (2)` },
 
     /* ===== CANTO 4===== */
     {
+      id: "PZ-4",
       titulo: "Dame la mano", tono: "MiM",
       letra: `No importa del sitio que vengas,
 si del campo, ciudad, todo es igual;
@@ -61,6 +65,7 @@ dame la mano y mi hermano serás.`},
 
     /* ===== CANTO 5===== */
     {
+      id: "PZ-5",
       titulo: "Paz, paz, amor y paz", tono: "DoM",
       letra: `Paz, paz, amor y paz
 Hombres de la tierra 
@@ -70,6 +75,7 @@ Es lo que queremos celebrar.`},
 
     /* ===== CANTO 6===== */
     {
+      id: "PZ-6",
       titulo: "Démonos un simbolo de paz", tono: "SolM",
       letra: `Con las manos unidas,
 con las voces unidas,

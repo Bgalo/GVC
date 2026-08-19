@@ -1,6 +1,7 @@
-/* ===== CANTOS DE CORDERO (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE CORDERO (Repertorio GVC) ===== */
 DB["Cordero"] = [
     {
+      id: "C-1",
       titulo: "Cordero, tu que quitas", tono: "SolM",
       letra: `Cordero,
 tu que quitas el pecado del mundo (2)

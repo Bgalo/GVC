@@ -1,6 +1,7 @@
-/* ===== CANTOS DE PIEDAD (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE PIEDAD (Repertorio GVC) ===== */
 DB["Piedad"] = [
     {
+      id: "P-1",
       titulo: "Señor ten piedad", tono: "Mim",
       letra: `Señor ten piedad, (2)
 ten piedad de nosotros. (2)
@@ -12,6 +13,7 @@ ten piedad de nosotros. (2) ` },
 
     /* ===== CANTO 2===== */
     {
+      id: "P-2",
       titulo: "Kyrie Eleison", tono: "Mim",
       letra: `Te alabamos, Señor 
 Tú nos das agua viva 
@@ -30,6 +32,7 @@ Kyrie, kyrie, kyrie eleison. ` },
 
     /* ===== CANTO 3===== */
     {
+      id: "P-3",
       titulo: "Arreglo Notas", tono: "SolM",
       letra: `Señor ten piedad,
 ten piedad de nosotros. (2)
@@ -42,6 +45,7 @@ ten piedad, de nosotros, (2) ` },
 
     /* ===== CANTO 4===== */
     {
+      id: "P-4",
       titulo: "Soy pecador ten piedad", tono: "Lam",
       letra: `Ten piedad, Señor, ten piedad,
 soy pecador ten piedad. (2)
@@ -54,6 +58,7 @@ soy pecador ten piedad. (2)` },
 
     /* ===== CANTO 5===== */
     {
+      id: "P-5",
       titulo: "GVC", tono: "Sim",
       letra: `Ten piedad de nosotros
 Señor, ten piedad. (2)
@@ -66,6 +71,7 @@ Señor, ten piedad. (2)` },
 
     /* ===== CANTO 6===== */
     {
+      id: "P-6",
       titulo: "Señor ten piedad de nosotros", tono: "SolM",
       letra: `Señor, ten piedad de nosotros,
 Señor, ten piedad de nosotros,

@@ -1,6 +1,7 @@
-/* ===== CANTOS DE OFERTORIO (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE OFERTORIO (Repertorio GVC) ===== */
 DB["Ofertorio 1"] = [
     {
+      id: "O-1",
       titulo: "Ofrenda de amor", tono: "DoM",
       letra: `Por los niños que empiezan la vida,
 por los hombres sin techo ni hogar,
@@ -29,6 +30,7 @@ te ofrecemos el vino y el pan.` },
 
     /* ===== CANTO 2===== */
     {
+      id: "O-2",
       titulo: "Por un pedazo de pan", tono: "SolM",
       letra: `Por un pedazo de pan,
 y por un poco de vino,
@@ -78,6 +80,7 @@ del mismo Señor.` },
     /* ===== CANTO 3===== */
 
     {
+      id: "O-3",
       titulo: "Nuestra juventud", tono: "MiM",
       letra: `TE OFRECEMOS SEÑOR,
 NUESTRA JUVENTUD. (2)
@@ -104,6 +107,7 @@ la alegría y el amor.` },
     /* ===== CANTO 4===== */
 
     {
+      id: "O-4",
       titulo: "Te ofrecemos padre nuestro", tono: "DoM",
       letra: `TE OFRECEMOS, PADRE NUESTRO,
 CON EL VINO Y CON EL PAN,
@@ -137,6 +141,7 @@ que nos llena de su amor.` },
     /* ===== CANTO 5===== */
 
     {
+      id: "O-5",
       titulo: "Te presentamos el vino y el pan", tono: "MiM",
       letra: `TE PRESENTAMOS EL VINO Y EL PAN.
 BENDITO SEAS POR SIEMPRE, SEÑOR. (2)
@@ -154,6 +159,7 @@ de los hombres.` },
     /* ===== CANTO 6===== */
 
     {
+      id: "O-6",
       titulo: "Este pan y vino", tono: "SolM",
       letra: `ESTE PAN Y VINO, SEÑOR,
 SE TRANSFORMARÁN:
@@ -173,6 +179,7 @@ que presentamos a Dios.` },
     /* ===== CANTO 7===== */
 
     {
+      id: "O-7",
       titulo: "Esto que te doy", tono: "ReM",
       letra: `Esto que te doy es vino y pan, Señor,
 esto que te doy es mi trabajo.
@@ -201,6 +208,7 @@ y felicidad, es un canto en comunidad.` },
     /* ===== CANTO 8===== */
 
     {
+      id: "O-8",
       titulo: "Llevemos al Señor", tono: "Mim",
       letra: `Llevemos al Señor,
 el vino y el pan.
@@ -223,6 +231,7 @@ ofrendas de paz.` },
     /* ===== CANTO 9===== */
 
     {
+      id: "O-9",
       titulo: "Te ofrecemos el pan", tono: "SolM",
       letra: `Te ofrecemos el pan
 fruto de nuestro sudor,
@@ -243,6 +252,7 @@ con el canto de nuestros hermanos.` },
     /* ===== CANTO 10===== */
 
     {
+      id: "O-10",
       titulo: "Siervo por amor", tono: "Rem",
       letra: `Una noche de sudor,
 en una barca en pleno mar,
@@ -271,6 +281,7 @@ y se puede almacenar.` },
     /* ===== CANTO 11===== */
 
     {
+      id: "O-11",
       titulo: "Racimo y trigal", tono: "Mim",
       letra: `Racimo y trigal,
 hoy hemos presentado;
@@ -307,6 +318,7 @@ el Pan de la Comunión. (2)` },
     /* ===== CANTO 12===== */
 
     {
+      id: "O-12",
       titulo: "Nuestras manos ya cansadas", tono: "Lam",
       letra: `Con nuestras manos ya cansadas,      
 y nuestros pies de tanto andar

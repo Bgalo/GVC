@@ -1,6 +1,7 @@
-/* ===== CANTOS DE ENTRADA (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE ENTRADA (Repertorio GVC) ===== */
 DB["Entrada"] = [
     {
+      id: "E-1",
       titulo: "Este es el día del Señor", tono: "FaM",
       letra: `ESTE ES EL DÍA DEL SEÑOR
 ESTE ES EL TIEMPO DE LA MISERICORDIA.
@@ -20,6 +21,7 @@ de corazón sincero.` },
 
     /* ===== CANTO 2 ===== */
     {
+      id: "E-2",
       titulo: "Vamos Cantad", tono: "MiM",
       letra: `¡Vamos, cantad!, cantemos en la paz
 de mi Señor Jesús.
@@ -43,6 +45,7 @@ nuestras vidas luz.` },
 
     /* ===== CANTO 3 ===== */
     {
+      id: "E-3",
       titulo: "Vienen con alegría", tono: "MiM",
       letra: `VIENEN CON ALEGRÍA, SEÑOR,
 CANTANDO VIENEN CON ALEGRÍA, SEÑOR
@@ -61,6 +64,7 @@ que nacen del bien y la verdad.` },
 
     /* ===== CANTO 4 ===== */
     {
+      id: "E-4",
       titulo: "Juntos como hermanos", tono: "MiM",
       letra: `JUNTOS COMO HERMANOS,
 MIEMBROS DE LA IGLESIA
@@ -79,6 +83,7 @@ con la ayuda del Señor.` },
 
     /* ===== CANTO 5 ===== */
     {
+      id: "E-5",
       titulo: "Iglesia Somos", tono: "MiM",
       letra: `Iglesia soy y tú también,
 en el bautismo renacimos
@@ -103,6 +108,7 @@ ha envejecido sin dejarme de querer.` },
 
     /* ===== CANTO 6===== */
     {
+      id: "E-6",
       titulo: "Hacia la casa de Dios", tono: "ReM",
       letra: `¡CUÁNTO GOZO ME DIO AL OÍR!
 "¡VAMOS YA HACIA LA CASA DE DIOS!"
@@ -121,6 +127,7 @@ del trono de David.` },
 
     /* ===== CANTO 7===== */
     {
+      id: "E-7",
       titulo: "Den al Señor sus Alabanzas", tono: "LaM",
       letra: `DEN AL SEÑOR SUS ALABANZAS,
 DENLE PODER, HONOR Y GLORIA,
@@ -134,6 +141,7 @@ murió en la cruz y nos salvó.` },
 
     /* ===== CANTO 8===== */
     {
+      id: "E-8",
       titulo: "Cantad alegres a Dios", tono: "LaM",
       letra: `CANTAD ALEGRES A DIOS,
 HABITANTES DE TODA LA TIERRA,
@@ -154,6 +162,7 @@ Alabadle y bendecid su nombre.` },
 
     /* ===== CANTO 9===== */
     {
+      id: "E-9",
       titulo: "Nueva Generación", tono: "Mim",
       letra: `Yo vengo del Sur y del Norte,
 del Este y Oeste, de todo lugar.
@@ -181,6 +190,7 @@ y la fe que deshizo y espera por mí.` },
 
     /* ===== CANTO 10===== */
     {
+      id: "E-10",
       titulo: "Nueva Creación", tono: "Mim",
       letra: `CAMINA, PUEBLO DE DIOS;
 CAMINA, PUEBLO DE DIOS.
@@ -209,6 +219,7 @@ en la Nueva Creación.` },
 
     /* ===== CANTO 11===== */
     {
+      id: "E-11",
       titulo: "Éxodo y Liberación", tono: "Mim",
       letra: `Peregrino ¿a dónde vas?
 Si no sabes a dónde ir,
@@ -235,6 +246,7 @@ que aquí en Egipto lo encontrarás.` },
 
     /* ===== CANTO 12===== */
     {
+      id: "E-12",
       titulo: "Que alegría cuando me dijeron", tono: "MiM",
       letra: `¡QUÉ ALEGRÍA CUNDO ME DIJERON:
 VAMOS A LA CASA DEL SEÑOR!

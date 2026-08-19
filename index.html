@@ -660,7 +660,7 @@ function renderGrid(seccion) {
 function buildCard(m) {
   const cantos = DB[m.dbKey] || [];
   const optsHtml = cantos.map(c =>
-    `<div class="ss-option" data-value="${escHtml(c.titulo)}">${escHtml(c.titulo)} — ${escHtml(c.tono)}</div>`
+    `<div class="ss-option" data-value="${c.id}">[${c.id}] ${escHtml(c.titulo)} — ${escHtml(c.tono)}</div>`
   ).join('');
 
   const div = document.createElement('div');
@@ -827,9 +827,9 @@ function filterSS(mid, query) {
 /* ============================================================
    SELECTION LOGIC
 ============================================================ */
-function seleccionar(mid, titulo) {
+function seleccionar(mid, valor) {
   const m       = MOMENTOS.find(x => x.id === mid);
-  const canto   = (DB[m.dbKey]||[]).find(c => c.titulo === titulo);
+  const canto   = (DB[m.dbKey]||[]).find(c => c.id === valor);
   const card    = document.getElementById(`card-${mid}`);
   const meta    = document.getElementById(`meta-${mid}`);
   const tonoEl  = document.getElementById(`tono-${mid}`);
@@ -840,17 +840,17 @@ function seleccionar(mid, titulo) {
   const letraInp= document.getElementById(`letra-${mid}`);
   const ytInp   = document.getElementById(`yt-${mid}`);
 
-  if (titulo === "NO_APLICA") {
+  if (valor === "NO_APLICA") {
     state[mid] = { omitir: true };
     card.classList.add('is-omitted'); card.classList.remove('is-selected');
     meta.style.display = 'none'; inputs.style.display = 'none'; acc.classList.remove('open'); open[mid] = false;
-  } else if (titulo === "OTRO") {
-    state[mid] = { manual: true, titulo: "", tono: "?", letra: "", yt: "" };
+  } else if (valor === "OTRO") {
+    state[mid] = { manual: true, id: "OTRO", titulo: "", tono: "?", letra: "", yt: "" };
     card.classList.add('is-selected'); card.classList.remove('is-omitted');
     inputs.style.display = 'flex'; otroInp.style.display = 'block'; letraInp.style.display = 'block'; ytInp.value = ""; letraInp.value = "";
     meta.style.display = 'flex'; tonoEl.textContent = "?"; lyrEl.textContent = "Escribe o pega la letra en la caja superior para ver la vista previa.";
-  } else if (canto && titulo) {
-    state[mid] = { titulo: canto.titulo, tono: canto.tono, letra: canto.letra, yt: "" };
+  } else if (canto && valor) {
+    state[mid] = { id: canto.id, titulo: canto.titulo, tono: canto.tono, letra: canto.letra, yt: "" };
     card.classList.add('is-selected'); card.classList.remove('is-omitted');
     inputs.style.display = 'flex'; otroInp.style.display = 'none'; letraInp.style.display = 'none'; ytInp.value = "";
     meta.style.display = 'flex'; tonoEl.textContent = canto.tono; lyrEl.textContent = canto.letra;
@@ -1097,6 +1097,14 @@ function restoreCardUI(mid, s) {
   const ssText  = document.getElementById(`sst-${mid}`);
   if (!card) return;
 
+  // Backward compatibility with old saves without IDs
+  let matchId = s.id;
+  if (!matchId && s.titulo) {
+    const m = MOMENTOS.find(x => x.id === mid);
+    const canto = (DB[m.dbKey]||[]).find(c => c.titulo === s.titulo);
+    if (canto) { matchId = canto.id; s.id = canto.id; }
+  }
+
   if (s.omitir) {
     card.classList.add('is-omitted');
     if (ssText) ssText.textContent = '🚫 No aplica en esta celebración';
@@ -1117,8 +1125,9 @@ function restoreCardUI(mid, s) {
     if (s.yt) ytInp.value = s.yt;
     meta.style.display = 'flex'; tonoEl.textContent = s.tono || '';
     lyrEl.textContent = s.letra || '';
-    if (ssText) ssText.textContent = `${s.titulo} — ${s.tono}`;
-    markSSSelected(mid, s.titulo);
+    const displayId = matchId ? `[${matchId}] ` : '';
+    if (ssText) ssText.textContent = `${displayId}${s.titulo} — ${s.tono}`;
+    markSSSelected(mid, matchId || s.titulo);
   }
 }
 
@@ -1259,7 +1268,9 @@ function copiarAlPortapapeles() {
     for (const mid of cantos) {
       const s = state[mid];
       const m = MOMENTOS.find(x => x.id === mid);
-      txt += `  ${m.icono} ${m.nombre}: ${s.titulo || '(Sin título)'} (${s.tono})\n`;
+      const tituloId = (s.id && s.id !== "OTRO") ? `[${s.id}] ` : '';
+      const titulo = tituloId + (s.titulo || '(Sin título)');
+      txt += `  ${m.icono} ${m.nombre}: ${titulo} (${s.tono})\n`;
     }
     txt += `\n`;
   }
@@ -1365,7 +1376,8 @@ function generarHTMLPreview() {
     for (const mid of cantos) {
       const s = state[mid];
       const m = MOMENTOS.find(x => x.id === mid);
-      const titulo = s.titulo || 'Canto sin título asignado';
+      const tituloId = (s.id && s.id !== "OTRO") ? `[${s.id}] ` : '';
+      const titulo = tituloId + (s.titulo || 'Canto sin título asignado');
       const letra  = s.letra  || '';
       html += `
         <div class="pdf-canto-row">

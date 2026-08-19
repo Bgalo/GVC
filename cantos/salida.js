@@ -1,6 +1,7 @@
-/* ===== CANTOS DE SALIDA (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE SALIDA (Repertorio GVC) ===== */
 DB["Salida"] = [
     {
+      id: "SL-1",
       titulo: "Mosaico 1", tono: "MiM",
       letra: `Mi Dios está vivo,
 Él no está muerto (3)
@@ -37,6 +38,7 @@ que pueda hacer las cosas
 como las que haces Tú. (2)`}, 
     
     {
+      id: "SL-2",
       titulo: "Oración por la familia", tono: "ReM",
       letra: `Que ninguna familia comience
 en cualquier de repente.

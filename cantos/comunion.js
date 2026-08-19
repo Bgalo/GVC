@@ -1,6 +1,7 @@
-/* ===== CANTOS DE COMUNIÓN (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE COMUNIÓN (Repertorio GVC) ===== */
 DB["Comunión"] = [
-    {titulo: "En su mesa hay amor", tono: "DoM",
+    {id: "CM-1",
+      titulo: "En su mesa hay amor", tono: "DoM",
       letra: `EL SEÑOR NOS HA REUNIDO JUNTO A ÉL,
 EL SEÑOR NOS HA INVITADO A ESTAR CON ÉL.
 EN SU MESA HAY AMOR,
@@ -14,7 +15,8 @@ Sé que a mi lado estás,
 te sientas junto a mí:
 Acoges mi vida y mi oración.` },
 
-{titulo: "Oración por la familia", tono: "ReM",
+{id: "CM-2",
+      titulo: "Oración por la familia", tono: "ReM",
       letra: `Que ninguna familia comience
 en cualquier de repente.
 Que ninguna familia se acabe

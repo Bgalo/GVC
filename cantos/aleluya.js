@@ -1,6 +1,7 @@
-/* ===== CANTOS DE ALELUYA (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE ALELUYA (Repertorio GVC) ===== */
 DB["Aleluya"] = [
     {
+      id: "A-1",
       titulo: "Aleluya por esa gente", tono: "SolM",
       letra: `ALELUYA (3)
       
@@ -10,6 +11,7 @@ DB["Aleluya"] = [
     /* ===== CANTO 2===== */
 
     {
+      id: "A-2",
       titulo: "El Señor resucitó", tono: "ReM",
       letra: `ALELUYA (8)
       
@@ -19,6 +21,7 @@ El Señor resucitó, aleluya.` },
     /* ===== CANTO 3===== */
 
     {
+      id: "A-3",
       titulo: "El evangelio es la palabra", tono: "ReM",
       letra: `ALELUYA (6)
 
@@ -29,6 +32,7 @@ palabra de Dios en la lengua del hombre (2)` },
     /* ===== CANTO 4===== */
 
     {
+      id: "A-4",
       titulo: "Ale-lu-u-ya", tono: "ReM",
       letra: `Ale-lu-u-ya (2)
 Alelu-u-ya.
@@ -39,6 +43,7 @@ Ale-lu-ya.` },
     /* ===== CANTO 5===== */
 
     {
+      id: "A-5",
       titulo: "Busca primero", tono: "ReM",
       letra: `ALELUYA, ALELU, ALELUYA,
 ALELUYA, ALELUYA. (2)
@@ -51,6 +56,7 @@ aleluya, aleluya.` },
     /* ===== CANTO 6===== */
 
     {
+      id: "A-6",
       titulo: "Melódico", tono: "ReM",
       letra: `A-le-lu-ya (4)`
     },
@@ -58,6 +64,7 @@ aleluya, aleluya.` },
     /* ===== CANTO 7===== */
 
     {
+      id: "A-7",
       titulo: "Tu palabra me da vida", tono: "ReM",
       letra: `TÚ PALABRA ME DA VIDA,
 CONFÍO EN TI, SEÑOR.

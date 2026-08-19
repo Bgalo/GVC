@@ -1,6 +1,7 @@
-/* ===== CANTOS DE SANTO (Repertorio GVC) ===== */
+﻿/* ===== CANTOS DE SANTO (Repertorio GVC) ===== */
 DB["Santo"] = [
     {
+      id: "S-1",
       titulo: "Santo es el Señor (Lam)", tono: "Lam",
       letra: `Santo es el Señor, mi Dios
 digno de alabanza
@@ -18,6 +19,7 @@ cantamos para Ti. (2)` },
 
     /* ===== CANTO 2===== */
     {
+      id: "S-2",
       titulo: "Santo de gloria y majestad", tono: "DoM",
       letra: `Santo, Santo, Santo
 Señor de gloria y majestad,
@@ -31,6 +33,7 @@ en el nombre del Señor.` },
 
     /* ===== CANTO 3===== */
     {
+      id: "S-3",
       titulo: "Santo, Santo, Santo es el Señor", tono: "LaM",
       letra: `Santo, Santo, Santo es el Señor.
 Dios del universo, santo es el Señor.
@@ -44,6 +47,7 @@ BENDITO EL QUE VIENE EN EL NOMBRE DEL SEÑOR(2)` },
 
     /* ===== CANTO 4===== */
     {
+      id: "S-4",
       titulo: "Santo todo tiene tu huella", tono: "DoM",
       letra: `SANTO, SANTO,
 SANTO ES EL SEÑOR. (2)
@@ -58,6 +62,7 @@ Hosanna, Hosanna. (2)` },
 
     /* ===== CANTO 5===== */
     {
+      id: "S-5",
       titulo: "Santo es el Señor (Sim)", tono: "Sim",
       letra: `SANTO, SANTO, SANTO ES EL SEÑOR.
 DIOS DEL UNIVERSO, SANTO ES EL SEÑOR.
@@ -72,6 +77,7 @@ Hosanna en las alturas.` },
 
     /* ===== CANTO 6===== */
     {
+      id: "S-6",
       titulo: "Santo africano", tono: "MiM",
       letra: `Santo, santo, hosanna. (2)
 
@@ -86,6 +92,7 @@ en el nombre tuyo, Señor. (2)` },
 
     /* ===== CANTO 7===== */
     {
+      id: "S-7",
       titulo: "Dios del universo", tono: "SolM",
       letra: `SANTO ES EL SEÑOR DIOS DEL UNIVERSO,
 LLENOS ESTÁN EL CIELO Y LA TIERRA
