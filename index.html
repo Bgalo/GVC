@@ -134,51 +134,45 @@
     .cantos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:.9rem}
     @media(max-width:560px){.cantos-grid{grid-template-columns:1fr}}
 
-    /* Card — overflow:hidden is safe because ss-panel is a fixed portal */
-    .canto-card{background:var(--glass);border-radius:var(--radius-lg);padding:1.15rem;transition:all .3s ease;position:relative;overflow:hidden;z-index:1}
+    /* Card — overflow:visible so dropdown & lyric accordion are NOT clipped */
+    .canto-card{background:var(--glass);border:1px solid var(--glass-border);border-left:3px solid var(--c3);backdrop-filter:blur(20px);border-radius:var(--radius-lg);padding:1.15rem;transition:all .3s ease;position:relative;overflow:visible}
     .canto-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-    .canto-card.is-selected{box-shadow:0 0 0 2px var(--c3),var(--shadow-sm)}
-    .canto-card.is-omitted{opacity:0.6;filter:grayscale(0.7)}
-
-    /* El rayo giratorio animado */
+    .canto-card.is-selected{border-color:var(--c3);border-left-color:var(--c4);background:rgba(255,255,255,.08);box-shadow:0 0 0 1px var(--c3),var(--shadow-sm)}
+    .canto-card.is-omitted{border-color:rgba(255,255,255,0.1);border-left-color:rgba(255,255,255,0.2);background:rgba(0,0,0,.15);opacity:0.7}
+    .canto-card.is-omitted .card-name{color:var(--text-2)}
+    
+    @property --border-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+    
+    /* Efecto borde brillante giratorio */
     .canto-card::before {
-      content: '';
+      content: "";
       position: absolute;
-      width: 200%;
-      height: 200%;
-      top: -50%;
-      left: -50%;
-      background-image: linear-gradient(180deg, var(--c3), var(--c4));
-      animation: rotBGimg 6s linear infinite;
-      transition: opacity 0.4s ease;
-      z-index: -2;
+      inset: -2px; /* Sale un poco para tapar el borde original */
+      border-radius: calc(var(--radius-lg) + 1px);
+      padding: 2px; /* Grosor del borde brillante */
+      background: conic-gradient(from var(--border-angle), transparent 40%, var(--c3) 80%, var(--c4) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
       opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 10;
     }
-
-    @keyframes rotBGimg {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    
+    @keyframes spinBorder {
+      to { --border-angle: 360deg; }
     }
-
+    
     .canto-card:hover::before {
       opacity: 1;
+      animation: spinBorder 4s linear infinite;
     }
 
-    /* Fondo oscuro interno que tapa el rayo central */
-    .canto-card::after {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      background: var(--bg-b);
-      border-radius: calc(var(--radius-lg) - 2px);
-      z-index: -1;
-    }
-    .canto-card.is-selected::after {
-      background: rgba(255,255,255,.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-    .canto-card.is-omitted .card-name{color:var(--text-2)}
     .card-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
     .card-name{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c4)}
 
