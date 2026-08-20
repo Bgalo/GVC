@@ -304,14 +304,49 @@
     ============================================================ */
     .pdf-zone{display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:1rem 0 2rem}
     .action-buttons{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%}
-    .pdf-btn{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;padding:1.05rem 3.2rem;background:linear-gradient(135deg,var(--c2) 0%,var(--c3) 60%,var(--c4) 140%);border:none;border-radius:100px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;box-shadow:0 4px 24px var(--glow-strong),var(--shadow-sm);position:relative;overflow:hidden;font-family:'Inter',sans-serif}
-    .pdf-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 60%);opacity:0;transition:opacity .25s ease}
+    
+    /* Base styles for action buttons */
+    .pdf-btn, .clear-btn, .copy-btn {
+      display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+      border-radius:100px;font-size:.95rem;font-weight:700;cursor:pointer;
+      position:relative;overflow:hidden;font-family:'Inter',sans-serif;
+      transition:transform .25s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease,color .25s ease;
+    }
+
+    /* Efecto "Shine" (Brillo de Uiverse) para todos los botones de acción */
+    .pdf-btn::after, .clear-btn::after, .copy-btn::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100%;
+      background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 70%);
+      top: 0;
+      left: -100px;
+      opacity: 0.6;
+    }
+    
+    @keyframes shine {
+      0% { left: -100px; }
+      60% { left: 100%; }
+      to { left: 100%; }
+    }
+
+    .pdf-btn:hover::after, .clear-btn:hover::after, .copy-btn:hover::after {
+      animation: shine 1.5s ease-out infinite;
+    }
+
+    /* Main PDF Button (Adapta a colores litúrgicos) */
+    .pdf-btn{padding:1.05rem 3.2rem;background:linear-gradient(135deg,var(--c2) 0%,var(--c3) 60%,var(--c4) 140%);border:none;color:#fff;box-shadow:0 4px 24px var(--glow-strong),var(--shadow-sm);}
     .pdf-btn:hover{transform:translateY(-4px);box-shadow:0 10px 36px var(--glow-strong),var(--shadow-md)}
-    .pdf-btn:hover::before{opacity:1}
-    .clear-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1.05rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:100px;color:var(--text-2);font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s ease;font-family:'Inter',sans-serif}
+    
+    /* Clear Button */
+    .clear-btn{padding:1.05rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);color:var(--text-2);font-weight:600;}
     .clear-btn:hover{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.4);color:#fca5a5;transform:translateY(-2px)}
-    .copy-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1.05rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:100px;color:var(--text-2);font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s ease;font-family:'Inter',sans-serif}
+    
+    /* Copy Button */
+    .copy-btn{padding:1.05rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);color:var(--text-2);font-weight:600;}
     .copy-btn:hover{background:var(--glow);border-color:var(--c3);color:var(--c4);transform:translateY(-2px)}
+    
     .pdf-hint{font-size:.75rem;color:var(--text-3);text-align:center;max-width:400px}
     .app-footer{text-align:center;padding:2rem 1rem 1rem;font-size:.75rem;color:var(--text-3);border-top:1px solid var(--glass-border)}
 
