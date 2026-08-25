@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guía Maestra: Planificador Eucarístico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 16mm 14mm 18mm 14mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #888;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.55;
+      color: #222;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Cover / Header Box */
+    .header-banner {
+      background: linear-gradient(135deg, #78350f 0%, #b45309 60%, #d97706 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+    .header-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20pt;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      line-height: 1.25;
+      color: #fff;
+    }
+    .header-subtitle {
+      font-size: 10.5pt;
+      font-weight: 400;
+      margin: 0;
+      opacity: 0.94;
+      line-height: 1.4;
+    }
+    
+    /* Section Headings */
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 13pt;
+      font-weight: 700;
+      color: #92400e;
+      border-bottom: 2px solid #fef3c7;
+      padding-bottom: 5px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+    p { margin: 0 0 8px 0; }
+    ul, ol { margin: 0 0 10px 0; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px 0;
+      font-size: 8.5pt;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #334155;
+    }
+    tr:nth-child(even) td { background: #fafbfc; }
+
+    /* Cards & Boxes */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 9pt;
+      color: #92400e;
+      margin-bottom: 4px;
+    }
+    
+    .callout {
+      background: #fffbeb;
+      border-left: 4px solid #d97706;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 8.8pt;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 3px;
+    }
+
+    /* Steps Box */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .step-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .step-number {
+      background: #d97706;
+      color: #fff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 8pt;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-content { flex: 1; font-size: 9pt; }
+    .step-title { font-weight: 700; color: #1e293b; margin-bottom: 2px; }
+
+    /* Code blocks */
+    pre, code {
+      font-family: 'Consolas', 'Courier New', Courier, monospace;
+      font-size: 8pt;
+      background: #f1f5f9;
+      color: #0f172a;
+      border-radius: 4px;
+    }
+    code { padding: 1px 4px; }
+    pre {
+      padding: 10px 12px;
+      overflow-x: auto;
+      border: 1px solid #cbd5e1;
+      margin: 8px 0 12px 0;
+      line-height: 1.45;
+    }
+
+    /* Break rules */
+    .avoid-break { page-break-inside: avoid; }
+    .page-break { page-break-before: always; }
+    
+    .footer-note {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 8pt;
+      color: #64748b;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BANNER PRINCIPAL -->
+  <div class="header-banner">
+    <div class="header-tag">📖 Guía de Presentación & Manual Maestro</div>
+    <h1 class="header-title">Planificador Eucarístico</h1>
+    <p class="header-subtitle">Herramienta Abierta de Coordinación Litúrgica Musical, Gestión de Repertorio y Generación de Hojas de Canto para Coros y Ministerios</p>
+  </div>
+
+  <!-- SECCIÓN 1: VISIÓN Y PROPÓSITO -->
+  <div class="avoid-break">
+    <h2>1. Visión General y Propósito Pastoral</h2>
+    <p>La animación musical en la Santa Eucaristía requiere orden litúrgico, fidelidad doctrinal y preparación técnica. Este proyecto nace como una <strong>solución integral, moderna y 100% gratuita</strong> para resolver los problemas habituales en los ministerios de música:</p>
+    
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">❌ Desafíos Habituales</div>
+        <ul>
+          <li>Falta de uniformidad en letras, tonos y acordes.</li>
+          <li>Horas invertidas formateando hojas en Word semana a semana.</li>
+          <li>Desconexión con el color litúrgico y lecturas del día.</li>
+          <li>Costos recurrentes de bases de datos o apps de pago.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">✅ Solución del Planificador</div>
+        <ul>
+          <li>Repertorio centralizado con tonalidades y letras oficiales.</li>
+          <li>Generación de PDF en 1 solo clic listo para imprimir.</li>
+          <li>Colores dinámicos automáticos según el tiempo litúrgico.</li>
+          <li>Cero costo de infraestructura de por vida en GitHub Pages.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: PILARES TÉCNICOS -->
+  <div class="avoid-break">
+    <h2>2. Pilares Técnicos y Ventajas de la Plataforma</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 28%;">Pilar</th>
+          <th>Descripción y Beneficio Directo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Cero Costo Perpetuo</strong></td>
+          <td>Alojado en GitHub Pages. No requiere servidores dedicados, bases de datos SQL de pago ni renovación de tarjetas de crédito.</td>
+        </tr>
+        <tr>
+          <td><strong>Autonomía y Privacidad</strong></td>
+          <td>Cada coro tiene su propio repositorio independiente. Nadie externo puede modificar o acceder a su catálogo interno.</td>
+        </tr>
+        <tr>
+          <td><strong>Generación de PDF Imprimible</strong></td>
+          <td>Crea documentos A4 profesionales con diseño litúrgico elegante, datos del responsable, lecturas y enlaces interactivos a YouTube.</td>
+        </tr>
+        <tr>
+          <td><strong>Integración con WhatsApp</strong></td>
+          <td>Genera un resumen formateado con emojis y negritas para compartir el esquema al grupo del ministerio con un solo clic.</td>
+        </tr>
+        <tr>
+          <td><strong>Adaptabilidad Litúrgica</strong></td>
+          <td>La interfaz visual y los documentos se tiñen automáticamente del color oficial (Verde, Morado, Blanco/Dorado o Rojo).</td>
+        </tr>
+        <tr>
+          <td><strong>Asistente a Prueba de Errores</strong></td>
+          <td>Herramienta visual para que colaboradores agreguen canciones sin peligro de romper la sintaxis del código.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECCIÓN 3: PUESTA EN MARCHA (DESPLIEGUE EN 3 MINUTOS) -->
+  <div class="avoid-break page-break">
+    <h2>3. Puesta en Marcha para un Nuevo Coro (En 3 Minutos)</h2>
+    <p>Cualquier comunidad parroquial o coro musical puede tener su propia copia personalizada en internet siguiendo 3 sencillos pasos:</p>
+
+    <div class="steps-container">
+      <div class="step-box">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Crear la copia en GitHub</div>
+          Entra al repositorio base <code>https://github.com/Bgalo/GVC</code> y pulsa el botón verde <strong>"Use this template"</strong> (o "Fork"). Asígnale un nombre a tu proyecto (ej: <code>Planificador-CoroSanJose</code>) y pulsa <em>Create repository</em>.
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Personalizar identidad en <code>config.js</code> y subir <code>logo.png</code></div>
+          Abre el archivo <code>config.js</code> en GitHub y edita los datos de tu coro:
+<pre>const CONFIG = {
+  nombreMinisterio: "Coro Parroquial San José",
+  siglas: "CPSJ",
+  subtitulo: "Herramienta de Coordinación Litúrgica Musical",
+  parroquia: "Parroquia San José Obrero",
+  logoUrl: "logo.png",
+  githubRepo: "https://github.com/tu-usuario/Planificador-CoroSanJose",
+  piePDF: "Coro San José — Música para la Santa Eucaristía",
+  mensajeWhatsAppEncabezado: "🕊️ *ESQUEMA DE CANTOS PARA LA SANTA MISA*"
+};</pre>
+          Reemplaza el archivo <code>logo.png</code> con la imagen del logotipo de tu coro.
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Activar GitHub Pages (Página Web Gratuita)</div>
+          En tu repositorio, ve a <strong>Settings &gt; Pages</strong>. En <strong>Branch</strong> selecciona <code>main</code> (o <code>master</code>) con carpeta <code>/(root)</code> y haz clic en <strong>Save</strong>. En 1 minuto tendrás tu enlace oficial en línea listo para usar.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: FLUJO DE TRABAJO DEL COORDINADOR -->
+  <div class="avoid-break">
+    <h2>4. Flujo de Trabajo Dominical para el Coordinador</h2>
+    <div class="steps-container">
+      <div class="step-box">
+        <div class="step-number">A</div>
+        <div class="step-content">
+          <div class="step-title">Configuración de la Misa</div>
+          El coordinador ingresa a la web, selecciona la fecha, anota su nombre y elige el <strong>Tiempo Litúrgico</strong> (la plataforma adaptará sus colores de inmediato).
+        </div>
+      </div>
+      <div class="step-box">
+        <div class="step-number">B</div>
+        <div class="step-content">
+          <div class="step-title">Selección de Repertorio y Consulta de Letras</div>
+          Navega por las tarjetas de la misa (<em>Entrada, Piedad, Gloria, Aleluya, Ofertorio, Santo, Paz, Cordero, Comunión, Salida</em>). Puede usar el buscador en cada selector, ver la tonalidad y desplegar la letra con acordes para verificar la versión exacta.
+        </div>
+      </div>
+      <div class="step-box">
+        <div class="step-number">C</div>
+        <div class="step-content">
+          <div class="step-title">Registro de Lecturas y Observaciones</div>
+          Anota las citas bíblicas (Primera Lectura, Salmo con antífona, Segunda Lectura, Evangelio) e indicaciones especiales (ej. <em>Capo traste 2, misa de aniversario</em>).
+        </div>
+      </div>
+      <div class="step-box">
+        <div class="step-number">D</div>
+        <div class="step-content">
+          <div class="step-title">Descarga de PDF y Envío a WhatsApp</div>
+          Presiona <strong>"Vista previa y descargar PDF"</strong> para obtener el documento formal o <strong>"Copiar para WhatsApp"</strong> para compartir el esquema con los integrantes en un mensaje claro.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: GESTIÓN DE REPERTORIO Y COLABORADORES -->
+  <div class="avoid-break page-break">
+    <h2>5. Cómo Agregar Cantos (Asistente Integrado)</h2>
+    <p>El repertorio vive en archivos ordenados en la carpeta <code>cantos/</code> (ej. <code>entrada.js</code>, <code>comunion.js</code>). Para agregar canciones sin tocar código:</p>
+
+    <div class="callout">
+      <div class="callout-title">✨ Uso del Asistente Visual (Al final de la web)</div>
+      <ol style="margin-bottom:0;">
+        <li>Haz clic en el botón <strong>"✨ Asistente para Agregar Cantos"</strong>.</li>
+        <li>Elige el momento de la misa (el sistema calcula el próximo ID como <code>E-15</code> y selecciona el archivo).</li>
+        <li>Escribe el título, selecciona el tono con los botones rápidos, agrega el enlace a YouTube y pega la letra.</li>
+        <li>Haz clic en <strong>"📋 Copiar Código"</strong> y luego en <strong>"🔗 Abrir en GitHub"</strong>.</li>
+        <li>En GitHub, pega el código antes de la última línea <code>];</code> y presiona <strong>Commit changes</strong>.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔍 Validador de Sintaxis Incorporado</div>
+      <p style="font-size:8.5pt;margin:0;">Si tienes dudas de si un código en GitHub tiene errores de comas o comillas, puedes pegarlo en la pestaña <strong>"Validador de Sintaxis"</strong> del Asistente para verificar su validez en 1 segundo antes de guardarlo.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: PREGUNTAS FRECUENTES PARA TALLERES -->
+  <div class="avoid-break">
+    <h2>6. Preguntas Frecuentes (FAQ para Talleres y Presentaciones)</h2>
+    <ul>
+      <li><strong>¿Qué pasa si no hay internet en el templo?</strong><br>El PDF se descarga al teléfono o computadora antes de salir y funciona 100% offline o impreso.</li>
+      <li><strong>¿Tiene límite de cantidad de canciones?</strong><br>No. Puede albergar cientos de canciones por cada momento litúrgico manteniendo alta velocidad.</li>
+      <li><strong>¿Funciona en celulares y tablets?</strong><br>Sí. La interfaz es totalmente responsiva y cómoda para colocar en atriles de música.</li>
+      <li><strong>¿Qué tipo de licencia tiene?</strong><br>Licencia abierta MIT. Libre de usar, adaptar, regalar y compartir para el servicio eclesial.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    Documento preparado para presentaciones comunitarias, inducción a coros y cuadernos de estudio con NotebookLM.<br>
+    <em>Para mayor gloria de Dios y servicio litúrgico musical.</em>
+  </div>
+
+</body>
+</html>
