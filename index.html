@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="config.js"></script>
   <script src="jspdf.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
@@ -487,11 +488,11 @@
 
   <header class="app-header">
     <div class="app-logo">
-      <img src="logo_gvc.png" alt="Logo Ministerio GVC" id="main-logo" crossorigin="anonymous">
+      <img src="logo.png" alt="Logo Ministerio" id="main-logo" crossorigin="anonymous">
     </div>
-    <div class="ministry-pill"><span class="pill-dot"></span>Ministerio Musical · GVC</div>
+    <div class="ministry-pill"><span class="pill-dot"></span><span id="cfg-pill">Ministerio Musical · GVC</span></div>
     <h1 class="app-title">Planificador Eucarístico</h1>
-    <p class="app-subtitle">Guitarras y Voces para Cristo — Herramienta de Coordinación Litúrgica</p>
+    <p class="app-subtitle" id="cfg-subtitle">Guitarras y Voces para Cristo — Herramienta de Coordinación Litúrgica</p>
   </header>
 
   <div class="controls-bar">
@@ -655,8 +656,8 @@
   </div>
 
   <footer class="app-footer">
-    <p>⛪ <em>Guitarras y Voces para Cristo (GVC)</em> — Ministerio Musical</p>
-    <p style="margin-top:.4rem;">Herramienta de Planificación Litúrgica · Uso interno del Ministerio</p>
+    <p>⛪ <em id="cfg-footer-name">Guitarras y Voces para Cristo (GVC)</em> — Ministerio Musical</p>
+    <p style="margin-top:.4rem;" id="cfg-footer-parish">Herramienta de Planificación Litúrgica · Uso interno del Ministerio</p>
   </footer>
 </div>
 
@@ -709,7 +710,7 @@
   <div class="canto-builder-box">
     <div class="pdf-preview-header">
       <span class="pdf-preview-title" style="display:flex;align-items:center;gap:8px;">
-        <i data-lucide="sparkles"></i> Asistente de Repertorio GVC
+        <i data-lucide="sparkles"></i> <span id="cfg-assistant-title">Asistente de Repertorio GVC</span>
       </span>
       <button class="pdf-preview-close" onclick="cerrarAsistenteCantos()">✕</button>
     </div>
@@ -907,10 +908,41 @@ let tonosChart = null;
 let seccionesChart = null;
 let saveTimer = null;
 
+function aplicarConfiguracion() {
+  if (typeof CONFIG === 'undefined') return;
+  const nom = CONFIG.nombreMinisterio || 'Ministerio Musical';
+  const sig = CONFIG.siglas || 'GVC';
+  const desc = CONFIG.subtitulo || 'Herramienta de Coordinación Litúrgica';
+
+  if (sig) {
+    document.title = `${sig} — Planificador Eucarístico`;
+  }
+  const pill = document.getElementById('cfg-pill');
+  if (pill) pill.textContent = `Ministerio Musical · ${sig}`;
+
+  const sub = document.getElementById('cfg-subtitle');
+  if (sub) sub.textContent = `${nom} — ${desc}`;
+
+  const logo = document.getElementById('main-logo');
+  if (logo && CONFIG.logoUrl) logo.src = CONFIG.logoUrl;
+
+  const footName = document.getElementById('cfg-footer-name');
+  if (footName) footName.textContent = `${nom} (${sig})`;
+
+  const footParish = document.getElementById('cfg-footer-parish');
+  if (footParish && CONFIG.parroquia) {
+    footParish.textContent = `${CONFIG.parroquia} · ${desc}`;
+  }
+
+  const asstTitle = document.getElementById('cfg-assistant-title');
+  if (asstTitle) asstTitle.textContent = `Asistente de Repertorio ${sig}`;
+}
+
 /* ============================================================
    INITIALIZATION
 ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+  aplicarConfiguracion();
   const hoy = new Date();
   const dd = String(hoy.getDate()).padStart(2,'0');
   const mm = String(hoy.getMonth()+1).padStart(2,'0');
@@ -1528,19 +1560,14 @@ function mostrarToast(msg, isError = false) {
   toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-function toggleStats() {
-  const body = document.getElementById('stats-body');
-  const arrow = document.getElementById('stats-arrow');
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
-}
-
 function copiarAlPortapapeles() {
   if (Object.keys(state).length === 0) { mostrarToast('⚠️ No hay cantos seleccionados', true); return; }
   const info = TIEMPO_META[document.getElementById('inp-tiempo').value];
-  let txt = `🎸 *GVC — Planificación Eucarística*\n`;
+  const sig = (typeof CONFIG !== 'undefined' && CONFIG.siglas) ? CONFIG.siglas : 'GVC';
+  const headerMsg = (typeof CONFIG !== 'undefined' && CONFIG.mensajeWhatsAppEncabezado) ? CONFIG.mensajeWhatsAppEncabezado : `🎸 *${sig} — Planificación Eucarística*`;
+  let txt = `${headerMsg}\n`;
   txt += `📅 ${formatDate(document.getElementById('inp-fecha').value)}\n`;
-  txt += `👤 ${document.getElementById('inp-responsable').value || 'Coordinador GVC'}\n`;
+  txt += `👤 ${document.getElementById('inp-responsable').value || `Coordinador ${sig}`}\n`;
   txt += `✝️ ${info?.label || ''} · ${info?.color || ''}\n\n`;
 
   const SECS = [
@@ -1568,14 +1595,14 @@ function copiarAlPortapapeles() {
   if (notas) txt += `📝 *Observaciones:* ${notas}\n`;
 
   navigator.clipboard.writeText(txt).then(() => {
-    mostrarToast('📋 ¡Copiado al portapapeles!');
+    mostrarToast('📋 ¡Copiado para WhatsApp!');
   }).catch(() => {
     // Fallback
     const ta = document.createElement('textarea');
     ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta); ta.select(); document.execCommand('copy');
     document.body.removeChild(ta);
-    mostrarToast('📋 ¡Copiado al portapapeles!');
+    mostrarToast('📋 ¡Copiado para WhatsApp!');
   });
 }
 
@@ -1620,7 +1647,10 @@ function generarHTMLPreview() {
   const [R,G,B]    = info.rgb;
   const color      = `rgb(${R},${G},${B})`;
   const fechaStr   = formatDate(document.getElementById('inp-fecha').value);
-  const responsable = document.getElementById('inp-responsable').value.trim() || 'Coordinador GVC';
+  const nomMin     = (typeof CONFIG !== 'undefined' && CONFIG.nombreMinisterio) ? CONFIG.nombreMinisterio : 'Guitarras y Voces para Cristo';
+  const sigMin     = (typeof CONFIG !== 'undefined' && CONFIG.siglas) ? CONFIG.siglas : 'GVC';
+  const pieMin     = (typeof CONFIG !== 'undefined' && CONFIG.piePDF) ? CONFIG.piePDF : `Ministerio Musical ${sigMin} — ${nomMin}`;
+  const responsable = document.getElementById('inp-responsable').value.trim() || `Coordinador ${sigMin}`;
   const lect1      = document.getElementById('inp-lect1').value.trim();
   const salmoN     = document.getElementById('inp-salmo-n').value.trim();
   const salmoT     = document.getElementById('inp-salmo-t').value.trim();
@@ -1631,8 +1661,8 @@ function generarHTMLPreview() {
   let html = `
     <div class="pdf-page-header">
       <div>
-        <div class="pdf-page-org">GUITARRAS Y VOCES PARA CRISTO</div>
-        <div class="pdf-page-meta">Ministerio Musical GVC &nbsp;·&nbsp; Hoja de Cantos</div>
+        <div class="pdf-page-org">${escHtml(nomMin.toUpperCase())}</div>
+        <div class="pdf-page-meta">Ministerio Musical ${escHtml(sigMin)} &nbsp;·&nbsp; Hoja de Cantos</div>
         <div class="pdf-page-meta" style="margin-top:.3rem;">📅 ${fechaStr} &nbsp;·&nbsp; ${info.label} · ${info.color}</div>
         <div class="pdf-page-meta">👤 ${escHtml(responsable)}</div>
       </div>
@@ -1683,7 +1713,7 @@ function generarHTMLPreview() {
     html += `<div style="font-size:.82rem;color:#444;line-height:1.7;padding:.4rem 0">${escHtml(notas)}</div>`;
   }
 
-  html += `<div style="font-size:.65rem;color:#bbb;text-align:center;margin-top:2rem;padding-top:.8rem;border-top:1px solid #eee">Ministerio Musical GVC — Guitarras y Voces para Cristo</div>`;
+  html += `<div style="font-size:.65rem;color:#bbb;text-align:center;margin-top:2rem;padding-top:.8rem;border-top:1px solid #eee">${escHtml(pieMin)}</div>`;
   return html;
 }
 
@@ -1700,7 +1730,11 @@ async function generarPDF() {
   const info        = TIEMPO_META[tiempo];
   const [R,G,B]     = info.rgb;
   const fechaStr    = formatDate(document.getElementById('inp-fecha').value);
-  const responsable = document.getElementById('inp-responsable').value.trim() || 'Coordinador GVC';
+  const nomMin     = (typeof CONFIG !== 'undefined' && CONFIG.nombreMinisterio) ? CONFIG.nombreMinisterio : 'Guitarras y Voces para Cristo';
+  const sigMin     = (typeof CONFIG !== 'undefined' && CONFIG.siglas) ? CONFIG.siglas : 'GVC';
+  const pieMin     = (typeof CONFIG !== 'undefined' && CONFIG.piePDF) ? CONFIG.piePDF : `Ministerio Musical ${sigMin} — ${nomMin}`;
+  const subMin     = (typeof CONFIG !== 'undefined' && CONFIG.subtitulo) ? CONFIG.subtitulo : 'Hoja de Cantos para la Santa Eucaristía';
+  const responsable = document.getElementById('inp-responsable').value.trim() || `Coordinador ${sigMin}`;
   const notas       = document.getElementById('inp-notas').value.trim();
   const lect1       = document.getElementById('inp-lect1').value.trim();
   const salmoN      = document.getElementById('inp-salmo-n').value.trim();
@@ -1718,7 +1752,7 @@ async function generarPDF() {
       doc.addPage();
       doc.setFillColor(R,G,B); doc.rect(0,0,PW,9,'F');
       doc.setTextColor(255,255,255); doc.setFontSize(7); doc.setFont('helvetica','italic');
-      doc.text('GVC — Planificador Eucarístico', PW/2, 5.8, {align:'center'});
+      doc.text(`${sigMin} — Planificador Eucarístico`, PW/2, 5.8, {align:'center'});
       y = 16;
     }
   };
@@ -1728,11 +1762,11 @@ async function generarPDF() {
   doc.setFillColor(255,255,255,.3); doc.rect(0,44,PW,1,'F');
   doc.setTextColor(255,255,255);
   doc.setFont('helvetica','bold'); doc.setFontSize(18);
-  doc.text('GUITARRAS Y VOCES PARA CRISTO', ML, 15, {align:'left'});
+  doc.text(nomMin.toUpperCase(), ML, 15, {align:'left'});
   doc.setFontSize(10); doc.setFont('helvetica','normal');
-  doc.text('Ministerio Musical GVC', ML, 22, {align:'left'});
+  doc.text(`Ministerio Musical ${sigMin}`, ML, 22, {align:'left'});
   doc.setFontSize(8.5); doc.setFont('helvetica','italic');
-  doc.text('Hoja de Cantos para la Santa Eucaristía', ML, 29, {align:'left'});
+  doc.text(subMin, ML, 29, {align:'left'});
   doc.setDrawColor(255,255,255,.5); doc.setLineWidth(.3);
   doc.line(ML, 32, PW - 50, 32);
   doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
@@ -1844,12 +1878,12 @@ async function generarPDF() {
   for (let i = 1; i <= total; i++) {
     doc.setPage(i); doc.setFillColor(R,G,B); doc.rect(0, PH-9, PW, 9, 'F');
     doc.setTextColor(255,255,255); doc.setFont('helvetica','italic'); doc.setFontSize(7);
-    doc.text('Ministerio Musical GVC — Guitarras y Voces para Cristo', ML, PH-3.5);
+    doc.text(pieMin, ML, PH-3.5);
     doc.text(`Página ${i} de ${total}`, PW-MR, PH-3.5, {align:'right'});
   }
 
   const fechaFile = (document.getElementById('inp-fecha').value||'sin_fecha').replace(/-/g,'');
-  doc.save(`GVC_Cantos_${fechaFile}.pdf`);
+  doc.save(`${sigMin}_Cantos_${fechaFile}.pdf`);
   btn.innerHTML = btnTexto; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto';
   mostrarToast('📄 PDF generado exitosamente');
 }
@@ -1963,8 +1997,8 @@ function copiarCodigoGenerado() {
 function abrirArchivoEnGitHub() {
   const momento = document.getElementById('cb-momento').value;
   const cfg = MOMENTO_MAP[momento] || { file: 'cantos/entrada.js' };
-  // Enlace directo al editor web de GitHub del repositorio GVC
-  const url = `https://github.com/Bgalo/GVC/edit/main/${cfg.file}`;
+  const repo = (typeof CONFIG !== 'undefined' && CONFIG.githubRepo) ? CONFIG.githubRepo.replace(/\/$/, '') : 'https://github.com/Bgalo/GVC';
+  const url = `${repo}/edit/main/${cfg.file}`;
   window.open(url, '_blank');
 }
 
