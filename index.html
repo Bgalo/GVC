@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="jspdf.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
 
   <style>
     /* ============================================================
@@ -392,6 +392,93 @@
     ::-webkit-scrollbar{width:5px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:var(--c3);border-radius:100px}
+
+    /* ============================================================
+       CANTO BUILDER & VALIDATOR MODAL
+    ============================================================ */
+    .canto-builder-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.07); border: 1px solid var(--c3);
+      color: var(--text-1); font-family: 'Inter', sans-serif;
+      font-size: .8rem; font-weight: 600; padding: .45rem 1.1rem;
+      border-radius: 100px; cursor: pointer; transition: var(--transition-ui);
+      backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+    .canto-builder-btn:hover {
+      background: var(--c3); color: #fff; transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--glow-strong);
+    }
+    .canto-builder-box {
+      background: var(--bg-b); border: 1px solid var(--c3); border-radius: var(--radius-lg);
+      width: min(880px, 96vw); max-height: 90vh; display: flex; flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0,0,0,.75), 0 0 40px var(--glow);
+      transform: translateY(24px) scale(.96); transition: all .35s cubic-bezier(.4,0,.2,1);
+    }
+    .pdf-preview-overlay.show .canto-builder-box { transform: translateY(0) scale(1); }
+    .builder-tabs {
+      display: flex; gap: .5rem; padding: .6rem 1.5rem; background: rgba(0,0,0,.25);
+      border-bottom: 1px solid rgba(255,255,255,.08); flex-shrink: 0;
+    }
+    .builder-tab {
+      background: transparent; border: 1px solid transparent; border-radius: var(--radius-sm);
+      color: var(--text-2); padding: .5rem 1rem; font-size: .82rem; font-weight: 600;
+      cursor: pointer; display: inline-flex; align-items: center; gap: .4rem;
+      transition: all .2s ease; font-family: 'Inter', sans-serif;
+    }
+    .builder-tab:hover { color: #fff; background: rgba(255,255,255,.05); }
+    .builder-tab.active {
+      background: rgba(255,255,255,.1); border-color: var(--c3); color: var(--c4);
+      box-shadow: 0 2px 8px var(--glow);
+    }
+    .builder-body { overflow-y: auto; padding: 1.4rem 1.6rem; flex: 1; display: flex; flex-direction: column; gap: 1.2rem; }
+    .builder-body::-webkit-scrollbar { width: 4px; }
+    .builder-body::-webkit-scrollbar-thumb { background: var(--c3); border-radius: 100px; }
+    .builder-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media(max-width: 650px) { .builder-row { grid-template-columns: 1fr; } }
+    .builder-field { display: flex; flex-direction: column; gap: .35rem; }
+    .builder-label { font-size: .75rem; font-weight: 600; color: var(--text-2); display: flex; align-items: center; gap: .4rem; }
+    .builder-input, .builder-textarea, .builder-select {
+      background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius-sm);
+      color: var(--text-1); padding: .65rem .85rem; font-family: 'Inter', sans-serif; font-size: .85rem;
+      outline: none; transition: border-color .2s ease, box-shadow .2s ease; width: 100%; box-sizing: border-box;
+    }
+    .builder-input:focus, .builder-textarea:focus, .builder-select:focus { border-color: var(--c3); box-shadow: 0 0 0 2px var(--glow); }
+    .builder-tone-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .3rem; }
+    .tone-chip {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 100px;
+      font-size: .7rem; padding: .15rem .5rem; color: var(--text-2); cursor: pointer; transition: all .15s ease;
+    }
+    .tone-chip:hover { background: var(--c3); color: #fff; border-color: var(--c3); }
+    .code-preview-wrap {
+      background: #080c10; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-sm);
+      position: relative; overflow: hidden;
+    }
+    .code-preview-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .5rem .8rem; background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.08);
+      font-size: .72rem; color: var(--text-3); font-family: monospace;
+    }
+    .code-preview-box {
+      margin: 0; padding: .9rem 1rem; font-family: 'Courier New', Courier, monospace; font-size: .8rem;
+      line-height: 1.5; color: #a5d6ff; max-height: 180px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;
+    }
+    .builder-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .8rem;
+      background: rgba(255,255,255,.03); border: 1px dashed rgba(255,255,255,.12); border-radius: var(--radius-sm);
+      padding: .8rem 1rem;
+    }
+    .builder-step-item { display: flex; align-items: flex-start; gap: .6rem; font-size: .75rem; color: var(--text-2); line-height: 1.4; }
+    .builder-step-num {
+      width: 20px; height: 20px; border-radius: 50%; background: var(--c3); color: #fff;
+      font-weight: 700; font-size: .65rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .validator-status {
+      padding: .8rem 1rem; border-radius: var(--radius-sm); font-size: .82rem; line-height: 1.5;
+      display: flex; align-items: flex-start; gap: .6rem;
+    }
+    .validator-status.valid { background: rgba(34,197,94,.12); border: 1px solid #22c55e; color: #86efac; }
+    .validator-status.invalid { background: rgba(239,68,68,.12); border: 1px solid #ef4444; color: #fca5a5; }
+    .validator-status.idle { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); color: var(--text-2); }
   </style>
 </head>
 
@@ -434,6 +521,9 @@
       <div class="tiempo-gem"></div>
       <span class="tiempo-label" id="lbl-tiempo">Tiempo Pascual · Blanco / Dorado</span>
     </div>
+    <button class="canto-builder-btn" onclick="abrirAsistenteCantos()">
+      <i data-lucide="sparkles"></i> <span>Asistente para Agregar Cantos</span>
+    </button>
   </div>
 
   <!-- TIMELINE VISUAL DE LA MISA -->
@@ -609,6 +699,137 @@
       </button>
       <button class="pdf-btn" id="btn-pdf-confirm" onclick="confirmarGenerarPDF()" style="padding:.8rem 2rem;font-size:.9rem;">
         <i data-lucide="download"></i> Descargar PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CANTO BUILDER & VALIDATOR MODAL -->
+<div id="canto-builder-modal" class="pdf-preview-overlay">
+  <div class="canto-builder-box">
+    <div class="pdf-preview-header">
+      <span class="pdf-preview-title" style="display:flex;align-items:center;gap:8px;">
+        <i data-lucide="sparkles"></i> Asistente de Repertorio GVC
+      </span>
+      <button class="pdf-preview-close" onclick="cerrarAsistenteCantos()">✕</button>
+    </div>
+    <div class="builder-tabs">
+      <button class="builder-tab active" id="tab-btn-generator" onclick="cambiarTabBuilder('generator')">
+        <i data-lucide="plus-circle"></i> Generador de Canto
+      </button>
+      <button class="builder-tab" id="tab-btn-validator" onclick="cambiarTabBuilder('validator')">
+        <i data-lucide="check-circle-2"></i> Validador de Sintaxis
+      </button>
+    </div>
+
+    <!-- TAB 1: GENERADOR -->
+    <div class="builder-body" id="builder-tab-generator">
+      <div class="builder-row">
+        <div class="builder-field">
+          <label class="builder-label" for="cb-momento"><i data-lucide="layers"></i> Momento de la Misa</label>
+          <select id="cb-momento" class="builder-select" onchange="alCambiarMomentoBuilder()">
+            <option value="Entrada">Entrada (cantos/entrada.js)</option>
+            <option value="Piedad">Piedad (cantos/piedad.js)</option>
+            <option value="Gloria">Gloria (cantos/gloria.js)</option>
+            <option value="Aleluya">Aleluya (cantos/aleluya.js)</option>
+            <option value="Ofertorio">Ofertorio (cantos/ofertorio.js)</option>
+            <option value="Santo">Santo (cantos/santo.js)</option>
+            <option value="Aclamación">Aclamación (cantos/aclamacion.js)</option>
+            <option value="Amén">Amén (cantos/amen.js)</option>
+            <option value="Tuyo es el Reino">Tuyo es el Reino (cantos/tuyo.js)</option>
+            <option value="Paz">Paz (cantos/paz.js)</option>
+            <option value="Cordero">Cordero (cantos/cordero.js)</option>
+            <option value="Comunión">Comunión (cantos/comunion.js)</option>
+            <option value="Salida">Salida (cantos/salida.js)</option>
+            <option value="Marianos y Otros">Marianos y Otros (cantos/marianos.js)</option>
+          </select>
+        </div>
+        <div class="builder-field">
+          <label class="builder-label" for="cb-id"><i data-lucide="hash"></i> ID Sugerido</label>
+          <input type="text" id="cb-id" class="builder-input" placeholder="Ej: E-15" oninput="actualizarCodigoGenerado()">
+        </div>
+      </div>
+
+      <div class="builder-row">
+        <div class="builder-field">
+          <label class="builder-label" for="cb-titulo"><i data-lucide="music"></i> Título del Canto</label>
+          <input type="text" id="cb-titulo" class="builder-input" placeholder="Ej: Pescador de Hombres" oninput="actualizarCodigoGenerado()">
+        </div>
+        <div class="builder-field">
+          <label class="builder-label" for="cb-tono"><i data-lucide="activity"></i> Tonalidad Sugerida</label>
+          <input type="text" id="cb-tono" class="builder-input" placeholder="Ej: DoM, SolM, Lam" oninput="actualizarCodigoGenerado()">
+          <div class="builder-tone-chips">
+            <span class="tone-chip" onclick="seleccionarTonoChip('DoM')">DoM</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('ReM')">ReM</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('MiM')">MiM</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('FaM')">FaM</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('SolM')">SolM</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('LaM')">LaM</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('Lam')">Lam</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('Rem')">Rem</span>
+            <span class="tone-chip" onclick="seleccionarTonoChip('Mim')">Mim</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-field">
+        <label class="builder-label" for="cb-yt"><i data-lucide="video"></i> Enlace de YouTube (Opcional)</label>
+        <input type="url" id="cb-yt" class="builder-input" placeholder="https://www.youtube.com/watch?v=..." oninput="actualizarCodigoGenerado()">
+      </div>
+
+      <div class="builder-field">
+        <label class="builder-label" for="cb-letra"><i data-lucide="align-left"></i> Letra con Estrofas y Coro</label>
+        <textarea id="cb-letra" class="builder-textarea" rows="6" placeholder="Pega aquí la letra completa de la canción con sus saltos de línea..." oninput="actualizarCodigoGenerado()"></textarea>
+      </div>
+
+      <div class="code-preview-wrap">
+        <div class="code-preview-head">
+          <span style="display:flex;align-items:center;gap:5px;"><i data-lucide="code" style="width:14px;height:14px;"></i> Código JavaScript generado:</span>
+          <span id="cb-file-indicator" style="color:var(--c4);font-weight:600;">cantos/entrada.js</span>
+        </div>
+        <pre class="code-preview-box" id="cb-code-output">// Completa los campos arriba para ver el código generado</pre>
+      </div>
+
+      <div class="builder-steps">
+        <div class="builder-step-item">
+          <div class="builder-step-num">1</div>
+          <div>Presiona <strong>Copiar Código</strong> abajo.</div>
+        </div>
+        <div class="builder-step-item">
+          <div class="builder-step-num">2</div>
+          <div>Abre el archivo en GitHub con el botón directo.</div>
+        </div>
+        <div class="builder-step-item">
+          <div class="builder-step-num">3</div>
+          <div>Pega el bloque antes del <code>];</code> final y guarda el commit.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: VALIDADOR -->
+    <div class="builder-body" id="builder-tab-validator" style="display:none;">
+      <p style="font-size:.82rem;color:var(--text-2);margin:0;">
+        Pega a continuación el código de un canto o el contenido completo de un archivo <code>cantos/*.js</code> para verificar que no tenga errores de sintaxis (comas faltantes, comillas rotas, etc.).
+      </p>
+      <div class="builder-field">
+        <textarea id="val-input" class="builder-textarea" rows="8" placeholder="Pega aquí el código JavaScript a validar..."></textarea>
+      </div>
+      <div id="val-status" class="validator-status idle">
+        <i data-lucide="info" style="flex-shrink:0;margin-top:2px;"></i>
+        <span id="val-status-text">Presiona "Comprobar Sintaxis" para analizar el código.</span>
+      </div>
+    </div>
+
+    <div class="pdf-preview-footer">
+      <button class="clear-btn" style="padding:.65rem 1.2rem;font-size:.82rem;" onclick="cerrarAsistenteCantos()">Cerrar</button>
+      <button class="copy-btn" id="btn-copy-code" style="padding:.65rem 1.3rem;font-size:.82rem;" onclick="copiarCodigoGenerado()">
+        <i data-lucide="copy"></i> Copiar Código
+      </button>
+      <button class="pdf-btn" id="btn-github-link" onclick="abrirArchivoEnGitHub()" style="padding:.65rem 1.4rem;font-size:.82rem;">
+        <i data-lucide="external-link"></i> Abrir en GitHub
+      </button>
+      <button class="pdf-btn" id="btn-check-syntax" style="padding:.65rem 1.4rem;font-size:.82rem;display:none;" onclick="validarCodigoCanto()">
+        <i data-lucide="check-circle-2"></i> Comprobar Sintaxis
       </button>
     </div>
   </div>
@@ -1631,6 +1852,169 @@ async function generarPDF() {
   doc.save(`GVC_Cantos_${fechaFile}.pdf`);
   btn.innerHTML = btnTexto; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto';
   mostrarToast('📄 PDF generado exitosamente');
+}
+
+/* ============================================================
+   CANTO BUILDER & VALIDATOR SYSTEM
+============================================================ */
+const MOMENTO_MAP = {
+  "Entrada":          { file: "cantos/entrada.js",    dbKey: "Entrada",          prefix: "E" },
+  "Piedad":           { file: "cantos/piedad.js",     dbKey: "Piedad",           prefix: "P" },
+  "Gloria":           { file: "cantos/gloria.js",     dbKey: "Gloria",           prefix: "G" },
+  "Aleluya":          { file: "cantos/aleluya.js",    dbKey: "Aleluya",          prefix: "A" },
+  "Ofertorio":        { file: "cantos/ofertorio.js",   dbKey: "Ofertorio 1",      prefix: "O" },
+  "Santo":            { file: "cantos/santo.js",      dbKey: "Santo",            prefix: "S" },
+  "Aclamación":       { file: "cantos/aclamacion.js", dbKey: "Aclamación",       prefix: "AC" },
+  "Amén":             { file: "cantos/amen.js",       dbKey: "Amén",             prefix: "AM" },
+  "Tuyo es el Reino": { file: "cantos/tuyo.js",       dbKey: "Tuyo es el Reino", prefix: "TR" },
+  "Paz":              { file: "cantos/paz.js",        dbKey: "Paz",              prefix: "PZ" },
+  "Cordero":          { file: "cantos/cordero.js",    dbKey: "Cordero",          prefix: "C" },
+  "Comunión":         { file: "cantos/comunion.js",   dbKey: "Comunión",         prefix: "CM" },
+  "Salida":           { file: "cantos/salida.js",     dbKey: "Salida",           prefix: "SL" },
+  "Marianos y Otros": { file: "cantos/marianos.js",   dbKey: "Marianos y Otros", prefix: "M" }
+};
+
+function abrirAsistenteCantos() {
+  document.getElementById('canto-builder-modal').classList.add('show');
+  alCambiarMomentoBuilder();
+  if (window.lucide) { lucide.createIcons(); }
+}
+
+function cerrarAsistenteCantos() {
+  document.getElementById('canto-builder-modal').classList.remove('show');
+}
+
+function cambiarTabBuilder(tab) {
+  const isGen = (tab === 'generator');
+  document.getElementById('builder-tab-generator').style.display = isGen ? 'flex' : 'none';
+  document.getElementById('builder-tab-validator').style.display = isGen ? 'none' : 'flex';
+  document.getElementById('tab-btn-generator').classList.toggle('active', isGen);
+  document.getElementById('tab-btn-validator').classList.toggle('active', !isGen);
+  document.getElementById('btn-copy-code').style.display = isGen ? 'inline-flex' : 'none';
+  document.getElementById('btn-github-link').style.display = isGen ? 'inline-flex' : 'none';
+  document.getElementById('btn-check-syntax').style.display = isGen ? 'none' : 'inline-flex';
+  if (window.lucide) { lucide.createIcons(); }
+}
+
+function alCambiarMomentoBuilder() {
+  const momento = document.getElementById('cb-momento').value;
+  const cfg = MOMENTO_MAP[momento] || { file: 'cantos/entrada.js', dbKey: 'Entrada', prefix: 'E' };
+  
+  document.getElementById('cb-file-indicator').textContent = cfg.file;
+  
+  // Calcular proximo ID automaticamente segun la cantidad en DB
+  const lista = DB[cfg.dbKey] || [];
+  const proximoNum = lista.length + 1;
+  const idInput = document.getElementById('cb-id');
+  if (!idInput.value || idInput.value.startsWith(cfg.prefix + '-') || idInput.value.match(/^[A-Z]{1,3}-\d+$/)) {
+    idInput.value = `${cfg.prefix}-${proximoNum}`;
+  }
+  actualizarCodigoGenerado();
+}
+
+function seleccionarTonoChip(tono) {
+  document.getElementById('cb-tono').value = tono;
+  actualizarCodigoGenerado();
+}
+
+function actualizarCodigoGenerado() {
+  const id = (document.getElementById('cb-id').value || '').trim() || 'E-X';
+  const titulo = (document.getElementById('cb-titulo').value || '').trim() || 'Nombre del Canto';
+  const tono = (document.getElementById('cb-tono').value || '').trim() || 'DoM';
+  const yt = (document.getElementById('cb-yt').value || '').trim();
+  const letraRaw = document.getElementById('cb-letra').value || '';
+  
+  // Limpiar y escapar backticks en la letra para evitar que rompan la plantilla JS
+  const letraLimpia = letraRaw.replace(/`/g, "'").trim();
+  const letraContenido = letraLimpia || 'Escribe o pega aquí la letra del canto...';
+
+  let ytLinea = '';
+  if (yt) {
+    ytLinea = `\n      yt: "${yt.replace(/"/g, '\\"')}",`;
+  }
+
+  const codigo = `    {
+      id: "${id.replace(/"/g, '\\"')}",
+      titulo: "${titulo.replace(/"/g, '\\"')}", tono: "${tono.replace(/"/g, '\\"')}",${ytLinea}
+      letra: \`${letraContenido}\` },`;
+
+  document.getElementById('cb-code-output').textContent = codigo;
+}
+
+function copiarCodigoGenerado() {
+  const codigo = document.getElementById('cb-code-output').textContent;
+  if (!codigo || codigo.startsWith('//')) {
+    mostrarToast('⚠️ Completa primero los datos del canto');
+    return;
+  }
+  navigator.clipboard.writeText(codigo).then(() => {
+    mostrarToast('📋 Código copiado al portapapeles');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = codigo;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    mostrarToast('📋 Código copiado al portapapeles');
+  });
+}
+
+function abrirArchivoEnGitHub() {
+  const momento = document.getElementById('cb-momento').value;
+  const cfg = MOMENTO_MAP[momento] || { file: 'cantos/entrada.js' };
+  // Enlace directo al editor web de GitHub del repositorio GVC
+  const url = `https://github.com/Bgalo/GVC/edit/main/${cfg.file}`;
+  window.open(url, '_blank');
+}
+
+function validarCodigoCanto() {
+  const input = (document.getElementById('val-input').value || '').trim();
+  const statusBox = document.getElementById('val-status');
+  const statusText = document.getElementById('val-status-text');
+
+  if (!input) {
+    statusBox.className = 'validator-status idle';
+    statusText.textContent = 'Por favor, pega algún fragmento de código para analizar.';
+    return;
+  }
+
+  try {
+    let cantosEncontrados = 0;
+    let testCode = input;
+    if (testCode.trim().endsWith(',')) {
+      testCode = testCode.trim().slice(0, -1);
+    }
+
+    if (testCode.trim().startsWith('{') && testCode.trim().endsWith('}')) {
+      const obj = (new Function(`return (${testCode});`))();
+      if (typeof obj === 'object' && obj !== null) {
+        if (!obj.titulo || !obj.letra) {
+          throw new Error('El objeto no contiene las propiedades requeridas "titulo" o "letra".');
+        }
+        cantosEncontrados = 1;
+      }
+    } else if (testCode.includes('DB[') || testCode.trim().startsWith('[')) {
+      const testDB = {};
+      (new Function('DB', testCode))(testDB);
+      for (const k in testDB) {
+        if (Array.isArray(testDB[k])) {
+          cantosEncontrados += testDB[k].length;
+        }
+      }
+    } else {
+      const arr = (new Function(`return [${testCode}];`))();
+      if (Array.isArray(arr)) {
+        cantosEncontrados = arr.length;
+      }
+    }
+
+    statusBox.className = 'validator-status valid';
+    statusText.innerHTML = `<strong>✅ ¡Sintaxis 100% Válida!</strong><br>El código está correctamente estructurado sin errores de comas o comillas. Se identificaron ${cantosEncontrados} canto(s) válido(s).`;
+  } catch (err) {
+    statusBox.className = 'validator-status invalid';
+    statusText.innerHTML = `<strong>❌ Error de Sintaxis Detectado:</strong><br>${escHtml(err.message)}<br><small style="color:var(--text-2);margin-top:4px;display:block;">Consejo: Revisa si falta alguna coma <code>,</code> entre cantos o si se borró algún acento grave <code>\`</code> en las letras.</small>`;
+  }
 }
 </script>
 </body>
