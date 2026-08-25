@@ -68,7 +68,7 @@ Todos los cantos están organizados modularmente dentro de la carpeta `cantos/`:
 Para evitar errores de sintaxis (comas o comillas faltantes), la web cuenta con un **Asistente de Cantos**:
 
 1. Entra a la web: [https://bgalo.github.io/GVC/](https://bgalo.github.io/GVC/)
-2. En la parte superior, presiona el botón **✨ Asistente para Agregar Cantos**.
+2. En la parte inferior, presiona el botón **✨ Asistente para Agregar Cantos**.
 3. Selecciona el **Momento de la Misa** (el sistema calculará automáticamente el ID correspondiente y te indicará el archivo exacto).
 4. Escribe el **Título**, elige la **Tonalidad**, pega el enlace de YouTube (opcional) y la **Letra completa**.
 5. Presiona el botón verde **📋 Copiar Código**.
