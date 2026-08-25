@@ -33,6 +33,28 @@ Ten piedad de nosotros, ten piedad de nosotros. (2)
 Cordero de Dios
 que quitas el pecado del mundo.
 Danos la paz, danos la paz, 
-danos, danos, danos la paz (bis).` }
+danos, danos, danos la paz (bis).` },
+        
+    {
+      id: "C-4",
+      titulo: "Cordero de Dios que quitas", tono: "Lam",
+      letra: `Cordero de Dios
+que quitas el pecado del mundo.
+Ten piedad, ten piedad, de nosotros ten piedad,
+de nosotros ten piedad. (2)
+
+Cordero de Dios
+que quitas el pecado del mundo.
+Danos la paz, danos la paz, 
+a nosotros da la paz, a nosotros da la paz.` },
+
+        {
+      id: "C-5",
+      titulo: "Cordero tu que quitas el pecado del mundo", tono: "SolM",
+      letra: `Cordero tú que quitas el pecado del mundo (bis)
+Señor ten piedad (2).
+
+Cordero tú que quitas el pecado del mundo (bis)
+Señor danos la paz (2)` }
     
 ];
