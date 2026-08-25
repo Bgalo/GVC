@@ -5,7 +5,7 @@ DB["Cordero"] = [
       titulo: "Cordero, tu que quitas", tono: "SolM",
       letra: `Cordero de Dios,
 tu que quitas el pecado del mundo
-Ten piedad de nosotros, cordero de Dios (2)
+ten piedad de nosotros, cordero de Dios (2)
 
 Cordero de Dios,
 tu que quitas el pecado del mundo
@@ -21,5 +21,18 @@ ten piedad de nosotros. (2)
 Cordero de Dios que quitas
 el pecado del mundo,
 danos la paz, danos la paz.
-Cordero de Dios.` }
+la paz.` },
+
+        {
+      id: "C-3",
+      titulo: "Cordero que quitas el pecado", tono: "Mim",
+      letra: `Cordero de Dios
+que quitas el pecado del mundo.
+Ten piedad de nosotros, ten piedad de nosotros. (2)
+
+Cordero de Dios
+que quitas el pecado del mundo.
+Danos la paz, danos la paz, 
+danos, danos, danos la paz (bis).` }
+    
 ];
