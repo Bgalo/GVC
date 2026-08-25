@@ -1611,15 +1611,49 @@ function copiarAlPortapapeles() {
 ============================================================ */
 async function getLogoBase64() {
   try {
-    const response = await fetch('logo_gvc.png');
-    if (!response.ok) return null;
+    const logoImg = document.getElementById('main-logo');
+    const logoUrl = (typeof CONFIG !== 'undefined' && CONFIG.logoUrl) ? CONFIG.logoUrl : (logoImg ? logoImg.getAttribute('src') : 'logo.png');
+
+    // 1. Intentar convertir desde el elemento <img> ya renderizado en el DOM
+    if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = logoImg.naturalWidth;
+        canvas.height = logoImg.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(logoImg, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        if (dataURL && dataURL.length > 100) return dataURL;
+      } catch (canvasErr) {
+        // En caso de bloqueo por seguridad de canvas local, continuar al fetch
+      }
+    }
+
+    // 2. Fetch directo del archivo de logotipo configurado
+    let response = await fetch(logoUrl).catch(() => null);
+    if (!response || !response.ok) {
+      // Intentos de fallback si el nombre difiere
+      const fallbacks = ['logo.png', 'logo_gvc.png', 'logo.jpg', 'logo.jpeg'];
+      for (const fb of fallbacks) {
+        if (fb !== logoUrl) {
+          const fbResp = await fetch(fb).catch(() => null);
+          if (fbResp && fbResp.ok) { response = fbResp; break; }
+        }
+      }
+    }
+
+    if (!response || !response.ok) return null;
+
     const blob = await response.blob();
     return new Promise(resolve => {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result);
       reader.readAsDataURL(blob);
     });
-  } catch (e) { return null; }
+  } catch (e) {
+    console.warn('Error al cargar logo para PDF:', e);
+    return null;
+  }
 }
 
 /* ============================================================
@@ -1650,6 +1684,7 @@ function generarHTMLPreview() {
   const nomMin     = (typeof CONFIG !== 'undefined' && CONFIG.nombreMinisterio) ? CONFIG.nombreMinisterio : 'Guitarras y Voces para Cristo';
   const sigMin     = (typeof CONFIG !== 'undefined' && CONFIG.siglas) ? CONFIG.siglas : 'GVC';
   const pieMin     = (typeof CONFIG !== 'undefined' && CONFIG.piePDF) ? CONFIG.piePDF : `Ministerio Musical ${sigMin} — ${nomMin}`;
+  const logoSrc    = (typeof CONFIG !== 'undefined' && CONFIG.logoUrl) ? CONFIG.logoUrl : 'logo.png';
   const responsable = document.getElementById('inp-responsable').value.trim() || `Coordinador ${sigMin}`;
   const lect1      = document.getElementById('inp-lect1').value.trim();
   const salmoN     = document.getElementById('inp-salmo-n').value.trim();
@@ -1666,7 +1701,9 @@ function generarHTMLPreview() {
         <div class="pdf-page-meta" style="margin-top:.3rem;">📅 ${fechaStr} &nbsp;·&nbsp; ${info.label} · ${info.color}</div>
         <div class="pdf-page-meta">👤 ${escHtml(responsable)}</div>
       </div>
-      <div class="pdf-page-logo-box">🎸</div>
+      <div class="pdf-page-logo-box" style="overflow:hidden;padding:2px;">
+        <img src="${escHtml(logoSrc)}" style="width:100%;height:100%;object-fit:contain;" alt="Logo" onerror="this.outerHTML='🎸'">
+      </div>
     </div>`;
 
   // Lecturas
@@ -1778,7 +1815,14 @@ async function generarPDF() {
   const logoData = await getLogoBase64();
   doc.setFillColor(255, 255, 255);
   doc.roundedRect(PW - 44, 3, 38, 40, 2, 2, 'F');
-  if (logoData) { doc.addImage(logoData, 'PNG', PW - 40, 5, 30, 36); }
+  if (logoData) {
+    try {
+      const fmt = (typeof logoData === 'string' && (logoData.startsWith('data:image/jpeg') || logoData.startsWith('data:image/jpg'))) ? 'JPEG' : 'PNG';
+      doc.addImage(logoData, fmt, PW - 40, 5, 30, 36);
+    } catch(errLogo) {
+      console.warn('Error agregando logo al PDF:', errLogo);
+    }
+  }
   y = 52;
 
   /* LECTURAS */
