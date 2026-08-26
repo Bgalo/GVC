@@ -371,8 +371,271 @@ quiero aprender de ti, saber amar.
 Hoy quiero seguir, tu camino junto al mar,
 tu Palabra, tu verdad, ser imagen de ti.
 Ser como eres Tú, servidor de los demás,
-dime cómo y en qué lugar te hago falta más.
-`}
+dime cómo y en qué lugar te hago falta más.`},
 
-     
+    {id: "CM-19",
+      titulo: "Toma mi mano", tono: "MiM",
+      letra: `DAME TU MANO, TOMA MI MANO
+DAME UN ABRAZO, JESÚS. (BIS)
+
+Guíame tu tienes la dirección
+Tómame te entrego todo el control
+Y a donde voy y es fácil si tú me llevas de tu mano
+Guíame tú tienes la dirección
+Tómame conoces mi corazón
+Y lo que soy y es fácil si tú me llevas de tu mano.
+(Coro)
+Toma mi vida, hazla de nuevo
+Tu mi alfarero, Jesús. (bis)
+
+Guíame tu tienes la dirección
+tómame te entrego todo el control
+Y a donde voy y es fácil si tú me llevas de tu mano
+Guíame tu tienes la dirección
+tómame conoces mi corazón
+Y lo que soy y es fácil si tú me llevas
+De tu mano, mucho más fácil si ti nos llevas de tu mano.`},
+
+    {id: "CM-20",
+      titulo: "Confío en tí", tono: "LaM",
+      letra: `Oh, Jesús a tu corazón
+Confío mi necesidad
+Mírala y después
+Deja tu corazón actuar.
+Oh, Jesús
+Yo cuento contigo
+Yo confío en Ti
+Oh, Jesús
+De Ti estoy seguro
+Yo me entrego a Ti.
+
+Tú que has dicho
+Si quieres agradarme
+Confía en Mí
+Si quieres agradarme más.
+
+Confía más
+Inmensamente más
+Confía más
+Inmensamente más
+Confía.
+
+Las almas que confían en Ti
+Serán recompensadas por Ti
+Sagrado corazón de Jesús
+Yo confío en Ti. (bis)
+
+No habrá confusión que dure por siempre
+Yo sé en quién he creído
+Y mi esperanza no será defraudada
+Pues Tú has dicho, si quieres agradarme
+Confía en Mí.
+Si quieres agradarme más
+Confía más, inmensamente más
+Confía más, inmensamente más
+Confía.
+
+Las almas que confían en Ti
+Serán recompensadas por Ti
+Sagrado corazón de Jesús
+Yo confío en Ti.
+Las almas que confían en Ti
+Serán recompensadas por Ti
+Sagrado corazón de Jesús
+Yo confío en Ti`},
+
+    {id: "CM-21",
+      titulo: "Entraré", tono: "SolM",
+      letra: `Entraré, entraré, entraré a su presencia
+En libertad, por su amor, el Espíritu me lleva
+Al trono de la gracia, para adorar cara a cara
+Sí, al dios vivo adorar, libre soy, libre soy para entrar. (bis)
+
+Entraré, entraré (aaré) a su presencia
+En libertad (aaad) por su amor (por su amooor) el Espíritu me llevaaaa
+Al trooono de la gracia para adoraaar cara a cara
+Sí al dios vivooo adorar, libre soy, libre sooooy para entrar`},
+
+    {id: "CM-22",
+      titulo: "Aquí hay un muchacho", tono: "ReM",
+      letra: `Aquí hay un muchacho,
+que solamente tiene
+cinco panes y dos peces,
+más, ¿qué es eso para tanta gente?
+Aquí hay un muchacho,
+que solamente tiene
+un corazón dispuesto a dar,
+más, ¿qué es eso para tanta gente?
+
+Aquí está este corazón
+que quiere serte fiel
+más, ¿qué es eso, si no te tiene a ti?
+¿si no te tiene a ti?
+Toma, este corazón,
+toma, cuanto tengo y cuanto soy.
+Toma mi pasado,
+mi presente y mi futuro
+todo cuanto tengo tómalo. (2)
+
+Mi corazón tomaste,
+mis panes bendijiste,
+a la gente repartiste,
+y a todos alcanzó.
+Mi vida está en tus manos,
+y quieres repartirla
+como hiciste, con mis panes
+aquel día oh Señor.
+Aquí están mis palabras,
+aquí están mis acciones,
+aquí están mis ilusiones,
+más, ¿qué es eso sin tu amor Señor?
+
+Aquí está este corazón,
+que quiere serte fiel
+más, ¿qué es eso, si no te tiene a ti?
+¿si no te tiene a ti?
+Aquí está este corazón,
+con mis panes y mis peces
+toma todo y repártelo Señor.`},
+
+    {id: "CM-23",
+      titulo: "Alma de Cristo", tono: "LaM",
+      letra: `Alma de Cristo, santifícame
+Cuerpo de Cristo, sálvame.
+Sangre de Cristo, embriágame.
+Agua del Costado de Cristo, lávame.
+
+Pasión de Cristo, confórtame.
+Oh buen Jesús, óyeme
+y dentro de tus llagas escóndeme.
+No permitas que me aparte de Ti.
+
+Del enemigo defiéndeme,
+en la hora de mi muerte, llámame
+y mándame ir a Ti,
+para que con tus santos te alabe
+por los siglos de los siglos. Amén`},
+
+    {id: "CM-24",
+      titulo: "Recíbeme", tono: "LaM",
+      letra: `Recíbeme, con toda la miseria que hay en mí
+con todos los deseos de seguir, por tu camino.
+Iluminar es hoy el reto en la oscuridad
+servicio, entrega en fidelidad hasta la muerte.
+
+Hoy es tiempo de dar a manos llenas
+lo que se nos dio, brillar hasta consumirse
+iluminar a un mundo en penumbras
+hasta que no quede yo, sino Tú.`},
+
+    {id: "CM-25",
+      titulo: "Sáname Señor", tono: "ReM",
+      letra: `Hoy, Señor Jesús, vengo ante Ti
+para alabarte.
+Hoy, Señor Jesús, con tu poder
+puedes cambiarme.
+
+Sáname, Señor, hoy quiero vivir.
+Dame tu amor sin Ti no puedo ser feliz.
+Sáname, Señor, líbrame del mal.
+Toca el corazón para alcanzar la santidad.`},
+
+    {id: "CM-26",
+      titulo: "Nadie te ama como yo", tono: "DoM",
+      letra: `Cuánto he esperado este momento,
+Cuánto he esperado que estuvieras
+así, cuanto he esperado que me
+hablaras, cuánto he esperado que
+vinieras a mí.
+Yo sé bien lo que has vivido,
+yo sé bien lo que has llorado,
+yo sé bien lo que has sufrido
+pues de tu lado no me he ido.
+
+Pues nadie te ama como yo (2)
+Mira la cruz
+esa es mi más grande prueba.
+Nadie te ama como yo.
+Pues nadie te ama como yo (2)
+Mira la cruz, fue por ti
+fue porque te amo,
+nadie te ama como yo.
+
+Yo sé bien lo que me dices,
+aunque a veces no me hables,
+yo sé bien lo que en ti sientes,
+aunque nunca lo compartas.
+Yo a tu lado he caminado,
+junto a ti yo siempre he ido,
+aun a veces te he cargado,
+yo he sido tu mejor amigo.`},
+
+    {id: "CM-27",
+      titulo: "Vine a alabar a Dios", tono: "DoM",
+      letra: `Vine a alabar a Dios, (2)
+vine a alabar su nombre
+vine a alabar a Dios.
+
+El vino a mi vida
+en un día muy especial.
+Cambió mi corazón
+por un nuevo corazón.
+Y esa es la razón por la que digo que:
+vine a alabar a Dios.`},
+
+    {id: "CM-28",
+      titulo: "Aquí en tu presencia", tono: "MiM",
+      letra: `Aquí en tu presencia,
+quiero darte gracias.
+Aquí en tu presencia
+quiero regalarte mi canción.
+
+Por haberme salvado,
+por haber resucitado,
+por haberle dado alas
+a mi corazón. (2)`},
+
+    {id: "CM-29",
+      titulo: "Dios está aquí", tono: "ReM",
+      letra: `Dios está aquí,
+tan cierto como el aire que respiro,
+tan cierto como la mañana se
+levanta, tan cierto que cuando le
+hablo, Él me puede oír.
+
+Le puedes hablar, ahora en este mismo instante
+Le pues sentir muy dentro de tu corazón
+Le puedes contar del problema que pasas ahora
+Jesús está aquí, si tu quieres le puedes sentir.`},
+
+    {id: "CM-30",
+      titulo: "Alma Misionera", tono: "SolM",
+      letra: ` Señor, toma mi vida nueva,
+antes de que la espera,
+desgaste años en mí.
+Estoy dispuesto a lo que quieras,
+no importa lo que sea,
+tú llámame a servir.
+
+Llévame donde los hombres,
+necesiten tus palabras,
+necesiten, mis ganas de vivir;
+donde falte la esperanza,
+donde falte la alegría,
+simplemente por no saber de ti.
+
+Te doy mi corazón sincero
+para gritar sin miedo,
+tu grandeza Señor.
+Tendré mis manos sin cansancio,
+tu historia entre mis labios
+y fuerza en la oración.
+
+Y así, en marcha iré cantando,
+por calles predicando,
+lo bello que es tu amor,
+Señor, tengo alma misionera,
+condúceme a la tierra
+que tenga sed de Dios.`}
+    
 ];
